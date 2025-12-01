@@ -1,0 +1,190 @@
+/* Basic Setup and Styling */
+body {
+    background-color: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* New container to center all cockpit elements together and stack them */
+.cockpit-section {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+}
+
+/* --- Panel Group Wireframe Styling --- */
+.panel-group {
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Thin white border */
+    border-radius: 16px;
+    padding: 25px 20px 20px; /* Padding to make space for the label and content */
+    margin-bottom: 20px; /* Space below the group */
+    display: flex; /* To allow control panels to stack vertically with margin between them */
+    flex-direction: column;
+    align-items: center; /* Center nested panels */
+    gap: 10px; /* Space between the two internal panels */
+}
+
+.group-label {
+    position: absolute;
+    top: -10px; /* Position above the border */
+    left: 20px;
+    background-color: #222; /* Match body background to "cut out" the border */
+    color: #ffffff; /* White text */
+    font-size: 10px;
+    font-weight: bold;
+    padding: 0 5px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    z-index: 10; /* Ensure it's above the border */
+}
+
+
+/* --- Panel Container Styling (Existing, adjusted for group) --- */
+.control-panel {
+    background-color: #4c4a4a; 
+    border: 2px solid #333;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    text-align: center;
+    /* margin-top: 20px; removed from individual panel to be handled by panel-group gap */
+}
+
+/* --- Label Styling --- */
+.panel-labels {
+    display: flex;
+    justify-content: space-between;
+    color: #c7c6c4; 
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+    position: relative;
+    text-transform: uppercase;
+}
+
+/* Simplified label styles */
+.label-position, .label-wing { 
+    flex-basis: 25%; 
+    text-align: center; 
+}
+
+.panel-footer-label { 
+    color: #c7c6c4; 
+    font-size: 10px; 
+    font-weight: bold; 
+    margin-top: 10px; 
+    text-transform: uppercase; 
+}
+
+/* --- Button Styling (Shared Base) --- */
+.panel-buttons { 
+    display: flex; 
+    gap: 5px; 
+}
+
+.control-button {
+    /* Button Base */
+    width: 60px;
+    height: 40px;
+    background-color: #333; 
+    border: none;
+    border-radius: 2px;
+    padding: 0;
+    cursor: pointer;
+    
+    /* 3D Button Effect (Raised look) */
+    box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.1), 0 3px 0 #202020; 
+    
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: background-color 0.1s;
+}
+
+/* General style for the thin indicator line at the bottom */
+.control-button::after { 
+    content: "";
+    position: absolute;
+    bottom: 0; 
+    left: 0;
+    width: 100%;
+    height: 3px; 
+    z-index: 1;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.control-button:active {
+    /* Simulating a press down */
+    box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.4), 0 1px 0 #202020;
+}
+
+.button-label {
+    position: relative;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 2; 
+    transition: color 0.2s;
+}
+
+/* --- THREE-STATE BUTTON STYLES (Retained) --- */
+
+/* RED State */
+.control-button[data-state="red"] { background-color: #272727; }
+.control-button[data-state="red"]::after {
+    background-color: #ff3333; /* Bright Red */
+    box-shadow: 0 0 5px #ff3333, 0 0 10px #ff3333; /* Red Glow */
+}
+.control-button[data-state="red"] .button-label { color: #ff3333; }
+
+/* BLUE State */
+.control-button[data-state="blue"] { background-color: #272727; }
+.control-button[data-state="blue"]::after {
+    background-color: #0099ff; /* Bright Blue */
+    box-shadow: 0 0 5px #0099ff, 0 0 10px #0099ff; /* Blue Glow */
+}
+.control-button[data-state="blue"] .button-label { color: #0099ff; }
+
+/* OFF State (Three-State) */
+.control-button[data-state="off"] {
+    background-color: #333;
+    box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.1), 0 3px 0 #202020; 
+}
+.control-button[data-state="off"]::after { 
+    background-color: #1a1a1a; 
+    box-shadow: none; 
+}
+.control-button[data-state="off"] .button-label { color: #c7c6c4; }
+
+
+/* --- NEW ON/OFF BUTTON STYLES --- */
+
+/* ON State (White Glow) */
+.on-off-button[data-onoff="on"] {
+    background-color: #272727;
+    box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.4), 0 1px 0 #202020;
+}
+.on-off-button[data-onoff="on"]::after {
+    background-color: #ffffff; /* Bright White */
+    box-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff; /* White Glow */
+}
+.on-off-button[data-onoff="on"] .button-label {
+    color: #ffffff; /* White Text */
+}
+
+/* OFF State (White Glow) */
+.on-off-button[data-onoff="off"] {
+    background-color: #333;
+    box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.1), 0 3px 0 #202020;
+}
+.on-off-button[data-onoff="off"]::after {
+    background-color: #1a1a1a;
+}

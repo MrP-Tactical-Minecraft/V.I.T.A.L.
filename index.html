@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[MrP] Sepia Tower 3D - Orientation Redirect</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+        }
+        #message {
+            padding: 20px;
+            border: 1px solid #777;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="message">
+        <h1>Checking Device Orientation...</h1>
+        <p>You will be redirected momentarily based on your device's orientation.</p>
+        <p>Current Orientation: <strong id="orientation-status">Loading...</strong></p>
+    </div>
+
+    <script>
+
+        const LANDSCAPE_URL = "horizontal.php";
+        const PORTRAIT_URL = "vertical.html";
+        
+        // -------------------------------------------------------------------
+        // 2. REDIRECT FUNCTION
+        // -------------------------------------------------------------------
+        function checkAndRedirect() {
+            // Use window.matchMedia with the 'orientation' media query
+            const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+            const statusElement = document.getElementById('orientation-status');
+
+            if (isLandscape) {
+                // Width is greater than height (Desktop or rotated mobile)
+                statusElement.textContent = "LANDSCAPE";
+                // Only redirect if we are not already on the target page
+                if (window.location.href !== LANDSCAPE_URL) {
+                    window.location.replace(LANDSCAPE_URL);
+                }
+            } else {
+                // Height is greater than or equal to width (Mobile in portrait)
+                statusElement.textContent = "PORTRAIT";
+                // Only redirect if we are not already on the target page
+                if (window.location.href !== PORTRAIT_URL) {
+                    window.location.replace(PORTRAIT_URL);
+                }
+            }
+        }
+
+        // -------------------------------------------------------------------
+        // 3. EVENT LISTENERS
+        // -------------------------------------------------------------------
+
+        // A. Run the check immediately on load
+        checkAndRedirect();
+
+        // B. Listen for the screen orientation change (user rotates their device)
+        // window.addEventListener("orientationchange", checkAndRedirect);
+
+        // C. Also listen for window resize (important for desktop browsers 
+        //    where a user might resize the viewport)
+        window.addEventListener("resize", checkAndRedirect);
+
+    </script>
+
+</body>
+</html>
