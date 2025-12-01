@@ -28,7 +28,7 @@ function getTelemetry(myTable, myMode){
 
     let myFunc = "getTelemetry(" + myTable + ", " + myMode + "): ";
     let myID = myTelemetryFunctionsFile + myFunc;
-    console.log(myID + "Hi!");
+    // console.log(myID + "Hi!");
 
     myTelemetry = null;
 
@@ -68,32 +68,109 @@ function getTelemetry(myTable, myMode){
 function updatePlayerRoster(){
 
     let myFunc = "updatePlayerRoster(): ";
-    let myID = myTelemetryFunctionsFile + myFunc;  
-    console.log(myID + "Hi!");  
+    let myID = myTelemetryFunctionsFile + myFunc;
+    // console.log(myID + "Hi!");   
+    
+    let threshold = 30; // number of seconds for which offline players are still displayed and after which online players are deleted from the map
 
-    for (let i = 0; i < myTelemetry[0].length; i++){
+    let len = myTelemetry[0].length;
+    // The array myTelemetry[] contains timestamp, name, x/y/z positions, and gamemode for all players whose timestamp matches the largest timestamp found in the database
 
-        let foundPlayer = myTelemetry[1][i];    
-        if (checkPlayerInstance(foundPlayer) == false){ 
+    let now = Date.now();
+    now = parseInt(now/1000).toFixed(0);    
+
+    // loop through all players found for the latest timestamp in the database and check whether they exist
+    for (let i = 0; i < len; i++){
+
+        let foundTimestamp = myTelemetry[0][i];
+        let foundPlayer = myTelemetry[1][i];
+        let foundVector = new THREE.Vector3(myTelemetry[2][i], myTelemetry[4][i], -myTelemetry[3][i]);
+        let foundGamemode = myTelemetry[5][i];
+
+        if (parseInt(now - foundTimestamp).toFixed(0) <= threshold){ 
+
+            if (Player.roster.has(foundPlayer)){
+
+                let Ply = Player.roster.get(foundPlayer);                              
+                
+                Ply.timestamp = foundTimestamp;
+                Ply.vector = foundVector;
+                Ply.updatePosition();
+                
+                if (Ply.gamemode != foundGamemode){ 
+                    
+                    Ply.gamemode = foundGamemode;
+                    Ply.updateMode(foundGamemode); 
+                
+                }
+                
+
+            } else {            
+                
+                Player.create(foundPlayer, foundGamemode, foundVector, foundTimestamp); 
             
-            let newPlayer = new Player(myTelemetry[1][i]);
-            myPlayers.push(newPlayer); 
-        
+            }
+
         }
 
     }
 
-    function checkPlayerInstance(playerName, propertyName){
+    // loop through all players found in the roster and check whether their latest timestamp is more than 30 seconds in the past
 
-        return myPlayers.some(instance => {
+    /*
+    Player.roster.forEach((key) => {
 
-            const isTargetClass = instance instanceof Player;
-            const hasName = instance[propertyName] === playerName;
+        const player = key.name;
+        const timestamp = key.timestamp; 
+        let colour = key.colour;       
 
-            return isTargetClass && hasName;
+        // console.log(myID + "Comparing " + timestamp + " against now: " + parseInt(now - timestamp).toFixed(0));
 
-        });
+        let span = parseInt(now - timestamp).toFixed(0);
+
+        if ((span >= 10) && (span <= threshold)){ 
+            
+            console.log(myID + "This timestamp is too far in the past, player " + player + " is going stale.");
+            key.colour = "#808080";
+            key.updateColour(); 
+        
+        }
+
+        if (span > threshold){ 
+            
+            console.log(myID + "This timestamp is too far in the past, player " + player + " needs to be deleted from the map."); 
+            key.delete();
+        
+        }
+
+    });
+    */
+
+    for (const [keyID, playerObject] of Player.roster.entries()){
+
+        const player = playerObject.name;
+        const timestamp = playerObject.timestamp;
+
+        // console.log(myID + "Comparing " + timestamp + " against now: " + parseInt(now - timestamp).toFixed(0));
+
+        let span = parseInt(now - timestamp).toFixed(0);
+
+        if ((span >= 10) && (span <= threshold)){ 
+            
+            console.log(myID + "This timestamp is too far in the past, player " + player + " is going stale.");
+            playerObject.colour = "#808080";
+            playerObject.updateColour(); 
+        
+        }
+
+        if (span > threshold){ 
+            
+            console.log(myID + "This timestamp is too far in the past, player " + player + " needs to be deleted from the map."); 
+            playerObject.delete();
+            Player.roster.delete(keyID);
+        
+        }        
 
     }
-
+    
 }

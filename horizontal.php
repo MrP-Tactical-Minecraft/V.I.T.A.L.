@@ -70,8 +70,8 @@
                         <div class="panel-labels" style="justify-content: center; gap: 10px;">
                             <div class="label-position">ROTATE</div>
                             <div class="label-wing">HOVER</div>
-                            <div class="label-position"></div>
-                            <div class="label-wing"></div>
+                            <div class="label-position">AJAX</div>
+                            <div class="label-wing">CONTROL</div>
                         </div>
 
                         <div class="panel-buttons">
@@ -81,7 +81,7 @@
                             <button class="control-button on-off-button" data-onoff="off">
                                 <span class="button-label">OFF</span>
                             </button>
-                            <button class="control-button on-off-button" data-onoff="off">
+                            <button class="control-button on-off-button" data-onoff="off" onClick="toggle('ajax');">
                                 <span class="button-label">OFF</span>
                             </button>
                             <button class="control-button on-off-button" data-onoff="off">
@@ -263,6 +263,12 @@
             if (myObject == "rotation"){
 
                 if (orbit.autoRotate == false){ orbit.autoRotate = true; } else { orbit.autoRotate = false; }
+
+            }
+
+            if (myObject == "ajax"){
+
+                if (flagTelemetry == true){ stopAJAX(); } else { startAJAX(); }
 
             }
 

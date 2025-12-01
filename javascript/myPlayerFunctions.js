@@ -2,21 +2,35 @@ let myPlayerFunctionsFile = "[myPlayerFunctions.js] ";
 
 class Player{
 
-    constructor(myName, myColour, myAffiliation, myGamemode){
+    static roster = new Map();
+
+    constructor(myName, myGamemode, myVector, myTimestamp){
 
         this.name = myName;  
         this.callsign = myName.substring(0,3);
-        this.colour = myColour; // this is the individual default colour that is overwritten if team (affiliation) colours are activated
-        this.affiliation = myAffiliation; // Offence/Defence and Black/White
+        this.colour = "#00ff00"; // this is the individual default colour that is overwritten if team (affiliation) colours are activated
+        this.affiliation = null; // Offence/Defence and Black/White
         this.gamemode = myGamemode; // SURVIVAL / CREATIVE / SPECTATOR / OFFLINE / NOT IN THE OVERWORLD
-        this.vector = null; // Position, THREE.Vector3(x,y,z)
+        this.vector = myVector; // Position, THREE.Vector3(x,y,z)
         this.UUID = null; // we will save the id of the 3D object here for future reference, e.g. for updating
-        this.lastTime = null; // timestamp of last login
+        this.timestamp = myTimestamp; // timestamp of last login
 
         let myClass = "Player{}: ";
         this.ID = myPlayerFunctionsFile + myClass;
 
+        this.addSprite(this.vector, "#00ff00", this.gamemode);
+
         console.log(this.ID + myName + " instantiated.");
+
+    }
+
+    static create(myName, myGamemode, myVector, myTimestamp){
+
+        if (Player.roster.has(myName)){ return Player.roster.get(myName); }
+
+        const newPlayer = new Player(myName, myGamemode, myVector, myTimestamp);
+        Player.roster.set(myName, newPlayer);
+        return newPlayer;
 
     }
 
@@ -80,13 +94,6 @@ class Player{
 
     }
 
-    updatePosition(){
-
-        let myFunc = "updatePosition(): ";
-        console.log(this.ID + myFunc + "Updating marker position for " + this.myName + ".");        
-
-    }
-
     updateTime(){
 
         let myFunc = "updateTime(): ";
@@ -117,6 +124,45 @@ class Player{
 
     }
 
+    updatePosition(){
+
+        let myFunc = "updatePosition(): "
+        // console.log(this.ID + myFunc + "Updating " + this.name + "'s position [" + this.vector.x + ", " + this.vector.y + ", " + this.vector.z + "].");
+
+        let searchName = "sprite_" + this.name;
+        let mySprite = scene.getObjectByName(searchName);
+
+        mySprite.position.x = this.vector.x;
+        mySprite.position.y = this.vector.y;
+        mySprite.position.z = this.vector.z;
+
+    }
+
+    updateMode(myMode){
+
+        let myFunc = "updateMode(): "
+        console.log(this.ID + myFunc + "Updating " + this.name + "'s gamemode to " + myMode + ".");
+
+        let searchName = "sprite_" + this.name;
+        let mySprite = scene.getObjectByName(searchName);
+        scene.remove(mySprite);
+        disposeObject(mySprite);
+
+        this.addSprite(this.vector, this.colour, this.gamemode);
+
+    }
+
+    updateColour(){
+
+        let myFunc = "updateColour(): ";
+        console.log(this.ID + myFunc + "Updating " + this.name + "'s colour to " + this.colour + ".");
+
+        let searchName = "sprite_" + this.name;
+        let mySprite = scene.getObjectByName(searchName);
+        mySprite.material.color.set(this.colour);
+
+    }
+
     addSprite(myPos, myColour, myMode){
 
         let myFunc = "addSprite(" + myPos + ", " + myColour + ", " + myMode + "): ";
@@ -132,7 +178,7 @@ class Player{
 
         if ((myMode == "") || (myMode == null)){ texture = textureLoader.load('./resources/sprite120.png'); }
         if ((myMode == "SURVIVAL") || (myMode == "CREATIVE")){ texture = textureLoader.load('./resources/sprite120.png'); }  
-        if (myMode == "SPECTATOR"){ texture = textureLoader.load('./sprite120ring.png'); }
+        if (myMode == "SPECTATOR"){ texture = textureLoader.load('./resources/sprite120ring.png'); }
 
         if ((myMode == "SURVIVAL") || (myMode == "SPECTATOR")){
 
@@ -170,10 +216,12 @@ class Player{
             const sprite = new THREE.Sprite(spriteMaterial); 
 
             sprite.position.x = myPos.x;
-            sprite.position.y = myPos.z;
-            sprite.position.z = -myPos.y;
+            sprite.position.y = myPos.y;
+            sprite.position.z = myPos.z;
 
             sprite.scale.set(5, 5, 1);
+
+            sprite.name = "sprite_" + this.name;
 
             scene.add(sprite);
         
@@ -181,69 +229,16 @@ class Player{
 
     }
 
-}
+    delete(){
 
-function addSprite(myPos, myColour, myMode){
+        let myFunc = "delete(): ";
+        console.log(this.ID + myFunc + "Deleting " + this.name + "'s sprite.");
 
-    let myFunc = "addSprite(" + myPos + ", " + myColour + ", " + myMode + "): ";
-    console.log(myFunc + "Hi!");
-
-    // Load the texture 
-    const textureLoader = new THREE.TextureLoader();
-
-    var texture = null;
-    var spriteMaterial = null;
-
-    // Create the sprite material depending on the player mode
-
-    if ((myMode == "") || (myMode == null)){ texture = textureLoader.load('./resources/sprite120.png'); }
-    if ((myMode == "SURVIVAL") || (myMode == "CREATIVE")){ texture = textureLoader.load('./resources/sprite120.png'); }  
-    if (myMode == "SPECTATOR"){ texture = textureLoader.load('./resources/sprite120ring.png'); }
-
-    if ((myMode == "SURVIVAL") || (myMode == "SPECTATOR")){
-
-        spriteMaterial = new THREE.SpriteMaterial({
-            map: texture,
-            color: myColour,
-            transparent: true
-        });
-
-    } 
-    
-    if (myMode == "CREATIVE"){
-
-        spriteMaterial = new THREE.SpriteMaterial({
-            map: texture,
-            color: 0xffffff,
-            transparent: true
-        });
+        let searchName = "sprite_" + this.name;
+        let mySprite = scene.getObjectByName(searchName);
+        scene.remove(mySprite);
+        disposeObject(mySprite);
 
     }
-
-    if ((myMode == null) || (myMode == "")){
-
-        spriteMaterial = new THREE.SpriteMaterial({
-            map: texture,
-            color: 0x888888,
-            transparent: true
-        });
-
-    }
-
-    // Create the sprite
-    if (spriteMaterial != null){ 
-        
-        const sprite = new THREE.Sprite(spriteMaterial);
-        sprite.renderOrder = 1; 
-
-        sprite.position.x = myPos.x;
-        sprite.position.y = myPos.z;
-        sprite.position.z = -myPos.y;
-
-        sprite.scale.set(5, 5, 1);
-
-        scene.add(sprite);
-    
-    } else { console.log("[myWorldElements.js] addSprite(): ERROR! Variable 'spriteMaterial' is null."); } 
 
 }

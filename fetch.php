@@ -13,7 +13,7 @@
     $table = $_GET['table'];
 
     // $result = mysqli_query($db_link, "SELECT * FROM $table WHERE world='world' ORDER BY time DESC LIMIT $limit");
-    $result = mysqli_query($db_link, "WITH RankedData AS (SELECT *, RANK() OVER (ORDER BY time DESC) AS time_rank FROM $table) SELECT * FROM RankedData WHERE time_rank = 1 AND world='world'");
+    $result = mysqli_query($db_link, "WITH RankedData AS (SELECT *, RANK() OVER (ORDER BY time DESC) AS time_rank FROM $table) SELECT * FROM RankedData WHERE time_rank = 1");
     /* The limit must be adapted to the expected number of players on the map. */
 
     $j = -1;                  

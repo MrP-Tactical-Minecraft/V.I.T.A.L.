@@ -321,22 +321,22 @@ class Tower{
         console.log(this.ID + myFunc + "Removing the tower from the scene.");
 
         // this.skyscraper.removeFromParent();
-        disposeGroup(this.skyscraper);
+        disposeObject(this.skyscraper);
         if (this.skyscraper.parent) { this.skyscraper.parent.remove(this.skyscraper); }
 
     }
 
 }
 
-function disposeGroup(group) {
+function disposeObject(myObject) {
 
-    let myFunc = "disposeGroup(): ";
+    let myFunc = "disposeObject(): ";
     let thisID = mySceneFunctionFile + myFunc;
 
-    console.log(thisID + "Disposing of the THREE.JS group.");
+    console.log(thisID + "Disposing of object " + myObject + ".");
 
     // 1. Traverse all objects in the group hierarchy
-    group.traverse((child) => {
+    myObject.traverse((child) => {
         if (child.isMesh) {
             // Dispose of geometry
             if (child.geometry) {
