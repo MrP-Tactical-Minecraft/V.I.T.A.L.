@@ -26,7 +26,8 @@
         $d4[$j] = $row['y'];
         $d5[$j] = $row['z'];
         $d6[$j] = $row['gamemode'];
+        $d7[$j] = $row['world'];
     }
-    echo json_encode(array($d1,$d2,$d3,$d4,$d5,$d6));
+    echo json_encode(array($d1,$d2,$d3,$d4,$d5,$d6,$d7));
 
 ?>
