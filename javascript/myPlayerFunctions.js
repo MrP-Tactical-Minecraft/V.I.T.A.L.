@@ -1,6 +1,6 @@
 let myPlayerFunctionsFile = "[myPlayerFunctions.js] ";
 
-let defaultColour = "#ffff00";
+let defaultColour = "#00ff00";
 
 class Player{
 
@@ -134,7 +134,7 @@ class Player{
         let mySprite = scene.getObjectByName(searchName);
         mySprite.material.color.set(setColour);
 
-        console.log(this.ID + myFunc + "Updated " + this.name + "'s colour to " + setColour + ".");
+        // console.log(this.ID + myFunc + "Updated " + this.name + "'s colour to " + setColour + ".");
 
     }
 
@@ -229,7 +229,7 @@ class Player{
     addSprite(myPos, myColour, myMode){
 
         let myFunc = "addSprite(" + myPos + ", " + myColour + ", " + myMode + "): ";
-        console.log(this.ID + myFunc + "Hi!");
+        // console.log(this.ID + myFunc + "Hi!");
 
         // Load the texture 
         const textureLoader = new THREE.TextureLoader();

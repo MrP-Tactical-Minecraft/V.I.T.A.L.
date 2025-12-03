@@ -235,7 +235,8 @@ class Tower{
 
         for (let myFloor = 0; myFloor <= 34; myFloor++){
 
-            let myColour = "#404040";
+            // let myColour = "#404040";
+            let myColour = "#406040";
             let myZ = 65 + myFloor*7;
 
             // full floors 00-24, 29-34
@@ -269,11 +270,14 @@ class Tower{
         let myFunc = "addAtriums(): ";
         console.log(this.ID + myFunc + "Added.");
 
-        addWireFrame("Foyer", "Atrium", this.atriums, 9329, 755, 65, 36, 36, 5*7, "#808080");
-        addWireFrame("Hotel Lobby", "Atrium", this.atriums, 9329, 755, 65+10*7, 36, 36, 3*7, "#808080");
-        addWireFrame("20", "Atrium", this.atriums, 9329, 755, 65+20*7, 36, 36, 3*7-2, "#808080");
-        addWireFrame("Art Gallery", "Atrium", this.atriums, 9329, 755, 65+23*7, 36, 36, 2*7, "#808080");
-        addWireFrame("30", "Atrium", this.atriums, 9337, 763, 65+30*7, 20, 20, 3*7, "#808080");
+        // let myColour = "#808080";
+        let myColour = "#80a080";
+
+        addWireFrame("Foyer", "Atrium", this.atriums, 9329, 755, 65, 36, 36, 5*7, myColour);
+        addWireFrame("Hotel Lobby", "Atrium", this.atriums, 9329, 755, 65+10*7, 36, 36, 3*7, myColour);
+        addWireFrame("20", "Atrium", this.atriums, 9329, 755, 65+20*7, 36, 36, 3*7-2, myColour);
+        addWireFrame("Art Gallery", "Atrium", this.atriums, 9329, 755, 65+23*7, 36, 36, 2*7, myColour);
+        addWireFrame("30", "Atrium", this.atriums, 9337, 763, 65+30*7, 20, 20, 3*7, myColour);
 
         this.skyscraper.add(this.atriums);
 
@@ -333,7 +337,7 @@ function disposeObject(myObject) {
     let myFunc = "disposeObject(): ";
     let thisID = mySceneFunctionFile + myFunc;
 
-    console.log(thisID + "Disposing of object " + myObject + ".");
+    // console.log(thisID + "Disposing of object " + myObject + ".");
 
     // 1. Traverse all objects in the group hierarchy
     myObject.traverse((child) => {

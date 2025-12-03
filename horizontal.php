@@ -30,7 +30,7 @@
         <!-- 1. Left Panel (30% width) -->
         <div class="left-panel">
             <h2 class="title">
-                Control Panel
+                V.I.T.A.L. Controls
             </h2>
             <p class="description">
                 This fixed-width sidebar (30%) is designed for navigation, settings, or displaying detailed metadata. It maintains consistency regardless of the right panel's dynamic content.
@@ -168,21 +168,16 @@
 
         <!-- 2. Right Panel (remaining width) -->
         <div class="right-panel">
-            
-            <!-- Header Content -->
-            <header>
-                <h2 class="title">
-                    Main Visualization Area
-                </h2>
-                <p class="description">
-                    The remaining 70% of the screen is dedicated to the primary content, maximizing space for the canvas element below. This area dynamically adjusts its size.
-                </p>
-            </header>
-
+    
             <!-- Canvas Element - Fills the rest of the available height -->
             <div class="canvas-container">
                 <canvas id="main-canvas"></canvas>
             </div>
+
+            <p class="description">
+                VERTICAL INTERCEPTION, TRACKING, AND LOCALIZATION
+            </p>
+
         </div>
 
     </div>

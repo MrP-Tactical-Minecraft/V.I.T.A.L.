@@ -23,6 +23,7 @@ function setup(){
     console.log(thisID + "Setting up ...");
 
     scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x002222);
     console.log(thisID + "... scene: OK");
 
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1,  5000000);

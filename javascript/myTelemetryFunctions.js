@@ -187,12 +187,16 @@ function updatePlayerRoster(){
 
             let span = parseInt(now - timestamp).toFixed(0);
 
-            if ((span >= staleThreshold) && (span <= offlineThreshold)){ 
+            if (playerObject.status != "STALE"){
+
+                if ((span >= staleThreshold) && (span <= offlineThreshold)){ 
+                    
+                    console.log(myID + "This timestamp is too far in the past, player " + player + " is going stale.");
+                    playerObject.status = "STALE";
+                    playerObject.updateStatus(); 
                 
-                console.log(myID + "This timestamp is too far in the past, player " + player + " is going stale.");
-                playerObject.status = "STALE";
-                playerObject.updateStatus(); 
-            
+                }
+
             }
 
             if (span > offlineThreshold){ 
