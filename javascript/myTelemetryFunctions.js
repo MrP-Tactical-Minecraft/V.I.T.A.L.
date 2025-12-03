@@ -87,31 +87,80 @@ function updatePlayerRoster(){
         let foundPlayer = myTelemetry[1][i];
         let foundPosition = new THREE.Vector3(myTelemetry[2][i], myTelemetry[4][i], -myTelemetry[3][i]);
         let foundGamemode = myTelemetry[5][i];
+        let foundWorld = myTelemetry[6][i];
 
-        if (parseInt(now - foundTimestamp).toFixed(0) <= offlineThreshold){ 
+        let delta = parseInt(now - foundTimestamp).toFixed(0);
+
+        // only instantiate/update those players who have been online within the offlineThreshold (e.g. within the last 30 seconds)
+        if (delta <= offlineThreshold){ 
 
             if (Player.roster.has(foundPlayer)){
 
                 let Ply = Player.roster.get(foundPlayer);                              
                 
+                if (Ply.status == "STALE"){ 
+                    
+                    Ply.status = null; 
+                    Ply.updateStatus();
+                
+                }
+
+                // timestamp shall always be updated
                 Ply.timestamp = foundTimestamp;
 
-                Ply.position = foundPosition;
-                Ply.updatePosition();
+                if (arePosEqual(Ply.position, foundPosition) == false){
 
-                Ply.colour = defaultColour;  
-                Ply.updateColour(); 
+                    Ply.position = foundPosition;
+                    Ply.updatePosition();
+
+                } else {
+
+                    console.log(myID + "No need to update position as player " + Ply.name + " has not moved.");
+
+                }
+
+                function arePosEqual(playerPos, foundPos){
+
+                    let output = true;   
+                    
+                    let x1 = playerPos.x;
+                    let x2 = foundPos.x;
+
+                    let y1 = playerPos.y;
+                    let y2 = foundPos.y;
+
+                    let z1 = playerPos.z;
+                    let z2 = foundPos.z;
+
+                    let v1 = "[" + x1 + ", " + y1 + ", " + z1 + "]";
+                    let v2 = "[" + x2 + ", " + y2 + ", " + z2 + "]";
+
+                    if ((x1 != x2) || (y1 != y2) || (z1 != z2)){ output = false; }
+
+                    console.log(myID + "arePosEqual(): Are " + v1 + " and " + v2 + " equal? " + output);
+                    
+                    return output;
+
+                }
+
                 
                 if (Ply.gamemode != foundGamemode){ 
                     
                     Ply.gamemode = foundGamemode;
-                    Ply.updateMode(foundGamemode); 
+                    Ply.updateMode(); 
                 
-                }                
+                }   
+                
+                if (Ply.world != foundWorld){
+
+                    Ply.world = foundWorld;
+                    Ply.updateWorld();
+
+                }
 
             } else {            
                 
-                Player.create(foundPlayer, foundGamemode, foundPosition, foundTimestamp); 
+                if (foundWorld == "world"){ Player.create(foundPlayer, foundGamemode, foundPosition, foundTimestamp, foundWorld); }                 
             
             }
 
@@ -135,15 +184,15 @@ function updatePlayerRoster(){
         if ((span >= staleThreshold) && (span <= offlineThreshold)){ 
             
             console.log(myID + "This timestamp is too far in the past, player " + player + " is going stale.");
-            playerObject.colour = "#808080";
-            playerObject.updateColour(); 
+            playerObject.status = "STALE";
+            playerObject.updateStatus(); 
         
         }
 
         if (span > offlineThreshold){ 
             
             console.log(myID + "This timestamp is too far in the past, player " + player + " needs to be deleted from the map."); 
-            playerObject.delete();
+            playerObject.deleteSprite();
             Player.roster.delete(keyID);
         
         }        
