@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[MrP] Sepia-3D</title>
+    <title>[MrP] V.I.T.A.L.</title>
     <LINK REL="STYLESHEET" HREF="styles/horizontal.css">
     <LINK REL="STYLESHEET" HREF="styles/controls.css">
     <script type="importmap">
