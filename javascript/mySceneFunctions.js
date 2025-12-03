@@ -273,7 +273,7 @@ class Tower{
         addWireFrame("Hotel Lobby", "Atrium", this.atriums, 9329, 755, 65+10*7, 36, 36, 3*7, "#808080");
         addWireFrame("20", "Atrium", this.atriums, 9329, 755, 65+20*7, 36, 36, 3*7-2, "#808080");
         addWireFrame("Art Gallery", "Atrium", this.atriums, 9329, 755, 65+23*7, 36, 36, 2*7, "#808080");
-        addWireFrame("30", "Atrium", this.atriums, 9329, 755, 65+30*7, 36, 36, 3*7, "#808080");
+        addWireFrame("30", "Atrium", this.atriums, 9337, 763, 65+30*7, 20, 20, 3*7, "#808080");
 
         this.skyscraper.add(this.atriums);
 

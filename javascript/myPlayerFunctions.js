@@ -1,34 +1,36 @@
 let myPlayerFunctionsFile = "[myPlayerFunctions.js] ";
 
+let defaultColour = "#ffff00";
+
 class Player{
 
     static roster = new Map();
 
-    constructor(myName, myGamemode, myVector, myTimestamp){
+    constructor(myName, myGamemode, myPosition, myTimestamp){
 
         this.name = myName;  
         this.callsign = myName.substring(0,3);
-        this.colour = "#00ff00"; // this is the individual default colour that is overwritten if team (affiliation) colours are activated
+        this.colour = defaultColour; // this is the individual default colour that is overwritten if team (affiliation) colours are activated
         this.affiliation = null; // Offence/Defence and Black/White
         this.gamemode = myGamemode; // SURVIVAL / CREATIVE / SPECTATOR / OFFLINE / NOT IN THE OVERWORLD
-        this.vector = myVector; // Position, THREE.Vector3(x,y,z)
+        this.position = myPosition; // Position, THREE.Vector3(x,y,z)
         this.UUID = null; // we will save the id of the 3D object here for future reference, e.g. for updating
         this.timestamp = myTimestamp; // timestamp of last login
 
         let myClass = "Player{}: ";
         this.ID = myPlayerFunctionsFile + myClass;
 
-        this.addSprite(this.vector, "#00ff00", this.gamemode);
+        this.addSprite(this.position, this.colour, this.gamemode);
 
         console.log(this.ID + myName + " instantiated.");
 
     }
 
-    static create(myName, myGamemode, myVector, myTimestamp){
+    static create(myName, myGamemode, myPosition, myTimestamp){
 
         if (Player.roster.has(myName)){ return Player.roster.get(myName); }
 
-        const newPlayer = new Player(myName, myGamemode, myVector, myTimestamp);
+        const newPlayer = new Player(myName, myGamemode, myPosition, myTimestamp);
         Player.roster.set(myName, newPlayer);
         return newPlayer;
 
@@ -127,14 +129,14 @@ class Player{
     updatePosition(){
 
         let myFunc = "updatePosition(): "
-        // console.log(this.ID + myFunc + "Updating " + this.name + "'s position [" + this.vector.x + ", " + this.vector.y + ", " + this.vector.z + "].");
+        console.log(this.ID + myFunc + "Updating " + this.name + "'s position [" + this.position.x + ", " + this.position.y + ", " + this.position.z + "].");
 
         let searchName = "sprite_" + this.name;
         let mySprite = scene.getObjectByName(searchName);
 
-        mySprite.position.x = this.vector.x;
-        mySprite.position.y = this.vector.y;
-        mySprite.position.z = this.vector.z;
+        mySprite.position.x = this.position.x;
+        mySprite.position.y = this.position.y;
+        mySprite.position.z = this.position.z;
 
     }
 
@@ -148,18 +150,63 @@ class Player{
         scene.remove(mySprite);
         disposeObject(mySprite);
 
-        this.addSprite(this.vector, this.colour, this.gamemode);
+        this.addSprite(this.position, this.colour, this.gamemode);
 
     }
 
     updateColour(){
 
-        let myFunc = "updateColour(): ";
-        console.log(this.ID + myFunc + "Updating " + this.name + "'s colour to " + this.colour + ".");
+        let myFunc = "updateColour(): ";     
+        let setColour = null;
+        
+        if (this.gamemode == "CREATIVE"){ setColour = "#ffffff"; } else { 
+            
+            setColour = this.colour; 
+
+            if (this.affiliation == "OFFENCE"){ setColour = "#ff0000"; }
+            if (this.affiliation == "DEFENCE"){ setColour = "#0000ff"; }
+        
+        } 
 
         let searchName = "sprite_" + this.name;
         let mySprite = scene.getObjectByName(searchName);
-        mySprite.material.color.set(this.colour);
+        mySprite.material.color.set(setColour);
+
+        console.log(this.ID + myFunc + "Updated " + this.name + "'s colour to " + setColour + ".");
+
+    }
+
+    updateAffiliation(){
+
+        let myFunc = "updateAffiliation(): ";
+
+        if (this.position.z == -49){
+
+            console.log(this.ID + myFunc + "Player " + this.name + "is on z-level 49.");
+
+            if ((this.position.x >= 9371) && (this.position.x <= 9376)){
+
+                if ((this.position.y >= 635) && (this.position.y <= 640)){
+
+                    this.affiliation = "OFFENCE";
+
+                }
+
+            }
+
+            if ((this.position.x >= 9357) && (this.position.x <= 9362)){
+
+                if ((this.position.y >= 635) && (this.position.y <= 640)){
+
+                    this.affiliation = "DEFENCE";
+
+                }
+
+            }            
+
+        }
+
+        console.log(this.ID + myFunc + "Updated " + this.name + "'s affiliation to " + this.affiliation);
 
     }
 

@@ -61,7 +61,7 @@ body {
     display: flex;
     justify-content: space-between;
     color: #c7c6c4; 
-    font-size: 10px;
+    font-size: 8px;
     font-weight: bold;
     letter-spacing: 0.5px;
     margin-bottom: 5px;
@@ -91,8 +91,8 @@ body {
 
 .control-button {
     /* Button Base */
-    width: 60px;
-    height: 40px;
+    width: 42px;
+    height: 24px;
     background-color: #333; 
     border: none;
     border-radius: 2px;
@@ -129,7 +129,7 @@ body {
 
 .button-label {
     position: relative;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: bold;
     z-index: 2; 
     transition: color 0.2s;
