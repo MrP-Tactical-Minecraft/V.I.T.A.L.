@@ -32,9 +32,6 @@
             <h2 class="title">
                 V.I.T.A.L. Controls
             </h2>
-            <p class="description">
-                This fixed-width sidebar (30%) is designed for navigation, settings, or displaying detailed metadata. It maintains consistency regardless of the right panel's dynamic content.
-            </p>
             <p><?php
 
 				require_once('config.php');
@@ -54,6 +51,9 @@
                 
                 ?></p>
             <span id="typing-text"></span>
+            <p class="description">
+                This fixed-width sidebar (30%) is designed for navigation, settings, or displaying detailed metadata. It maintains consistency regardless of the right panel's dynamic content.
+            </p>
 
             <!-- Mock controls/links -->
             <ul>
