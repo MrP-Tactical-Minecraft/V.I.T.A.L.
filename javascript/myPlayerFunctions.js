@@ -1,6 +1,6 @@
 let myPlayerFunctionsFile = "[myPlayerFunctions.js] ";
 
-let defaultColour = "#00ff00";
+let defaultColour = "#6ee7b7";
 
 class Player{
 

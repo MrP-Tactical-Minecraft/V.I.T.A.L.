@@ -30,7 +30,7 @@ body {
 /* --- Panel 1: Left (Control Panel) --- */
 .left-panel {
     padding: 1rem 1rem; /* Kept internal padding for readability */
-    background-color: #222222;
+    background-color: #32353A;
     color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -91,7 +91,7 @@ body {
 
 /* --- Panel 2: Right (Canvas Area) --- */
 .right-panel {
-    background-color:#444444;
+    background-color:#222;
     padding: 1rem 1rem; /* Kept internal padding for readability */
     display: flex;
     flex-direction: column;

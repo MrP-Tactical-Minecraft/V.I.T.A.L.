@@ -33,7 +33,7 @@ body {
     position: absolute;
     top: -10px; /* Position above the border */
     left: 20px;
-    background-color: #222; /* Match body background to "cut out" the border */
+    background-color: #32353A; /* Match body background to "cut out" the border */
     color: #ffffff; /* White text */
     font-size: 10px;
     font-weight: bold;
