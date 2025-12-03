@@ -41,7 +41,7 @@ class Player{
     updatePosition(){
 
         let myFunc = "updatePosition(): "
-        console.log(this.ID + myFunc + "Updating " + this.name + "'s position [" + this.position.x + ", " + this.position.y + ", " + this.position.z + "].");
+        // console.log(this.ID + myFunc + "Updating " + this.name + "'s position [" + this.position.x + ", " + this.position.y + ", " + this.position.z + "].");
 
         let searchName = "sprite_" + this.name;
         let mySprite = scene.getObjectByName(searchName);
@@ -77,10 +77,18 @@ class Player{
 
         if (this.world != "world"){ 
             
-            this.status = "OFFWORLD";
-            this.updateStatus(); 
+            this.status = "OFFWORLD";             
         
         }
+
+        if (this.world == "world"){
+
+            this.status = null;
+            this.addSprite(this.position, this.colour, this.gamemode);
+
+        }
+
+        this.updateStatus();
 
     }
 
@@ -137,7 +145,7 @@ class Player{
 
         if (this.position.z == -49){
 
-            console.log(this.ID + myFunc + "Player " + this.name + "is on z-level 49.");
+            // console.log(this.ID + myFunc + "Player " + this.name + " is on z-level 49.");
 
             if ((this.position.x >= 9371) && (this.position.x <= 9376)){
 
@@ -185,7 +193,7 @@ class Player{
         
         }
 
-        console.log(this.ID + myFunc + msg);
+        // console.log(this.ID + myFunc + msg);
 
     }
 

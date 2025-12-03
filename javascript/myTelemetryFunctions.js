@@ -92,64 +92,11 @@ function updatePlayerRoster(){
         let delta = parseInt(now - foundTimestamp).toFixed(0);
 
         // only instantiate/update those players who have been online within the offlineThreshold (e.g. within the last 30 seconds)
-        if (delta <= offlineThreshold){ 
+        if (delta <= offlineThreshold){
 
             if (Player.roster.has(foundPlayer)){
 
-                let Ply = Player.roster.get(foundPlayer);                              
-                
-                if (Ply.status == "STALE"){ 
-                    
-                    Ply.status = null; 
-                    Ply.updateStatus();
-                
-                }
-
-                // timestamp shall always be updated
-                Ply.timestamp = foundTimestamp;
-
-                if (arePosEqual(Ply.position, foundPosition) == false){
-
-                    Ply.position = foundPosition;
-                    Ply.updatePosition();
-
-                } else {
-
-                    console.log(myID + "No need to update position as player " + Ply.name + " has not moved.");
-
-                }
-
-                function arePosEqual(playerPos, foundPos){
-
-                    let output = true;   
-                    
-                    let x1 = playerPos.x;
-                    let x2 = foundPos.x;
-
-                    let y1 = playerPos.y;
-                    let y2 = foundPos.y;
-
-                    let z1 = playerPos.z;
-                    let z2 = foundPos.z;
-
-                    let v1 = "[" + x1 + ", " + y1 + ", " + z1 + "]";
-                    let v2 = "[" + x2 + ", " + y2 + ", " + z2 + "]";
-
-                    if ((x1 != x2) || (y1 != y2) || (z1 != z2)){ output = false; }
-
-                    console.log(myID + "arePosEqual(): Are " + v1 + " and " + v2 + " equal? " + output);
-                    
-                    return output;
-
-                }
-
-                
-                if (Ply.gamemode != foundGamemode){ 
-                    
-                    Ply.gamemode = foundGamemode;
-                    Ply.updateMode(); 
-                
-                }   
+                let Ply = Player.roster.get(foundPlayer); 
                 
                 if (Ply.world != foundWorld){
 
@@ -158,44 +105,105 @@ function updatePlayerRoster(){
 
                 }
 
-            } else {            
+                if (foundWorld == "world"){
+
+                    if (Ply.status == "STALE"){ 
+                        
+                        Ply.status = null; 
+                        Ply.updateStatus();
+                    
+                    }
+
+                    // timestamp shall always be updated
+                    Ply.timestamp = foundTimestamp;
+
+                    if (arePosEqual(Ply.position, foundPosition) == false){
+
+                        Ply.position = foundPosition;
+                        Ply.updatePosition();
+
+                    } else {
+
+                        // console.log(myID + "No need to update position as player " + Ply.name + " has not moved.");
+
+                    }
+
+                    function arePosEqual(playerPos, foundPos){
+
+                        let output = true;   
+                        
+                        let x1 = playerPos.x;
+                        let x2 = foundPos.x;
+
+                        let y1 = playerPos.y;
+                        let y2 = foundPos.y;
+
+                        let z1 = playerPos.z;
+                        let z2 = foundPos.z;
+
+                        let v1 = "[" + x1 + ", " + y1 + ", " + z1 + "]";
+                        let v2 = "[" + x2 + ", " + y2 + ", " + z2 + "]";
+
+                        if ((x1 != x2) || (y1 != y2) || (z1 != z2)){ output = false; }
+
+                        // console.log(myID + "arePosEqual(): Are " + v1 + " and " + v2 + " equal? " + output);
+                        
+                        return output;
+
+                    }
+
+                    if (Ply.gamemode != foundGamemode){ 
+                        
+                        Ply.gamemode = foundGamemode;
+                        Ply.updateMode(); 
+                    
+                    }
+
+                } 
                 
-                if (foundWorld == "world"){ Player.create(foundPlayer, foundGamemode, foundPosition, foundTimestamp, foundWorld); }                 
-            
+            } else {
+
+                    Player.create(foundPlayer, foundGamemode, foundPosition, foundTimestamp, foundWorld);
+
             }
 
         }
 
     }
 
-    // loop through all players found in the roster and check whether their latest timestamp is more than 30 seconds in the past
+    // loop through all players found in the roster and check 
+    // a) whether they are in the overworld
+    // b) whether their latest timestamp is more than 30 seconds in the past
 
     for (const [keyID, playerObject] of Player.roster.entries()){
 
         const player = playerObject.name;
         const timestamp = playerObject.timestamp;
+        const world = playerObject.world;
 
         // console.log(myID + "Comparing " + timestamp + " against now: " + parseInt(now - timestamp).toFixed(0));
 
-        playerObject.updateAffiliation();
+        if (world == "world"){
 
-        let span = parseInt(now - timestamp).toFixed(0);
+            let span = parseInt(now - timestamp).toFixed(0);
 
-        if ((span >= staleThreshold) && (span <= offlineThreshold)){ 
+            if ((span >= staleThreshold) && (span <= offlineThreshold)){ 
+                
+                console.log(myID + "This timestamp is too far in the past, player " + player + " is going stale.");
+                playerObject.status = "STALE";
+                playerObject.updateStatus(); 
             
-            console.log(myID + "This timestamp is too far in the past, player " + player + " is going stale.");
-            playerObject.status = "STALE";
-            playerObject.updateStatus(); 
-        
-        }
+            }
 
-        if (span > offlineThreshold){ 
+            if (span > offlineThreshold){ 
+                
+                console.log(myID + "This timestamp is too far in the past, player " + player + " needs to be deleted from the map."); 
+                playerObject.deleteSprite();
+                Player.roster.delete(keyID);
             
-            console.log(myID + "This timestamp is too far in the past, player " + player + " needs to be deleted from the map."); 
-            playerObject.deleteSprite();
-            Player.roster.delete(keyID);
-        
-        }        
+            } 
+
+        }       
 
     }
     
