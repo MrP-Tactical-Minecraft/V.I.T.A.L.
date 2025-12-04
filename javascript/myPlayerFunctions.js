@@ -65,6 +65,7 @@ class Player{
         let mySprite = scene.getObjectByName(searchName);
         let prevColour = mySprite.material.color;
         scene.remove(mySprite);
+        // if (mySprite) { mySprite.parent.remove(mySprite); }
         disposeObject(mySprite);
 
         this.addSprite(this.position, prevColour, this.gamemode);
@@ -223,6 +224,8 @@ class Player{
         const myLabel = new CSS2DObject(myDiv);
         myLabel.position.set(myX, myY, myZ);
         myLabel.name = "label_" + myName;
+        
+        // labelGroup.add(myLabel);
         scene.add(myLabel);
 
     }
@@ -331,6 +334,7 @@ class Player{
 
             sprite.name = "sprite_" + this.name;
 
+            // playerGroup.add(sprite);
             scene.add(sprite);
         
         } else { console.log("[myWorldElements.js] addSprite(): ERROR! Variable 'spriteMaterial' is null."); } 

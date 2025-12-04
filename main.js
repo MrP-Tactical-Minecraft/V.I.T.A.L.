@@ -26,6 +26,17 @@ function setup(){
     scene.background = new THREE.Color(0x002222);
     console.log(thisID + "... scene: OK");
 
+    auxElements = new THREE.Group();
+    auxElements.name = "Auxiliary Elements";
+
+    playerGroup = new THREE.Group();
+    playerGroup.name = "Players";
+    scene.add(playerGroup);
+
+    labelGroup = new THREE.Group();
+    labelGroup.name = "Labels";
+    scene.add(labelGroup);
+
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1,  5000000);
     camera.position.set(9257, 460, -190);
     camera.up.set(0,0,-1);
@@ -108,8 +119,7 @@ function populate(){
     addGaugeElements();
     console.log(thisID + "... gauge elements: OK");
 
-    // new Tower;
-    // console.log(thisID + "... Tower: OK");
+    scene.add(auxElements);
 
     console.log(thisID + "Calling requestAnimationFrame(render).");
     requestAnimationFrame(render);

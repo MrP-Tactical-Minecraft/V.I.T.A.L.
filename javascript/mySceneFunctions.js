@@ -36,7 +36,7 @@ function addLight(x, y, z, color, myName){
     // const light = new THREE.PointLight(color, intensity, distance, decay);
     light.position.set(x, y, z);
     light.name = myName;
-    scene.add(light);
+    auxElements.add(light);
 
     let myX = light.position.x;
     let myY = light.position.y;
@@ -62,7 +62,7 @@ function addSphere(myPos, myColour, myRadius){
     sphere.position.y = myPos.z;
     sphere.position.z = -myPos.y;
 
-    scene.add(sphere);
+    auxElements.add(sphere);
 
 }
 
@@ -73,18 +73,19 @@ function addGaugeElements(){
 
     console.log(thisID + "Adding axis helper, grid, and gauge spheres.");
 
-    axes = new THREE.AxesHelper(5.0);
+    let axes = new THREE.AxesHelper(5.0);
     axes.position.x = 9346.5;
     axes.position.y = 772.5;
     axes.position.z = -65;
-    scene.add(axes);
+    auxElements.add(axes);
 
-    grid = new THREE.GridHelper(100,10,0x002044,0x202030);
+    let grid = new THREE.GridHelper(100,10,0x002044,0x202030);
     grid.rotation.x = Math.PI/2;
     grid.position.x = 9346.5;
     grid.position.y = 772.5;
     grid.position.z = -65;
-    scene.add(grid);
+    
+    auxElements.add(grid);
 
 }
 

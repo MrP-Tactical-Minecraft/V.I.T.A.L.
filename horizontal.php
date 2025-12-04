@@ -210,7 +210,10 @@
 
         let canvas = document.getElementById("main-canvas");
         let scene, camera, renderer, HUD, orbit;
-        let axes, grid;
+        
+        let auxElements; // we will group all lights, axes, and grids here
+        let playerGroup; // we will group our player objects here
+        let labelGroup; // guess what? we will group labels here
 
         let myTower = null;
         let myTelemetry = null;
