@@ -209,7 +209,7 @@
         let thisFile = "[horizontal.php] ";
 
         let canvas = document.getElementById("main-canvas");
-        let scene, camera, renderer, orbit;
+        let scene, camera, renderer, HUD, orbit;
         let axes, grid;
 
         let myTower = null;

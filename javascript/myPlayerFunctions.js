@@ -14,7 +14,7 @@ class Player{
         this.timestamp = myTimestamp; // timestamp of last login
         this.world = myWorld;
 
-        this.callsign = myName.substring(0,3);
+        this.callsign = (myName.substring(0,3)).toUpperCase();
         this.colour = defaultColour; // this is the individual default colour that is overwritten if team (affiliation) colours are activated
         this.affiliation = null; // Offence/Defence and Black/White
         this.status = null;
@@ -23,6 +23,7 @@ class Player{
         this.ID = myPlayerFunctionsFile + myClass;
 
         this.addSprite(this.position, this.colour, this.gamemode);
+        this.addLabel(this.callsign, this.position);
 
         console.log(this.ID + myName + " instantiated.");
 
@@ -51,6 +52,7 @@ class Player{
         mySprite.position.z = this.position.z;
 
         this.updateAffiliation();
+        this.updateLabel();
 
     }
 
@@ -67,6 +69,7 @@ class Player{
 
         this.addSprite(this.position, prevColour, this.gamemode);
         this.updateColour();
+        this.updateLabel();
 
     }
 
@@ -89,6 +92,7 @@ class Player{
         }
 
         this.updateStatus();
+        this.updateLabel();
 
     }
 
@@ -109,6 +113,8 @@ class Player{
             this.updateColour();
 
         }
+
+        this.updateLabel();
 
     }
 
@@ -135,6 +141,8 @@ class Player{
         mySprite.material.color.set(setColour);
 
         // console.log(this.ID + myFunc + "Updated " + this.name + "'s colour to " + setColour + ".");
+
+        this.updateLabel(setColour);
 
     }
 
@@ -197,34 +205,51 @@ class Player{
 
     }
 
-    addLabel(myName, myIndex, myVector){
+    addLabel(myName, myVector){
 
-        // console.log("[myPlayerFunctions.js] addLabel(" + myName + ", " + myUUID + "): Hi!");
+        let myFunc = "addLabel(): ";
+        console.log(this.ID + myFunc + "Adding label for player " + myName + ".");
 
         let myX = myVector.x;
         let myY = myVector.y;
-        let myZ = myVector.z;
+        let myZ = myVector.z - 5;
 
         const myDiv = document.createElement("div");
-        // myDiv.className = "label";
         myDiv.textContent = myName;
-        myDiv.id = myName;
-        myDiv.style.color = "#ffffff";
+        myDiv.id = "label_div_" + myName;
+        myDiv.style.color = this.colour;
 
         const myLabel = new CSS2DObject(myDiv);
         myLabel.position.set(myX, myY, myZ);
-        scene.children[myIndex].add(myLabel);
+        myLabel.name = "label_" + myName;
+        scene.add(myLabel);
 
     }
 
-    updateLabel(){
+    updateLabel(myColour){
 
         let myFunc = "updateLabel(): ";
-        console.log(this.ID + myFunc + "Updating label for " + this.myName + " depending on gamemode or camera/map focus.");
+        console.log(this.ID + myFunc + "Updating label for " + this.name + " depending on gamemode or camera/map focus.");
+
+        const label = scene.getObjectByName("label_" + this.callsign);
+        const myDiv = document.getElementById("label_div_" + this.callsign);
+
+        label.position.x = this.position.x;
+        label.position.y = this.position.y;
+        label.position.z = this.position.z - 5;
+
+        let myText = null;
+
+        if (this.gamemode == "SURVIVAL"){ myText = this.callsign; }
+        if (this.gamemode == "SPECTATOR"){ myText = "[" + this.callsign + "]"; }
+        if (this.gamemode == "CREATIVE"){ myText = "** " + this.callsign + " **"; }
+
+        if (this.status == "STALE"){ myText = "(" + this.callsign + ")"; }
+
+        myDiv.textContent = myText;
+        myDiv.style.color = myColour;
 
     }
-
-
 
     addSprite(myPos, myColour, myMode){
 

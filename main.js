@@ -39,6 +39,21 @@ function setup(){
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.sortObjects = true; // this is to correctly display sprites that are behind partially transparent objects (e.g. the tower columns)
     console.log(thisID + "... renderer: OK");
+    
+    const HUDwidth = canvas.clientWidth;
+    const HUDheight = canvas.clientHeight;
+    const canvasRect = canvas.getBoundingClientRect();
+    HUD = new CSS2DRenderer();
+    HUD.setSize(HUDwidth, HUDheight);
+    HUD.domElement.style.position = "absolute";
+    HUD.domElement.style.top = canvasRect.top + "px";
+    HUD.domElement.style.left = canvasRect.left + "px";
+    HUD.domElement.style.pointerEvents = 'none'; // ensures mouse clicks pass through the HUD to the underlying canvas     
+    // HUD.domElement.style.backgroundColor = "#ff0000";
+    
+
+    document.body.appendChild(HUD.domElement);
+    // HUD.render(scene, camera);
 
     orbit = new MapControls(camera, canvas);
     // orbit = new MapControls(camera, labelRenderer.domElement);
@@ -75,7 +90,8 @@ async function render(){
     camera.updateProjectionMatrix();
 
     // labelRenderer.render(scene, camera);
-    renderer.render(scene, camera);            
+    renderer.render(scene, camera);
+    HUD.render(scene, camera);            
     requestAnimationFrame(render);
 
 }
