@@ -114,12 +114,13 @@ body {
 .right-panel p {
     margin-top: 0rem;
     font-size: 0.6rem;
-    color: #f0fff0;
+    color: #6ee7b7;
     margin-bottom: 0;
     text-align:center;
 }
 
 .canvas-container {
+    position: relative;
     flex-grow: 1;
     min-height: 16rem;
     display: flex;

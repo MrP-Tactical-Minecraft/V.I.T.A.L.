@@ -7,6 +7,7 @@
     <title>[MrP] V.I.T.A.L.</title>
     <LINK REL="STYLESHEET" HREF="styles/horizontal.css">
     <LINK REL="STYLESHEET" HREF="styles/controls.css">
+    <LINK REL="STYLESHEET" HREF="styles/hud.css">
     <script type="importmap">
     {
         "imports": {
@@ -20,6 +21,7 @@
     <script src="javascript/mySceneFunctions.js" defer></script>
     <script src="javascript/myPlayerFunctions.js" defer></script>
     <script src="javascript/myTelemetryFunctions.js" defer></script>
+    <script src="javascript/myHUDFunctions.js" defer></script>
     <SCRIPT src="javascript/jquery.min.js">/* for the AJAX contruct */</SCRIPT>
 </head>
 
@@ -172,6 +174,9 @@
             <!-- Canvas Element - Fills the rest of the available height -->
             <div class="canvas-container">
                 <canvas id="main-canvas"></canvas>
+                <div id="hud">
+                    <div id="floors-container"></div>
+                </div>
             </div>
 
             <p class="description">
@@ -209,7 +214,7 @@
         let thisFile = "[horizontal.php] ";
 
         let canvas = document.getElementById("main-canvas");
-        let scene, camera, renderer, HUD, orbit;
+        let scene, camera, renderer, myLabels, orbit;
         
         let auxElements; // we will group all lights, axes, and grids here
         let playerGroup; // we will group our player objects here

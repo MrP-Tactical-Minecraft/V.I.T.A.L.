@@ -51,20 +51,20 @@ function setup(){
     renderer.sortObjects = true; // this is to correctly display sprites that are behind partially transparent objects (e.g. the tower columns)
     console.log(thisID + "... renderer: OK");
     
-    const HUDwidth = canvas.clientWidth;
-    const HUDheight = canvas.clientHeight;
+    const myLabelsWidth = canvas.clientWidth;
+    const myLabelsHeight = canvas.clientHeight;
     const canvasRect = canvas.getBoundingClientRect();
-    HUD = new CSS2DRenderer();
-    HUD.setSize(HUDwidth, HUDheight);
-    HUD.domElement.style.position = "absolute";
-    HUD.domElement.style.top = canvasRect.top + "px";
-    HUD.domElement.style.left = canvasRect.left + "px";
-    HUD.domElement.style.pointerEvents = 'none'; // ensures mouse clicks pass through the HUD to the underlying canvas     
-    // HUD.domElement.style.backgroundColor = "#ff0000";
+    myLabels = new CSS2DRenderer();
+    myLabels.setSize(myLabelsWidth, myLabelsHeight);
+    myLabels.domElement.style.position = "absolute";
+    myLabels.domElement.style.top = canvasRect.top + "px";
+    myLabels.domElement.style.left = canvasRect.left + "px";
+    myLabels.domElement.style.pointerEvents = 'none'; // ensures mouse clicks pass through the HUD to the underlying canvas     
+    // myLabels.domElement.style.backgroundColor = "#ff0000";
     
 
-    document.body.appendChild(HUD.domElement);
-    // HUD.render(scene, camera);
+    document.body.appendChild(myLabels.domElement);
+    // myLabels.render(scene, camera);
 
     orbit = new MapControls(camera, canvas);
     // orbit = new MapControls(camera, labelRenderer.domElement);
@@ -102,7 +102,7 @@ async function render(){
 
     // labelRenderer.render(scene, camera);
     renderer.render(scene, camera);
-    HUD.render(scene, camera);            
+    myLabels.render(scene, camera);            
     requestAnimationFrame(render);
 
 }
@@ -119,10 +119,12 @@ function populate(){
     addGaugeElements();
     console.log(thisID + "... gauge elements: OK");
 
-    scene.add(auxElements);
+    scene.add(auxElements);    
 
     console.log(thisID + "Calling requestAnimationFrame(render).");
     requestAnimationFrame(render);
+
+    initHUD();
 
     console.log(thisID + "Done.");
 

@@ -27,7 +27,7 @@ function addLight(x, y, z, color, myName){
     let myFunc = "addLight(): ";
     let thisID = mySceneFunctionFile + myFunc;
 
-    console.log(thisID + "(" + x + ", " + y + ", " + z + ", " + color + "): Hi."); 
+    // console.log(thisID + "(" + x + ", " + y + ", " + z + ", " + color + "): Hi."); 
 
     const intensity = 3;
     const distance = 0;
@@ -52,7 +52,7 @@ function addSphere(myPos, myColour, myRadius){
     let myFunc = "addSphere(): ";
     let thisID = mySceneFunctionFile + myFunc;
 
-    console.log(thisID + "Adding " + myColour + " sphere at (" + myPos.x + ", " + myPos.y + ", " + myPos.z + ").");
+    // console.log(thisID + "Adding " + myColour + " sphere at (" + myPos.x + ", " + myPos.y + ", " + myPos.z + ").");
 
     const geometry = new THREE.SphereGeometry(myRadius, 32, 16);
     const material = new THREE.MeshPhongMaterial({ color: myColour, transparent: false });

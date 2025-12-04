@@ -50,7 +50,7 @@ function getTelemetry(myTable, myMode){
                         getTelemetry("whimc_player_positions", "live");
                         // if (BW == true){ BWRoomTally(); }
                     
-                    }, 1000);
+                    }, 500);
             
                 }
 
