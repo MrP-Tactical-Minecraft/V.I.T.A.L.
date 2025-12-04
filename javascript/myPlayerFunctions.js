@@ -88,6 +88,7 @@ class Player{
 
             this.status = null;
             this.addSprite(this.position, this.colour, this.gamemode);
+            this.addLabel(this.callsign, this.position);
 
         }
 
@@ -234,6 +235,8 @@ class Player{
         const label = scene.getObjectByName("label_" + this.callsign);
         const myDiv = document.getElementById("label_div_" + this.callsign);
 
+        if ((!label) || (!myDiv)){ return; }
+
         label.position.x = this.position.x;
         label.position.y = this.position.y;
         label.position.z = this.position.z - 5;
@@ -248,6 +251,23 @@ class Player{
 
         myDiv.textContent = myText;
         myDiv.style.color = myColour;
+
+    }
+
+    deleteLabel(){
+
+        let myFunc = "deleteLabel(): ";
+        console.log(this.ID + myFunc + "Deleting label for " + this.name + ".");
+
+        let label = scene.getObjectByName("label_" + this.callsign);
+        let myDiv = document.getElementById("label_div_" + this.callsign); 
+        
+        if (!label){ return; }
+        scene.remove(label);
+
+        if (myDiv && myDiv.parentNode){ myDiv.parentNode.removeChild(myDiv); }
+
+        label = null;
 
     }
 
@@ -326,6 +346,8 @@ class Player{
         let mySprite = scene.getObjectByName(searchName);
         scene.remove(mySprite);
         disposeObject(mySprite);
+
+        this.deleteLabel();
 
     }
 
