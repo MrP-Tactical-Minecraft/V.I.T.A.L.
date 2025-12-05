@@ -124,6 +124,10 @@ class Tower{
 
         console.log(this.ID + "Adding the Sepia Tower skyscraper to the scene... OK");
 
+        console.log(this.ID + "Calling startTypingEffect().");
+        const text = "Adding the Sepia Tower skyscraper to the scene... OK";
+        startTypingEffect(document, 'typing-text', text);
+
     }
 
     addAllColumns(){
@@ -410,7 +414,7 @@ function colourWireFrame(myName, myColour){
 
     let myFunc = "colorWireFrame(" + myName + ", " + myColour + "): ";
     let thisID = mySceneFunctionFile + myFunc;    
-    console.log(thisID + "Hi.");
+    // console.log(thisID + "Hi.");
 
     let obj = scene.getObjectByName(myName);
 
@@ -429,11 +433,28 @@ function colourWireFrame(myName, myColour){
 
             console.log(thisID + "ERROR! User input myColour=" + myColour + " is invalid (expected: #rrggbb or #rgb).");
 
-        }
-
-        
+        }        
 
     }
+
+}
+
+function dehighlightAllWireFrames(){
+
+    let myFunc = "dehighlightAllWireFrames(): ";
+    let thisID = mySceneFunctionFile + myFunc;    
+    // console.log(thisID + "Hi.");
+
+    for (let myFloor = 0; myFloor < 25; myFloor++){ colourWireFrame("Floor " + myFloor, "#406040"); }    
+
+    for (let myFloor = 25; myFloor < 29; myFloor++){
+
+        colourWireFrame("Floor " + myFloor + " N", "#406040");
+        colourWireFrame("Floor " + myFloor + " S", "#406040");
+
+    }
+
+    for (let myFloor = 29; myFloor < 35; myFloor++){ colourWireFrame("Floor " + myFloor, "#406040"); }
 
 }
 

@@ -52,7 +52,6 @@
                 else { die('Database connection: NOK :/' . mysqli_error()); } 
                 
                 ?></p>
-            <span id="typing-text"></span>
             <p class="description">
                 This fixed-width sidebar (30%) is designed for navigation, settings, or displaying detailed metadata. It maintains consistency regardless of the right panel's dynamic content.
             </p>
@@ -177,6 +176,7 @@
                 <div id="hud">
                     <div id="floors-container"></div>
                 </div>
+                <span id="typing-text"></span>
             </div>
 
             <p class="description">
@@ -234,10 +234,6 @@
 
             console.log(myID + "Calling changeTitle().");
             changeTitle(document);
-
-            console.log(myID + "Calling startTypingEffect().");
-            const text = "Watch me appear one character at a time!";
-            startTypingEffect(document, 'typing-text', text);
 
             console.log(myID + "Calling main().");
             main();

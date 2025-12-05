@@ -11,7 +11,7 @@ function changeTitle(myDocument){
 
 }
 
-function startTypingEffect(myDocument, elementId, textToType, speed = 75) {
+function startTypingEffect(myDocument, elementId, textToType, speed = 10) {
     
     let myFunc = "startTypingEffect(): ";
     let myID = myAuxFile + myFunc;
@@ -38,8 +38,42 @@ function startTypingEffect(myDocument, elementId, textToType, speed = 75) {
     // Clear any existing content and start
     element.innerHTML = '';
     typeWriter();
+    startTextFadeTimer(5);
 
     console.log(myID + "Done.");
+
+}
+
+function startTextFadeTimer(delayInSeconds){
+
+    let myFunc = "startTextFadeTime(" + delayInSeconds + "): ";
+    let myID = myAuxFile + myFunc;
+
+    const typingTextElement = document.getElementById("typing-text");
+    const delayInMilliseconds = delayInSeconds * 1000;
+
+    if (!typingTextElement){
+
+        console.error(myID + "Element with ID 'typing-text' not found.");
+        return;
+
+    }
+
+    setTimeout(() => {
+
+        typingTextElement.classList.add('fade-out');
+
+        setTimeout(() => {
+
+            // remove the text element
+            if (typingTextElement){
+                typingTextElement.innerHTML = '';
+                typingTextElement.classList.remove('fade-out');
+            }
+
+        }, 1000); // these 1000ms match the CSS transition of .fade-out
+
+    }, delayInMilliseconds);
 
 }
 

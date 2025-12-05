@@ -27,6 +27,9 @@ class Player{
 
         console.log(this.ID + myName + " instantiated.");
 
+        const text = this.ID + myName + " instantiated.";
+        startTypingEffect(document, 'typing-text', text);
+
     }
 
     static create(myName, myGamemode, myPosition, myTimestamp, myWorld){
@@ -352,6 +355,51 @@ class Player{
         disposeObject(mySprite);
 
         this.deleteLabel();
+
+    }
+
+    checkPos(){
+
+        let myFunc ="checkPos(): ";
+        let pos = "[" + this.position.x + ", " + this.position.y + ", " + this.position.z + "]";
+        // console.log(this.ID + myFunc + "Checking " + this.name + "'s position as " + pos);
+
+        if ((this.position.x >= 9306) && (this.position.x <= 9387)){
+
+            if ((this.position.y >= 732) && (this.position.y <= 813)){
+
+                if ((-this.position.z >= 65) && (-this.position.z <= 307)){
+
+                    let myFloor = Math.trunc(parseInt(-this.position.z - 65)/7);
+                    // console.log("This player is on floor " + myFloor + " of the tower.");
+
+                    highlightHUDFloor(myFloor);
+
+                    if ((myFloor >= 25) && (myFloor <= 28)){
+
+                        if ((this.position.y >= 732) && (this.position.y <= 763)){ 
+                            
+                            colourWireFrame("Floor " + myFloor + " N", "#6ee7b7"); 
+                        
+                        }
+
+                        if ((this.position.y >= 781) && (this.position.y <= 815)){ 
+                            
+                            colourWireFrame("Floor " + myFloor + " S", "#6ee7b7"); 
+                        
+                        }
+
+                    } else {
+
+                        colourWireFrame("Floor " + myFloor, "#6ee7b7");
+
+                    } 
+                    
+                }
+
+            }
+
+        }
 
     }
 

@@ -155,13 +155,20 @@ body {
 
 /* --- Typing Effect Specific Styles --- */
 #typing-text {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    z-index: 10;
+
     display: inline-block;
     white-space: nowrap; /* Prevent text from wrapping */
     overflow: hidden; /* Hide extra characters */
     color: #059669; /* Darker emerald color */
     font-family: monospace; /* A classic terminal font */
-    font-size: 1rem;
+    font-size: 0.6rem;
     font-weight: 600;
+
+    transition: opacity 1s ease-out;
 }
 
 /* Blinking Cursor Effect using a pseudo-element */
@@ -170,6 +177,15 @@ body {
     margin-left: 0.125rem;
     animation: blink 0.7s step-end infinite;
     font-weight: 600;
+}
+
+.fade-out {
+    opacity: 0;
+}
+
+.emphasis{
+    color: #6ee7b7;
+    font-weight: 900;
 }
 
 @keyframes blink {

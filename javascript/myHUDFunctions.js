@@ -46,7 +46,7 @@ function highlightHUDFloor(myFloor){
 
     let myFunc = "highlightHUDFloor(" + myFloor + "): ";
     let myID = myHUDFuncsFile + myFunc;
-    console.log(myID + "Hi!");
+    // console.log(myID + "Hi!");
 
     const floorToHighlight = document.querySelector(`[data-floor="${myFloor}"]`);
 
@@ -61,6 +61,18 @@ function highlightHUDFloor(myFloor){
 
     }
 
-    colourWireFrame("Floor " + myFloor, "#6ee7b7");
+}
+
+function dehighlightAllHUDFloors(){
+
+    let myFunc = "dehighlightAllHUDFloors(): ";
+    let myID = myHUDFuncsFile + myFunc;
+    // console.log(myID + "Hi!");
+
+    const allFloorSquares = document.querySelectorAll('.floor_square_highlight');
+    allFloorSquares.forEach(square => {
+        square.classList.remove('floor_square_highlight');
+        square.classList.add('floor_square');
+    });
 
 }

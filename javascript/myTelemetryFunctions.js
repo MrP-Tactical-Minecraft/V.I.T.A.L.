@@ -38,6 +38,7 @@ function getTelemetry(myTable, myMode){
         success:function(results) {
 
             myTelemetry = JSON.parse(results);
+            updateScenery();
             updatePlayerRoster();
 
             if (myMode == "live"){
@@ -62,6 +63,17 @@ function getTelemetry(myTable, myMode){
         }
 
     });
+
+}
+
+function updateScenery(){
+
+    let myFunc = "updateScenery(): ";
+    let myID = myTelemetryFunctionsFile + myFunc;
+    console.log(myID + "Hi!");
+
+    dehighlightAllHUDFloors();
+    dehighlightAllWireFrames();
 
 }
 
@@ -182,6 +194,8 @@ function updatePlayerRoster(){
         const world = playerObject.world;
 
         // console.log(myID + "Comparing " + timestamp + " against now: " + parseInt(now - timestamp).toFixed(0));
+
+        playerObject.checkPos(); // this function checks the position for every player and highlights floors etc.
 
         if (world == "world"){
 
