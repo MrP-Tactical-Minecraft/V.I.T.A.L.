@@ -70,7 +70,7 @@ function updateScenery(){
 
     let myFunc = "updateScenery(): ";
     let myID = myTelemetryFunctionsFile + myFunc;
-    console.log(myID + "Hi!");
+    // console.log(myID + "Hi!");
 
     dehighlightAllHUDFloors();
     dehighlightAllWireFrames();

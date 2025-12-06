@@ -72,7 +72,7 @@ function loadMyChunks(myLocation){
 
 }
 
-function loadScript(url, callback){
+function OLDloadScript(url, callback){
 
     let myFunc = "loadScript(" + url + "): ";
     let myID = myChunkFuncsFile + myFunc;
@@ -81,11 +81,44 @@ function loadScript(url, callback){
     const newScript = document.createElement('script');
     newScript.src = url;
 
-    if (callback){ newScript.onload = () => { callback(); }; }
+    if (callback){ newScript.onload = () => { callback(); }; } 
 
     newScript.onerror = () => { console.error(`Failed to load script: ${url}`); };
 
     document.head.appendChild(newScript);
+
+}
+
+function loadScript(url, callback){
+
+    let myFunc = "loadScript(" + url + "): ";
+    let myID = myChunkFuncsFile + myFunc;
+    console.log(myID + "Hi!");
+
+    return new Promise((resolve, reject) => {
+
+        const newScript = document.createElement('script');
+        newScript.src = url;   
+        newScript.async = true; 
+        
+        // the callback will only be executed *after* the external library has finished loading
+        if (callback){ 
+            
+            newScript.onload = () => { callback(); }; 
+            resolve(url);
+        
+        }
+
+        newScript.onerror = () => { 
+            
+            console.error(`Failed to load script: ${url}`); 
+            reject(new Error(`Failed to load script ${url}`));
+        
+        };
+
+        document.head.appendChild(newScript);
+
+    });
 
 }
 
@@ -152,12 +185,27 @@ function addBlockToOverlay(myX, myY, myZ, myColour){
 function clearOverlayBlocks(){
 
     let mySVG = document.getElementById("floor-overlay");
-
     while (mySVG.lastChild) { mySVG.removeChild(mySVG.lastChild); }
 
 }
 
-function addCircleToOverlay(myX, myZ, myColour){
+function clearFloorPlan(){
+
+    const targetGroupName = "myBlockGroup";
+    const groupExists = scene.getObjectByName(targetGroupName);
+
+    if (groupExists){
+
+        groupExists.parent.remove(groupExists);
+        disposeObject(groupExists);
+
+    }
+
+    clearOverlayBlocks();   
+
+}
+
+function addCircleToOverlay(myX, myZ, myColour, myName){
 
     // console.log("addCircleToOverlay(): Hi.");
 
@@ -170,8 +218,22 @@ function addCircleToOverlay(myX, myZ, myColour){
     circ.setAttribute('cy', myZ*2 - 10);
     circ.setAttribute('r', 2);
     circ.setAttribute('style', 'fill:' + myColour);
+    circ.setAttribute('id', 'circ' + myName);
     
     mySVG.appendChild(circ);
+
+}
+
+function clearCircleFromOverlay(myName){
+
+    let myCirc = document.getElementById(myName);
+    let mySVG = document.getElementById("floor-overlay");
+
+    if ((myCirc) && (mySVG)){
+
+        mySVG.removeChild(myCirc);
+
+    }
 
 }
 

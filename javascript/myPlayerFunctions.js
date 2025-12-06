@@ -11,6 +11,7 @@ class Player{
         this.name = myName;  
         this.gamemode = myGamemode; // SURVIVAL / CREATIVE / SPECTATOR / OFFLINE / NOT IN THE OVERWORLD
         this.position = myPosition; // Position, THREE.Vector3(x,y,z)
+        this.oldZ = null; // save last known z-Position (relevant only for floor plan display)
         this.timestamp = myTimestamp; // timestamp of last login
         this.world = myWorld;
 
@@ -236,7 +237,7 @@ class Player{
     updateLabel(myColour){
 
         let myFunc = "updateLabel(): ";
-        console.log(this.ID + myFunc + "Updating label for " + this.name + " depending on gamemode or camera/map focus.");
+        // console.log(this.ID + myFunc + "Updating label for " + this.name + " depending on gamemode or camera/map focus.");
 
         const label = scene.getObjectByName("label_" + this.callsign);
         const myDiv = document.getElementById("label_div_" + this.callsign);
@@ -333,7 +334,7 @@ class Player{
             sprite.position.y = myPos.y;
             sprite.position.z = myPos.z;
 
-            sprite.scale.set(5, 5, 1);
+            sprite.scale.set(4, 4, 1);
 
             sprite.name = "sprite_" + this.name;
 
@@ -358,69 +359,96 @@ class Player{
 
     }
 
+    isPlayerInTower(){
+
+        let pos = this.position;
+
+        if ((pos.x >= 9306) && (pos.x <= 9387) && (pos.y >= 732) && (pos.y <= 813) && (-pos.z >= 65) && (-pos.z <= 307)){
+
+            // console.log("isPlayerInTower(): Player " + this.name + " is in the tower.");
+            return true;
+
+        } else { 
+
+            // console.log("isPlayerInTower(): Player " + this.name + " is *NOT* in the tower.");
+            return false; 
+        }
+
+    }
+
     checkPos(){
 
         let myFunc ="checkPos(): ";
         let pos = "[" + this.position.x + ", " + this.position.y + ", " + this.position.z + "]";
         // console.log(this.ID + myFunc + "Checking " + this.name + "'s position as " + pos);
+        
+        let playerFocus = document.getElementById("player-focus").value; 
+        if (playerFocus != this.name){ 
+            
+            clearFloorPlan();             
+            this.oldZ = null; 
+        
+        } 
 
-        const targetGroupName = "myBlockGroup";
-        const groupExists = scene.getObjectByName(targetGroupName);
+        if (this.isPlayerInTower()){
 
-        if (groupExists){
+            let myFloor = Math.trunc(parseInt(-this.position.z - 65)/7);
+            // console.log("This player is on floor " + myFloor + " of the tower.");
 
-            groupExists.parent.remove(groupExists);
-            disposeObject(groupExists);
+            // highlight the floor HUD
+            highlightHUDFloor(myFloor);
 
-        }
+            // highlight the Wireframes
+            if ((myFloor >= 25) && (myFloor <= 28)){
 
-        clearOverlayBlocks();
+                if ((this.position.y >= 732) && (this.position.y <= 763)){ 
+                    
+                    colourWireFrame("Floor " + myFloor + " N", "#6ee7b7"); 
+                
+                }
 
-        if ((this.position.x >= 9306) && (this.position.x <= 9387)){
+                if ((this.position.y >= 781) && (this.position.y <= 815)){ 
+                    
+                    colourWireFrame("Floor " + myFloor + " S", "#6ee7b7"); 
+                
+                }
 
-            if ((this.position.y >= 732) && (this.position.y <= 813)){
+            } else {
 
-                if ((-this.position.z >= 65) && (-this.position.z <= 307)){
+                colourWireFrame("Floor " + myFloor, "#6ee7b7");
 
-                    let myFloor = Math.trunc(parseInt(-this.position.z - 65)/7);
-                    // console.log("This player is on floor " + myFloor + " of the tower.");
+            } 
 
-                    // highlight the floor HUD
-                    highlightHUDFloor(myFloor);
+            // display the floor layout in the 3D engine IF the this player is selected as the focus                        
+            // console.log(this.ID + myFunc + "Checking if " + this.name + " is selected as the map focus.");
 
-                    addCircleToOverlay(this.position.x - 9295, this.position.y - 719, this.colour);
+            if (playerFocus == this.name){
 
-                    // highlight the Wireframes
-                    if ((myFloor >= 25) && (myFloor <= 28)){
+                clearCircleFromOverlay("circ" + this.name);
+                addCircleToOverlay(this.position.x - 9295, this.position.y - 719, this.colour, this.name);
 
-                        if ((this.position.y >= 732) && (this.position.y <= 763)){ 
-                            
-                            colourWireFrame("Floor " + myFloor + " N", "#6ee7b7"); 
-                        
-                        }
+                if (this.position.z != this.oldZ){                            
 
-                        if ((this.position.y >= 781) && (this.position.y <= 815)){ 
-                            
-                            colourWireFrame("Floor " + myFloor + " S", "#6ee7b7"); 
-                        
-                        }
+                    console.log(this.ID + myFunc + "Updating floor plan for player " + this.name + ".");
 
-                    } else {
+                    clearFloorPlan();
 
-                        colourWireFrame("Floor " + myFloor, "#6ee7b7");
-
-                    } 
-
-                    // display the floor layout in the 3D engine
-                        
                     let myBlockGroup = new THREE.Group();
                     myBlockGroup.name = "myBlockGroup";
 
-                    displayBlocksOfCertainLevel(-this.position.z, myBlockGroup);
-                    
+                    displayBlocksOfCertainLevel(-this.position.z, myBlockGroup);                        
+
+                    this.oldZ = this.position.z;
+
                 }
 
             }
+                    
+        } else {
+
+            // the next block clears the floor plan from the 3D engine and the 2D overlay if the player is outside the tower
+
+            if (playerFocus == this.name){ clearFloorPlan(); }
 
         }
 

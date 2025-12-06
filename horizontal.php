@@ -155,13 +155,11 @@
             </div>
                 
             <div class="panel-dropdown-group">
-                <label for="system-select" class="dropdown-label">SYSTEM SELECT</label>
+                <label for="system-select" class="dropdown-label">PLAYER FOCUS</label>
                 <div class="dropdown-wrapper">
-                    <select id="system-select" class="cockpit-dropdown">
-                        <option value="nav">NAV/GPS</option>
-                        <option value="com1">COM 1</option>
-                        <option value="xfdr">TRANSPONDER</option>
-                        <option value="fuel">FUEL SYSTEM</option>
+                    <select id="player-focus" class="cockpit-dropdown">
+                        <option value="Hyalan">Hyalan</option>
+                        <option value="T3ipel">T3ipel</option>
                     </select>
                 </div>
             </div>
