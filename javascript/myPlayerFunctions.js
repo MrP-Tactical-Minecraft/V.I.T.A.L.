@@ -364,6 +364,18 @@ class Player{
         let pos = "[" + this.position.x + ", " + this.position.y + ", " + this.position.z + "]";
         // console.log(this.ID + myFunc + "Checking " + this.name + "'s position as " + pos);
 
+        const targetGroupName = "myBlockGroup";
+        const groupExists = scene.getObjectByName(targetGroupName);
+
+        if (groupExists){
+
+            groupExists.parent.remove(groupExists);
+            disposeObject(groupExists);
+
+        }
+
+        clearOverlayBlocks();
+
         if ((this.position.x >= 9306) && (this.position.x <= 9387)){
 
             if ((this.position.y >= 732) && (this.position.y <= 813)){
@@ -373,8 +385,12 @@ class Player{
                     let myFloor = Math.trunc(parseInt(-this.position.z - 65)/7);
                     // console.log("This player is on floor " + myFloor + " of the tower.");
 
+                    // highlight the floor HUD
                     highlightHUDFloor(myFloor);
 
+                    addCircleToOverlay(this.position.x - 9295, this.position.y - 719, this.colour);
+
+                    // highlight the Wireframes
                     if ((myFloor >= 25) && (myFloor <= 28)){
 
                         if ((this.position.y >= 732) && (this.position.y <= 763)){ 
@@ -394,6 +410,13 @@ class Player{
                         colourWireFrame("Floor " + myFloor, "#6ee7b7");
 
                     } 
+
+                    // display the floor layout in the 3D engine
+                        
+                    let myBlockGroup = new THREE.Group();
+                    myBlockGroup.name = "myBlockGroup";
+
+                    displayBlocksOfCertainLevel(-this.position.z, myBlockGroup);
                     
                 }
 

@@ -52,3 +52,13 @@
     color: #333;
     box-shadow: 0 0 8px #6ee7b7; /* Subtle glowing effect */
 }
+
+#floor-overlay {
+
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 2;
+    pointer-events: none;
+
+}

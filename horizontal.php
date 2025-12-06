@@ -22,6 +22,7 @@
     <script src="javascript/myPlayerFunctions.js" defer></script>
     <script src="javascript/myTelemetryFunctions.js" defer></script>
     <script src="javascript/myHUDFunctions.js" defer></script>
+    <script src="javascript/myChunkFunctions.js" defer></script>
     <SCRIPT src="javascript/jquery.min.js">/* for the AJAX contruct */</SCRIPT>
 </head>
 
@@ -177,6 +178,8 @@
                     <div id="floors-container"></div>
                 </div>
                 <span id="typing-text"></span>
+                <svg id="floor-overlay" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+                </svg>
             </div>
 
             <p class="description">
@@ -225,6 +228,8 @@
         let flagTelemetry = null;
 
         let myPlayers = [];
+
+        let A = []; // this is the main array to store chunk data in
 
         function init(){
 

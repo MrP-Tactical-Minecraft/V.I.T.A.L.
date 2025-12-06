@@ -1,0 +1,212 @@
+let myChunkFuncsFile = "[myChunkFunctions.js] ";
+
+function loadMyChunks(myLocation){
+
+    let myFunc = "loadMyChunks(" + myLocation + "): ";
+    let myID = myChunkFuncsFile + myFunc;
+    console.log(myID + "Loading...");
+
+    if (myLocation == "tower"){
+
+        loadScript('./chunk_data/tower/chunk5-13.js', () => { 
+            // this is the callback that will only be executed *after* the external library has finished loading           
+            addChunk_5_13(0,0); 
+        });
+
+        loadScript('./chunk_data/tower/chunk5-14.js', () => { addChunk_5_14(0,1*16); });
+        loadScript('./chunk_data/tower/chunk5-15.js', () => { addChunk_5_15(0,2*16); });
+        loadScript('./chunk_data/tower/chunk5-16.js', () => { addChunk_5_16(0,3*16); });
+        loadScript('./chunk_data/tower/chunk5-17.js', () => { addChunk_5_17(0,4*16); });
+        loadScript('./chunk_data/tower/chunk5-18.js', () => { addChunk_5_18(0,5*16); });
+        loadScript('./chunk_data/tower/chunk5-19.js', () => { addChunk_5_19(0,6*16); });
+
+        loadScript('./chunk_data/tower/chunk6-13.js', () => { addChunk_6_13(1*16,0); });
+        loadScript('./chunk_data/tower/chunk6-14.js', () => { addChunk_6_14(1*16,1*16); });
+        loadScript('./chunk_data/tower/chunk6-15.js', () => { addChunk_6_15(1*16,2*16); });
+        loadScript('./chunk_data/tower/chunk6-16.js', () => { addChunk_6_16(1*16,3*16); });
+        loadScript('./chunk_data/tower/chunk6-17.js', () => { addChunk_6_17(1*16,4*16); });
+        loadScript('./chunk_data/tower/chunk6-18.js', () => { addChunk_6_18(1*16,5*16); });
+        loadScript('./chunk_data/tower/chunk6-19.js', () => { addChunk_6_19(1*16,6*16); });      
+        
+        loadScript('./chunk_data/tower/chunk7-13.js', () => { addChunk_7_13(2*16,0); });
+        loadScript('./chunk_data/tower/chunk7-14.js', () => { addChunk_7_14(2*16,1*16); });
+        loadScript('./chunk_data/tower/chunk7-15.js', () => { addChunk_7_15(2*16,2*16); });
+        loadScript('./chunk_data/tower/chunk7-16.js', () => { addChunk_7_16(2*16,3*16); });
+        loadScript('./chunk_data/tower/chunk7-17.js', () => { addChunk_7_17(2*16,4*16); });
+        loadScript('./chunk_data/tower/chunk7-18.js', () => { addChunk_7_18(2*16,5*16); });
+        loadScript('./chunk_data/tower/chunk7-19.js', () => { addChunk_7_19(2*16,6*16); });
+
+        loadScript('./chunk_data/tower/chunk8-13.js', () => { addChunk_8_13(3*16,0); });
+        loadScript('./chunk_data/tower/chunk8-14.js', () => { addChunk_8_14(3*16,1*16); });
+        loadScript('./chunk_data/tower/chunk8-15.js', () => { addChunk_8_15(3*16,2*16); });
+        loadScript('./chunk_data/tower/chunk8-16.js', () => { addChunk_8_16(3*16,3*16); });
+        loadScript('./chunk_data/tower/chunk8-17.js', () => { addChunk_8_17(3*16,4*16); });
+        loadScript('./chunk_data/tower/chunk8-18.js', () => { addChunk_8_18(3*16,5*16); });
+        loadScript('./chunk_data/tower/chunk8-19.js', () => { addChunk_8_19(3*16,6*16); });
+
+        loadScript('./chunk_data/tower/chunk9-13.js', () => { addChunk_9_13(4*16,0); });
+        loadScript('./chunk_data/tower/chunk9-14.js', () => { addChunk_9_14(4*16,1*16); });
+        loadScript('./chunk_data/tower/chunk9-15.js', () => { addChunk_9_15(4*16,2*16); });
+        loadScript('./chunk_data/tower/chunk9-16.js', () => { addChunk_9_16(4*16,3*16); });
+        loadScript('./chunk_data/tower/chunk9-17.js', () => { addChunk_9_17(4*16,4*16); });
+        loadScript('./chunk_data/tower/chunk9-18.js', () => { addChunk_9_18(4*16,5*16); });
+        loadScript('./chunk_data/tower/chunk9-19.js', () => { addChunk_9_19(4*16,6*16); });
+
+        loadScript('./chunk_data/tower/chunk10-13.js', () => { addChunk_10_13(5*16,0); });
+        loadScript('./chunk_data/tower/chunk10-14.js', () => { addChunk_10_14(5*16,1*16); });
+        loadScript('./chunk_data/tower/chunk10-15.js', () => { addChunk_10_15(5*16,2*16); });
+        loadScript('./chunk_data/tower/chunk10-16.js', () => { addChunk_10_16(5*16,3*16); });
+        loadScript('./chunk_data/tower/chunk10-17.js', () => { addChunk_10_17(5*16,4*16); });
+        loadScript('./chunk_data/tower/chunk10-18.js', () => { addChunk_10_18(5*16,5*16); });
+        loadScript('./chunk_data/tower/chunk10-19.js', () => { addChunk_10_19(5*16,6*16); });
+
+        loadScript('./chunk_data/tower/chunk11-13.js', () => { addChunk_11_13(6*16,0); });
+        loadScript('./chunk_data/tower/chunk11-14.js', () => { addChunk_11_14(6*16,1*16); });
+        loadScript('./chunk_data/tower/chunk11-15.js', () => { addChunk_11_15(6*16,2*16); });
+        loadScript('./chunk_data/tower/chunk11-16.js', () => { addChunk_11_16(6*16,3*16); });
+        loadScript('./chunk_data/tower/chunk11-17.js', () => { addChunk_11_17(6*16,4*16); });
+        loadScript('./chunk_data/tower/chunk11-18.js', () => { addChunk_11_18(6*16,5*16); });
+        loadScript('./chunk_data/tower/chunk11-19.js', () => { addChunk_11_19(6*16,6*16); });
+
+    }
+
+}
+
+function loadScript(url, callback){
+
+    let myFunc = "loadScript(" + url + "): ";
+    let myID = myChunkFuncsFile + myFunc;
+    console.log(myID + "Hi!"); 
+    
+    const newScript = document.createElement('script');
+    newScript.src = url;
+
+    if (callback){ newScript.onload = () => { callback(); }; }
+
+    newScript.onerror = () => { console.error(`Failed to load script: ${url}`); };
+
+    document.head.appendChild(newScript);
+
+}
+
+function addSingleBlock(myX, myY, myZ, myColour, myGroup){
+
+    // console.log("addSingleBlock(" + myX + ", " + myY + ", " + myZ + ", " + myColour + "): Adding to 3D map.");
+
+    const geometry = new THREE.BoxGeometry(1,1,1);
+    let material = null;
+
+    if ((myColour == "") || (myColour == null)) { material = new THREE.MeshPhongMaterial({color: 0x808080, transparent: false, opacity: 0.2}); }
+    if (myColour == "solid_white"){ material = new THREE.MeshPhongMaterial({color: 0xc0c0c0, transparent: false, opacity: 1.0}); }
+    if (myColour == "solid_yellow"){ material = new THREE.MeshPhongMaterial({color: 0xffff00, transparent: false, opacity: 1.0}); }
+    if (myColour == "solid_red"){ material = new THREE.MeshPhongMaterial({color: 0xff0000, transparent: false, opacity: 1.0}); }
+    if (myColour == "solid_orange"){ material = new THREE.MeshPhongMaterial({color: 0xff8800, transparent: false, opacity: 1.0}); }
+    if (myColour == "solid_green"){ material = new THREE.MeshPhongMaterial({color: 0x00ff00, transparent: false, opacity: 1.0}); }
+    if (myColour == "solid_brown"){ material = new THREE.MeshPhongMaterial({color: 0xaa8866, transparent: false, opacity: 1.0}); }
+    if (myColour == "lime_green"){ material = new THREE.MeshPhongMaterial({color: 0xb9ff66, transparent: false, opacity: 1.0}); }
+    if (myColour == "solid_blue"){ material = new THREE.MeshPhongMaterial({color: 0x0000ff, transparent: false, opacity: 1.0}); }
+    if (myColour == "solid_pink"){ material = new THREE.MeshPhongMaterial({color: 0xff00ff, transparent: false, opacity: 1.0}); }
+    
+    const block = new THREE.Mesh(geometry, material);
+
+    block.position.x = myX + 9346 - 50;  
+    block.position.z = -myY;
+    block.position.y = myZ + 772 - 52;
+
+    myGroup.add(block);
+
+}
+
+function addBlockToOverlay(myX, myY, myZ, myColour){
+
+    let myFunc = "addBlockToOverlay(): ";
+    let myID = myChunkFuncsFile + myFunc;
+    // console.log(myID + "Hi!");
+
+    let mySVG = document.getElementById("floor-overlay");
+
+    let svgns = "http://www.w3.org/2000/svg";
+    let rect = document.createElementNS(svgns, 'rect');
+
+    if (myColour == "solid_white"){ inputColour = "#ffffff"; }
+    if (myColour == "solid_yellow"){ inputColour = "#ffff00"; }
+    if (myColour == "solid_orange"){ inputColour = "#ff8800"; }
+    if (myColour == "solid_red"){ inputColour = "#ff0000"; }
+    if (myColour == "solid_blue"){ inputColour = "#0000ff"; }
+    if (myColour == "solid_green"){ inputColour = "#00ff00"; }
+    if (myColour == "solid_brown"){ inputColour = "#aa8866"; }
+    if (myColour == "solid_pink"){ inputColour = "#ff00ff"; }
+    if (myColour == "lime_green"){ inputColour = "#b9ff66"; }
+    if ((myColour == "") || (myColour == null)){ inputColour = "#808080"; }
+
+    rect.setAttribute('x', myX*2 - 3);
+    rect.setAttribute('y', myZ*2 - 10);
+    rect.setAttribute('height', 2);
+    rect.setAttribute('width', 2);
+    // rect.setAttribute('fill', '#'+Math.round(0xffffff * Math.random()).toString(16));
+    rect.setAttribute('fill', inputColour)
+    mySVG.appendChild(rect);    
+
+}
+
+function clearOverlayBlocks(){
+
+    let mySVG = document.getElementById("floor-overlay");
+
+    while (mySVG.lastChild) { mySVG.removeChild(mySVG.lastChild); }
+
+}
+
+function addCircleToOverlay(myX, myZ, myColour){
+
+    // console.log("addCircleToOverlay(): Hi.");
+
+    let mySVG = document.getElementById("floor-overlay");
+
+    let svgns = "http://www.w3.org/2000/svg";
+    let circ = document.createElementNS(svgns, 'circle'); 
+    
+    circ.setAttribute('cx', myX*2 - 3);
+    circ.setAttribute('cy', myZ*2 - 10);
+    circ.setAttribute('r', 2);
+    circ.setAttribute('style', 'fill:' + myColour);
+    
+    mySVG.appendChild(circ);
+
+}
+
+function displayBlocksOfCertainLevel(myLevel, myGroup, inputColour, myType){
+
+    // console.log("[myFloorPlan.js] displayBlocksOfCertainLevel(" + myLevel + "): On it, chief!");
+
+    for (let i = 0; i < A.length; i++){
+
+        if (A[i][1] == myLevel){ 
+            
+            if ((myType == "") || (myType == null)){
+
+                if ((A[i][3] == 'stone') || (A[i][3] == 'light_gray_stained_glass') || (A[i][3] == 'gray_stained_glass') || (A[i][3] == 'black_stained_glass') || (A[i][3] == 'white_concrete') || (A[i][3] == 'light_gray_concrete') || (A[i][3] == 'gray_concrete') || (A[i][3] == 'black_concrete')){
+
+                    addSingleBlock(A[i][0], A[i][1], A[i][2], inputColour, myGroup);
+                    addBlockToOverlay(A[i][0], A[i][1], A[i][2], inputColour);
+
+                }
+                
+            } else {
+                
+                if (A[i][3] == myType){ 
+                    
+                    // console.log("displayBlocksOfCertainLevel(" + myLevel + ", " + inputColour + ", " + myType + "): Jo!");
+                    addSingleBlock(A[i][0], A[i][1], A[i][2], inputColour, myGroup); 
+                
+                }
+            
+            }
+
+        }
+
+    }
+
+    scene.add(myGroup);
+
+}
