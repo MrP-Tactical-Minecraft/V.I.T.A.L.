@@ -362,17 +362,16 @@ class Player{
     isPlayerInTower(){
 
         let pos = this.position;
+        let output = null;
 
-        if ((pos.x >= 9306) && (pos.x <= 9387) && (pos.y >= 732) && (pos.y <= 813) && (-pos.z >= 65) && (-pos.z <= 307)){
-
-            // console.log("isPlayerInTower(): Player " + this.name + " is in the tower.");
-            return true;
-
+        if ((pos.x >= 9306) && (pos.x <= 9387) && (pos.y >= 732) && (pos.y <= 813) && (-pos.z >= 65) && (-pos.z <= 307)){            
+            output = true;
         } else { 
-
-            // console.log("isPlayerInTower(): Player " + this.name + " is *NOT* in the tower.");
-            return false; 
+            output = false; 
         }
+
+        // console.log("isPlayerInTower(): Returning " + output + " for player " + this.name + ".");
+        return output;
 
     }
 
@@ -382,13 +381,7 @@ class Player{
         let pos = "[" + this.position.x + ", " + this.position.y + ", " + this.position.z + "]";
         // console.log(this.ID + myFunc + "Checking " + this.name + "'s position as " + pos);
         
-        let playerFocus = document.getElementById("player-focus").value; 
-        if (playerFocus != this.name){ 
-            
-            clearFloorPlan();             
-            this.oldZ = null; 
-        
-        } 
+        let playerFocus = document.getElementById("player-focus").value;  
 
         if (this.isPlayerInTower()){
 
@@ -429,14 +422,16 @@ class Player{
 
                 if (this.position.z != this.oldZ){                            
 
-                    console.log(this.ID + myFunc + "Updating floor plan for player " + this.name + ".");
+                    // console.log(this.ID + myFunc + "Updating floor plan for player " + this.name + ": pos.z = " + this.position.z + ", old.z = " + this.oldZ);
 
                     clearFloorPlan();
 
                     let myBlockGroup = new THREE.Group();
                     myBlockGroup.name = "myBlockGroup";
 
-                    displayBlocksOfCertainLevel(-this.position.z, myBlockGroup);                        
+                    displayBlocksOfCertainLevel(-this.position.z, myBlockGroup);   
+                    displayBlocksOfCertainLevel(-this.position.z, myBlockGroup, "solid_orange", "orange_stained_glass"); 
+                    displayBlocksOfCertainLevel(-this.position.z, myBlockGroup, "solid_green", "lime_stained_glass");                    
 
                     this.oldZ = this.position.z;
 
@@ -448,7 +443,13 @@ class Player{
 
             // the next block clears the floor plan from the 3D engine and the 2D overlay if the player is outside the tower
 
-            if (playerFocus == this.name){ clearFloorPlan(); }
+            if (playerFocus == this.name){ 
+
+                // console.log("Player " + this.name + " is not in the tower");
+                
+                clearFloorPlan(); 
+            
+            }
 
         }
 

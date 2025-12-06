@@ -116,6 +116,10 @@ class Tower{
         this.floors.name = "Skyscraper floors";
         this.addFloors();
 
+        this.elevators = new THREE.Group();
+        this.elevators.name = "Elevators";
+        this.addElevators();
+
         this.skyscraper.add(this.columns);
         this.skyscraper.add(this.atriums);
         this.skyscraper.add(this.logo);
@@ -209,7 +213,7 @@ class Tower{
 
     }
 
-    addColumn(columnSize, columnPosition){
+    addColumn(columnSize, columnPosition, columnColour, columnOpacity, columnHeight){
 
         let myFunc = "addColumn(" + columnSize + ", " + columnPosition + "): ";
         // console.log(this.ID + myFunc + "Added.");
@@ -219,18 +223,47 @@ class Tower{
         if (columnSize==2){ columnSide = 4; }
         if (columnSize==3){ columnSide = 2; }
 
-        const geometry = new THREE.BoxGeometry(columnSide,columnSide,245);
-        const material = new THREE.MeshPhongMaterial({color: 0xffffff, transparent: true, opacity: 0.1});
+        let setColour;
+        if (columnColour != null){ setColour = columnColour; } else { setColour = 0xffffff; }
+
+        let setOpacity;
+        if (columnOpacity != null){ setOpacity = columnOpacity; } else { setOpacity = 0.1; }
+
+        let setHeight;
+        if (columnHeight != null){ setHeight = columnHeight; } else { setHeight = 245; }
+
+        const geometry = new THREE.BoxGeometry(columnSide,columnSide,setHeight);
+        const material = new THREE.MeshPhongMaterial({color: setColour, transparent: true, opacity: setOpacity});
         const column = new THREE.Mesh(geometry, material);
         column.renderOrder = 2;
 
         column.position.x = columnPosition.x + columnSide/2;  
         column.position.y = columnPosition.z + columnSide/2;
-        column.position.z = -columnPosition.y - 245/2;
+        column.position.z = -columnPosition.y - setHeight/2;
 
         column.name = "Column (Size " + columnSize + ")";
 
         this.columns.add(column);
+
+    }
+
+    addElevators(){
+
+        let myFunc = "addElevators(): ";
+        // console.log(this.ID + myFunc + "Hi!");
+
+        // up elevators NW corner
+        this.addColumn(3, new THREE.Vector3(9332.5, 65, 758.5), "#00ff00", 0.5, 210);
+        this.addColumn(3, new THREE.Vector3(9332.5, 65, 761.5), "#00ff00", 0.5, 140);
+
+        // down elevators NE corner
+        this.addColumn(3, new THREE.Vector3(9358.5, 65, 758.5), "#ff8800", 0.5, 210);
+        this.addColumn(3, new THREE.Vector3(9358.5, 65, 761.5), "#ff8800", 0.5, 140);
+
+        // up elevators SE corner
+        this.addColumn(3, new THREE.Vector3(9358.5, 65, 781.5), "#00ff00", 0.5, 70);
+        this.addColumn(3, new THREE.Vector3(9358.5, 65, 784.5), "#00ff00", 0.5, 140); 
+        this.addColumn(3, new THREE.Vector3(9355.5, 65, 784.5), "#00ff00", 0.5, 140);       
 
     }
 

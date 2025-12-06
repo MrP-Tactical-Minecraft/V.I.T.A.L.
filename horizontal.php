@@ -157,7 +157,7 @@
             <div class="panel-dropdown-group">
                 <label for="system-select" class="dropdown-label">PLAYER FOCUS</label>
                 <div class="dropdown-wrapper">
-                    <select id="player-focus" class="cockpit-dropdown">
+                    <select id="player-focus" class="cockpit-dropdown" onChange="clearFloorPlan();">
                         <option value="Hyalan">Hyalan</option>
                         <option value="T3ipel">T3ipel</option>
                     </select>

@@ -72,23 +72,6 @@ function loadMyChunks(myLocation){
 
 }
 
-function OLDloadScript(url, callback){
-
-    let myFunc = "loadScript(" + url + "): ";
-    let myID = myChunkFuncsFile + myFunc;
-    console.log(myID + "Hi!"); 
-    
-    const newScript = document.createElement('script');
-    newScript.src = url;
-
-    if (callback){ newScript.onload = () => { callback(); }; } 
-
-    newScript.onerror = () => { console.error(`Failed to load script: ${url}`); };
-
-    document.head.appendChild(newScript);
-
-}
-
 function loadScript(url, callback){
 
     let myFunc = "loadScript(" + url + "): ";
@@ -194,6 +177,8 @@ function clearFloorPlan(){
     const targetGroupName = "myBlockGroup";
     const groupExists = scene.getObjectByName(targetGroupName);
 
+    // console.log("clearFloorPlan(): Hi!");
+
     if (groupExists){
 
         groupExists.parent.remove(groupExists);
@@ -201,7 +186,10 @@ function clearFloorPlan(){
 
     }
 
-    clearOverlayBlocks();   
+    clearOverlayBlocks();
+    
+    const roster = Player.roster;
+    roster.forEach(playerInstance => { playerInstance.oldZ = null; });
 
 }
 
@@ -260,6 +248,7 @@ function displayBlocksOfCertainLevel(myLevel, myGroup, inputColour, myType){
                     
                     // console.log("displayBlocksOfCertainLevel(" + myLevel + ", " + inputColour + ", " + myType + "): Jo!");
                     addSingleBlock(A[i][0], A[i][1], A[i][2], inputColour, myGroup); 
+                    addBlockToOverlay(A[i][0], A[i][1], A[i][2], inputColour);
                 
                 }
             
