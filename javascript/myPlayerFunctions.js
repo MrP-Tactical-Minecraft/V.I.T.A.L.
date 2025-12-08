@@ -364,7 +364,7 @@ class Player{
         let pos = this.position;
         let output = null;
 
-        if ((pos.x >= 9306) && (pos.x <= 9387) && (pos.y >= 732) && (pos.y <= 813) && (-pos.z >= 65) && (-pos.z <= 307)){            
+        if ((pos.x >= 9298) && (pos.x <= 9395) && (pos.y >= 724) && (pos.y <= 821) && (-pos.z >= 65) && (-pos.z <= 307)){            
             output = true;
         } else { 
             output = false; 

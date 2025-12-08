@@ -124,6 +124,7 @@ class Tower{
         this.skyscraper.add(this.atriums);
         this.skyscraper.add(this.logo);
         this.skyscraper.add(this.floors);
+        this.skyscraper.add(this.elevators);
         scene.add(this.skyscraper);
 
         console.log(this.ID + "Adding the Sepia Tower skyscraper to the scene... OK");
@@ -131,6 +132,8 @@ class Tower{
         console.log(this.ID + "Calling startTypingEffect().");
         const text = "Adding the Sepia Tower skyscraper to the scene... OK";
         startTypingEffect(document, 'typing-text', text);
+
+        loadMyChunks("tower");
 
     }
 
@@ -146,26 +149,26 @@ class Tower{
 
     addPrimaryColumns(){
 
-        this.addColumn(1, new THREE.Vector3(9298,65,724)); // NW
-        this.addColumn(1, new THREE.Vector3(9390,65,724)); // NE
-        this.addColumn(1, new THREE.Vector3(9390,65,816)); // SE
-        this.addColumn(1, new THREE.Vector3(9298,65,816)); // SW
+        this.addColumn(6, new THREE.Vector3(9298,65,724), "Column"); // NW
+        this.addColumn(6, new THREE.Vector3(9390,65,724), "Column"); // NE
+        this.addColumn(6, new THREE.Vector3(9390,65,816), "Column"); // SE
+        this.addColumn(6, new THREE.Vector3(9298,65,816), "Column"); // SW
 
     }
 
     addSecondaryColumns(){
 
-        this.addColumn(2, new THREE.Vector3(9334,65,726)); // NW
-        this.addColumn(2, new THREE.Vector3(9356,65,726));
+        this.addColumn(4, new THREE.Vector3(9334,65,726), "Column"); // NW
+        this.addColumn(4, new THREE.Vector3(9356,65,726), "Column");
 
-        this.addColumn(2, new THREE.Vector3(9390,65,760)); // NE
-        this.addColumn(2, new THREE.Vector3(9390,65,782)); 
+        this.addColumn(4, new THREE.Vector3(9390,65,760), "Column"); // NE
+        this.addColumn(4, new THREE.Vector3(9390,65,782), "Column"); 
         
-        this.addColumn(2, new THREE.Vector3(9356,65,816)); // SE
-        this.addColumn(2, new THREE.Vector3(9334,65,816)); 
+        this.addColumn(4, new THREE.Vector3(9356,65,816), "Column"); // SE
+        this.addColumn(4, new THREE.Vector3(9334,65,816), "Column"); 
         
-        this.addColumn(2, new THREE.Vector3(9300,65,782)); // SW
-        this.addColumn(2, new THREE.Vector3(9300,65,760));
+        this.addColumn(4, new THREE.Vector3(9300,65,782), "Column"); // SW
+        this.addColumn(4, new THREE.Vector3(9300,65,760), "Column");
 
     }
 
@@ -173,77 +176,91 @@ class Tower{
 
         // NW
 
-        this.addColumn(3, new THREE.Vector3(9310,65,728));
-        this.addColumn(3, new THREE.Vector3(9318,65,728));
-        this.addColumn(3, new THREE.Vector3(9326,65,728));
+        this.addColumn(2, new THREE.Vector3(9310,65,728), "Column");
+        this.addColumn(2, new THREE.Vector3(9318,65,728), "Column");
+        this.addColumn(2, new THREE.Vector3(9326,65,728), "Column");
 
-        this.addColumn(3, new THREE.Vector3(9366,65,728));
-        this.addColumn(3, new THREE.Vector3(9374,65,728));
-        this.addColumn(3, new THREE.Vector3(9382,65,728));    
+        this.addColumn(2, new THREE.Vector3(9366,65,728), "Column");
+        this.addColumn(2, new THREE.Vector3(9374,65,728), "Column");
+        this.addColumn(2, new THREE.Vector3(9382,65,728), "Column");    
 
         // NE
 
-        this.addColumn(3, new THREE.Vector3(9390,65,736));
-        this.addColumn(3, new THREE.Vector3(9390,65,744));
-        this.addColumn(3, new THREE.Vector3(9390,65,752));
+        this.addColumn(2, new THREE.Vector3(9390,65,736), "Column");
+        this.addColumn(2, new THREE.Vector3(9390,65,744), "Column");
+        this.addColumn(2, new THREE.Vector3(9390,65,752), "Column");
 
-        this.addColumn(3, new THREE.Vector3(9390,65,792));
-        this.addColumn(3, new THREE.Vector3(9390,65,800));
-        this.addColumn(3, new THREE.Vector3(9390,65,808));
+        this.addColumn(2, new THREE.Vector3(9390,65,792), "Column");
+        this.addColumn(2, new THREE.Vector3(9390,65,800), "Column");
+        this.addColumn(2, new THREE.Vector3(9390,65,808), "Column");
 
         // SE
 
-        this.addColumn(3, new THREE.Vector3(9382,65,816));
-        this.addColumn(3, new THREE.Vector3(9374,65,816));
-        this.addColumn(3, new THREE.Vector3(9366,65,816));
+        this.addColumn(2, new THREE.Vector3(9382,65,816), "Column");
+        this.addColumn(2, new THREE.Vector3(9374,65,816), "Column");
+        this.addColumn(2, new THREE.Vector3(9366,65,816), "Column");
 
-        this.addColumn(3, new THREE.Vector3(9326,65,816));
-        this.addColumn(3, new THREE.Vector3(9318,65,816));
-        this.addColumn(3, new THREE.Vector3(9310,65,816));
+        this.addColumn(2, new THREE.Vector3(9326,65,816), "Column");
+        this.addColumn(2, new THREE.Vector3(9318,65,816), "Column");
+        this.addColumn(2, new THREE.Vector3(9310,65,816), "Column");
 
         // SW
 
-        this.addColumn(3, new THREE.Vector3(9302,65,808));
-        this.addColumn(3, new THREE.Vector3(9302,65,800));
-        this.addColumn(3, new THREE.Vector3(9302,65,792));
+        this.addColumn(2, new THREE.Vector3(9302,65,808), "Column");
+        this.addColumn(2, new THREE.Vector3(9302,65,800), "Column");
+        this.addColumn(2, new THREE.Vector3(9302,65,792), "Column");
 
-        this.addColumn(3, new THREE.Vector3(9302, 65, 752));
-        this.addColumn(3, new THREE.Vector3(9302, 65, 744));
-        this.addColumn(3, new THREE.Vector3(9302, 65, 736));
+        this.addColumn(2, new THREE.Vector3(9302, 65, 752), "Column");
+        this.addColumn(2, new THREE.Vector3(9302, 65, 744), "Column");
+        this.addColumn(2, new THREE.Vector3(9302, 65, 736), "Column");
 
     }
 
-    addColumn(columnSize, columnPosition, columnColour, columnOpacity, columnHeight){
+    addColumn(mySize, myPosition, myType, myHeight){
 
-        let myFunc = "addColumn(" + columnSize + ", " + columnPosition + "): ";
-        // console.log(this.ID + myFunc + "Added.");
+        let myFunc = "addColumn(" + myType + "): ";
+        // console.log(this.ID + myFunc + "Hi!");
 
-        let columnSide = 0;
-        if (columnSize==1){ columnSide = 6; }
-        if (columnSize==2){ columnSide = 4; }
-        if (columnSize==3){ columnSide = 2; }
+        let myColour;
+        let myOpacity;
+        let myRenderOrder;
 
-        let setColour;
-        if (columnColour != null){ setColour = columnColour; } else { setColour = 0xffffff; }
+        if (myType == "Column"){ 
 
-        let setOpacity;
-        if (columnOpacity != null){ setOpacity = columnOpacity; } else { setOpacity = 0.1; }
+            myColour = 0xffffff;
+            myOpacity = 0.1;
+            myRenderOrder = 1;
+            myHeight = 245;
 
-        let setHeight;
-        if (columnHeight != null){ setHeight = columnHeight; } else { setHeight = 245; }
+        } else {
 
-        const geometry = new THREE.BoxGeometry(columnSide,columnSide,setHeight);
-        const material = new THREE.MeshPhongMaterial({color: setColour, transparent: true, opacity: setOpacity});
+            myOpacity = 0.5;
+            myRenderOrder = 2;
+
+        }
+
+        if (myType == "UpElevator"){ myColour = 0x00ff00; }
+        if (myType == "DownElevator"){ myColour = 0xff8800; }
+
+        const geometry = new THREE.BoxGeometry(mySize,mySize,myHeight);
+        const material = new THREE.MeshPhongMaterial({color: myColour, transparent: true, opacity: myOpacity, depthWrite: false});
         const column = new THREE.Mesh(geometry, material);
-        column.renderOrder = 2;
 
-        column.position.x = columnPosition.x + columnSide/2;  
-        column.position.y = columnPosition.z + columnSide/2;
-        column.position.z = -columnPosition.y - setHeight/2;
+        column.position.x = myPosition.x + mySize/2;  
+        column.position.y = myPosition.z + mySize/2;
+        column.position.z = -myPosition.y - myHeight/2;
 
-        column.name = "Column (Size " + columnSize + ")";
+        if (myType == "Column"){
 
-        this.columns.add(column);
+            column.name = "Column(" + mySize + ")";
+            this.columns.add(column);
+
+        } else {
+
+            column.name = "Elevator";
+            this.elevators.add(column);
+
+        }
 
     }
 
@@ -253,17 +270,24 @@ class Tower{
         // console.log(this.ID + myFunc + "Hi!");
 
         // up elevators NW corner
-        this.addColumn(3, new THREE.Vector3(9332.5, 65, 758.5), "#00ff00", 0.5, 210);
-        this.addColumn(3, new THREE.Vector3(9332.5, 65, 761.5), "#00ff00", 0.5, 140);
+        this.addColumn(2, new THREE.Vector3(9332.5, 65, 758.5), "UpElevator", 210); // G-30
+        this.addColumn(2, new THREE.Vector3(9332.5, 65, 761.5), "UpElevator", 140); // G-20
 
         // down elevators NE corner
-        this.addColumn(3, new THREE.Vector3(9358.5, 65, 758.5), "#ff8800", 0.5, 210);
-        this.addColumn(3, new THREE.Vector3(9358.5, 65, 761.5), "#ff8800", 0.5, 140);
+        this.addColumn(2, new THREE.Vector3(9358.5, 65, 758.5), "DownElevator", 210); // 30-G (express)
+        this.addColumn(2, new THREE.Vector3(9358.5, 65, 761.5), "DownElevator", 140); // 20-G (slow)
 
         // up elevators SE corner
-        this.addColumn(3, new THREE.Vector3(9358.5, 65, 781.5), "#00ff00", 0.5, 70);
-        this.addColumn(3, new THREE.Vector3(9358.5, 65, 784.5), "#00ff00", 0.5, 140); 
-        this.addColumn(3, new THREE.Vector3(9355.5, 65, 784.5), "#00ff00", 0.5, 140);       
+        this.addColumn(2, new THREE.Vector3(9358.5, 65, 781.5), "UpElevator", 70); // G-10
+        this.addColumn(2, new THREE.Vector3(9358.5, 205, 784.5), "UpElevator", 84); // 20-32
+        this.addColumn(2, new THREE.Vector3(9355.5, 135, 784.5), "UpElevator", 91); // 10-23  
+        
+        // down elevators SW corner
+        this.addColumn(2, new THREE.Vector3(9332.5, 135, 781.5), "DownElevator", 70); // 20-10 (express)
+
+        // Penthouse elevators
+        this.addColumn(1, new THREE.Vector3(9300.5, 65, 761.5), "UpElevator", 231); 
+        this.addColumn(1, new THREE.Vector3(9300.5, 65, 782.5), "DownElevator", 231); // (slow)
 
     }
 
