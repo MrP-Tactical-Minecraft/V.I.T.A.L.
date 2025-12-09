@@ -1,5 +1,5 @@
 function addChunk_7_16(offset_x, offset_z){
-console.log('addChunk_7_16(): Hello.')
+//console.log('addChunk_7_16(): Hello.')
 A.push([0 + offset_x, 64, 0 + offset_z, 'stone']);
 A.push([0 + offset_x, 64, 1 + offset_z, 'stone']);
 A.push([0 + offset_x, 64, 2 + offset_z, 'stone']);

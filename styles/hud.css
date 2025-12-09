@@ -45,12 +45,9 @@
     /* Styling for each square */
     width: 15px;
     height: 15px;
-    border: 1px solid #6ee7b7;
-    background-color: #6ee7b7;
     transition: background-color 0.3s;
     text-align:center;
     color: #343;
-    box-shadow: 0 0 8px #6ee7b7; /* Subtle glowing effect */
 }
 
 #floor-overlay {

@@ -129,7 +129,7 @@ class Tower{
 
         console.log(this.ID + "Adding the Sepia Tower skyscraper to the scene... OK");
 
-        console.log(this.ID + "Calling startTypingEffect().");
+        // console.log(this.ID + "Calling startTypingEffect().");
         const text = "Adding the Sepia Tower skyscraper to the scene... OK";
         startTypingEffect(document, 'typing-text', text);
 

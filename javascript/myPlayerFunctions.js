@@ -23,12 +23,12 @@ class Player{
         let myClass = "Player{}: ";
         this.ID = myPlayerFunctionsFile + myClass;
 
-        this.addSprite(this.position, this.colour, this.gamemode);
-        this.addLabel(this.callsign, this.position);
+        this.addSprite();
+        this.addLabel();
 
         console.log(this.ID + myName + " instantiated.");
 
-        const text = this.ID + myName + " instantiated.";
+        const text = "Player " + myName + " instantiated.";
         startTypingEffect(document, 'typing-text', text);
 
     }
@@ -43,210 +43,224 @@ class Player{
 
     }
 
-    updatePosition(){
+    update(newGamemode, newPosition, newTimestamp, newWorld){
 
-        let myFunc = "updatePosition(): "
-        // console.log(this.ID + myFunc + "Updating " + this.name + "'s position [" + this.position.x + ", " + this.position.y + ", " + this.position.z + "].");
+        let oldVec = "[" + this.position.x + ", " + this.position.y + ", " + this.position.z + "]";
+        let newVec = "[" + newPosition.x + ", " + newPosition.y + ", " + newPosition.z + "]";
 
-        let searchName = "sprite_" + this.name;
-        let mySprite = scene.getObjectByName(searchName);
+        let myFunc = "update(" + newGamemode + ", " + newVec + ", " + newTimestamp + ", " + newWorld + "): ";
 
-        mySprite.position.x = this.position.x;
-        mySprite.position.y = this.position.y;
-        mySprite.position.z = this.position.z;
+        // console.log(this.ID + myFunc + "Updating " + this.name + "'s position from " + oldVec + ".");
+        this.position.x = newPosition.x;
+        this.position.y = newPosition.y;
+        this.position.z = newPosition.z;
+        this.checkPos();
 
-        this.updateAffiliation();
-        this.updateLabel();
+        this.timestamp = newTimestamp;
+        this.checkTime();
 
-    }
+        this.checkWorld(newWorld);
+        this.checkGamemode(newGamemode);
+        this.checkStatus();
 
-    updateMode(){
-
-        let myFunc = "updateMode(): "
-        console.log(this.ID + myFunc + "Updating " + this.name + "'s gamemode to " + this.gamemode + ".");
-
-        let searchName = "sprite_" + this.name;
-        let mySprite = scene.getObjectByName(searchName);
-        let prevColour = mySprite.material.color;
-        scene.remove(mySprite);
-        // if (mySprite) { mySprite.parent.remove(mySprite); }
-        disposeObject(mySprite);
-
-        this.addSprite(this.position, prevColour, this.gamemode);
         this.updateColour();
+        this.updateSprite();
         this.updateLabel();
 
     }
 
-    updateWorld(){
+    checkStatus(){
 
-        let myFunc = "updateWorld(): ";
-        console.log(this.ID + myFunc + "Updating " + this.name + "'s world to " + this.world + ".");
+        if (this.status == "OFFWORLD"){
 
-        if (this.world != "world"){ 
-            
-            this.status = "OFFWORLD";             
-        
-        }
-
-        if (this.world == "world"){
-
-            this.status = null;
-            this.addSprite(this.position, this.colour, this.gamemode);
-            this.addLabel(this.callsign, this.position);
-
-        }
-
-        this.updateStatus();
-        this.updateLabel();
-
-    }
-
-    updateStatus(){
-
-        let myFunc ="updateStatus(): ";
-        console.log(this.ID + myFunc + "Updating " + this.name + "'s status to " + this.status + ".");
-
-        if (this.status == "OFFWORLD"){ 
-
-            console.log(this.ID + myFunc + "Player " + this.name + " is no longer in the overworld, removing sprite from map.");
             this.deleteSprite();
+            this.deleteLabel();
 
         }
-
-        if ((this.status == "STALE") || (this.status == null) || (this.status == "")){
-
-            this.updateColour();
-
-        }
-
-        this.updateLabel();
 
     }
 
     updateColour(){
 
-        let myFunc = "updateColour(): ";     
-        let setColour = null;
-        
-        if (this.status == "STALE"){ setColour = "#808080"; } else {
+        if ((this.affiliation == null) || (this.affiliation == "")){ this.colour = "#6ee7b7"; }
 
-            if (this.gamemode == "CREATIVE"){ setColour = "#ffffff"; } else { 
-                
-                setColour = this.colour; 
+        if (this.affiliation == "OFFENCE"){ this.colour = "#ff0000"; }
+        if (this.affiliation == "DEFENCE"){ this.colour = "#0000ff"; }
 
-                if (this.affiliation == "OFFENCE"){ setColour = "#ff0000"; }
-                if (this.affiliation == "DEFENCE"){ setColour = "#0000ff"; }
-            
-            } 
+        if (this.status == "STALE"){ this.colour = "#808080"; }
 
-        }
-
-        let searchName = "sprite_" + this.name;
-        let mySprite = scene.getObjectByName(searchName);
-        mySprite.material.color.set(setColour);
-
-        // console.log(this.ID + myFunc + "Updated " + this.name + "'s colour to " + setColour + ".");
-
-        this.updateLabel(setColour);
+        if (this.gamemode == "CREATIVE"){ this.colour = "#ffffff"; }
 
     }
 
-    updateAffiliation(){
+    checkWorld(newWorld){
 
-        let myFunc = "updateAffiliation(): ";
-        let updateFlag = false;
+        if (this.world != newWorld){
 
-        if (this.position.z == -49){
+            this.world = newWorld;
 
-            // console.log(this.ID + myFunc + "Player " + this.name + " is on z-level 49.");
+            if (this.world == "world"){
 
-            if ((this.position.x >= 9371) && (this.position.x <= 9376)){
-
-                if ((this.position.y >= 635) && (this.position.y <= 640)){
-
-                    if (this.affiliation != "OFFENCE"){ 
-
-                        this.affiliation = "OFFENCE";
-                        updateFlag = true;
-
-                    }
-                    
-
-                }
+                this.status = "";
+                this.addSprite();
+                this.addLabel();
 
             }
 
-            if ((this.position.x >= 9357) && (this.position.x <= 9362)){
-
-                if ((this.position.y >= 635) && (this.position.y <= 640)){
-
-                    if (this.affiliation != "DEFENCE"){
-
-                        this.affiliation = "DEFENCE";
-                        updateFlag = true;
-
-                    }                   
-
-                }
-
-            }            
+            if (this.world != "world"){ this.status = "OFFWORLD"; }
 
         }
-
-        let msg = null;
-        
-        if (updateFlag == true){ 
-            
-            msg = "Updated " + this.name + "'s affiliation to " + this.affiliation;
-            this.updateColour(); 
-        
-        } else { 
-            
-            msg = "No need to update, Player " + this.name + " already has the correct affiliation."; 
-        
-        }
-
-        // console.log(this.ID + myFunc + msg);
 
     }
 
-    addLabel(myName, myVector){
+    checkGamemode(newGamemode){
+
+        if (this.gamemode != newGamemode){
+
+            this.gamemode = newGamemode;
+            this.deleteSprite();
+            this.addSprite();            
+
+        }
+
+    }
+
+    addSprite(){
+
+        let myFunc = "addSprite(): ";
+        // console.log(this.ID + myFunc + "Hi!");
+
+        // Load the texture 
+        const textureLoader = new THREE.TextureLoader();
+
+        var texture = null;
+        var spriteMaterial = null;
+
+        // Create the sprite material depending on the player mode
+
+        if ((this.gamemode == "") || (this.gamemode == null)){ texture = textureLoader.load('./resources/sprite120.png'); }
+        if ((this.gamemode == "SURVIVAL") || (this.gamemode == "CREATIVE")){ texture = textureLoader.load('./resources/sprite120.png'); }  
+        if (this.gamemode == "SPECTATOR"){ texture = textureLoader.load('./resources/sprite120ring.png'); }
+
+        if ((this.gamemode == "SURVIVAL") || (this.gamemode == "SPECTATOR")){
+
+            spriteMaterial = new THREE.SpriteMaterial({
+                map: texture,
+                color: this.colour,
+                transparent: true
+            });
+
+        } 
+        
+        if (this.gamemode == "CREATIVE"){
+
+            spriteMaterial = new THREE.SpriteMaterial({
+                map: texture,
+                color: 0xffffff,
+                transparent: true
+            });
+
+        }
+
+        if ((this.gamemode == null) || (this.gamemode == "")){
+
+            spriteMaterial = new THREE.SpriteMaterial({
+                map: texture,
+                color: 0x888888,
+                transparent: true
+            });
+
+        }
+
+        // Create the sprite
+        if (spriteMaterial != null){ 
+            
+            const sprite = new THREE.Sprite(spriteMaterial); 
+
+            sprite.position.x = this.position.x;
+            sprite.position.y = this.position.y;
+            sprite.position.z = this.position.z;
+
+            sprite.scale.set(4, 4, 1);
+
+            sprite.name = "sprite_" + this.name;
+
+            // playerGroup.add(sprite);
+            scene.add(sprite);
+        
+        } else { console.log("[myWorldElements.js] addSprite(): ERROR! Variable 'spriteMaterial' is null."); } 
+
+    }
+
+    updateSprite(){
+
+        let myFunc = "updateSprite(): ";
+        // console.log(this.ID + myFunc + "Hi!");
+
+        let searchName = "sprite_" + this.name;
+        let mySprite = scene.getObjectByName(searchName);
+
+        if (mySprite){
+
+            mySprite.position.x = this.position.x;
+            mySprite.position.y = this.position.y;
+            mySprite.position.z = this.position.z;
+
+            mySprite.material.color.set(this.colour);
+
+        }
+
+    }
+
+    deleteSprite(){
+
+        let myFunc = "deleteSprite(): ";
+        console.log(this.ID + myFunc + "Deleting " + this.name + "'s sprite.");
+
+        let searchName = "sprite_" + this.name;
+        let mySprite = scene.getObjectByName(searchName);
+
+        scene.remove(mySprite);
+
+    }
+
+    addLabel(){
 
         let myFunc = "addLabel(): ";
-        console.log(this.ID + myFunc + "Adding label for player " + myName + ".");
+        console.log(this.ID + myFunc + "Adding label for player " + this.name + ".");
 
-        let myX = myVector.x;
-        let myY = myVector.y;
-        let myZ = myVector.z - 5;
+        let myX = this.position.x;
+        let myY = this.position.y;
+        let myZ = this.position.z - 5;
 
         const myDiv = document.createElement("div");
-        myDiv.textContent = myName;
-        myDiv.id = "label_div_" + myName;
+        myDiv.textContent = this.callsign;
+        myDiv.id = "label_div_" + this.callsign;
         myDiv.style.color = this.colour;
 
         const myLabel = new CSS2DObject(myDiv);
         myLabel.position.set(myX, myY, myZ);
-        myLabel.name = "label_" + myName;
+        myLabel.name = "label_" + this.callsign;
         
         // labelGroup.add(myLabel);
         scene.add(myLabel);
 
     }
 
-    updateLabel(myColour){
+    updateLabel(){
 
-        let myFunc = "updateLabel(): ";
-        // console.log(this.ID + myFunc + "Updating label for " + this.name + " depending on gamemode or camera/map focus.");
+        let myFunc = "updateLabel(): ";       
 
-        const label = scene.getObjectByName("label_" + this.callsign);
+        const myLabel = scene.getObjectByName("label_" + this.callsign);
         const myDiv = document.getElementById("label_div_" + this.callsign);
 
-        if ((!label) || (!myDiv)){ return; }
+        if ((!myLabel) || (!myDiv)){ return; }
 
-        label.position.x = this.position.x;
-        label.position.y = this.position.y;
-        label.position.z = this.position.z - 5;
+        console.log(this.ID + myFunc + "Updating label for " + this.name + ".");
+
+        myLabel.position.x = this.position.x;
+        myLabel.position.y = this.position.y;
+        myLabel.position.z = this.position.z - 5;
 
         let myText = null;
 
@@ -257,7 +271,7 @@ class Player{
         if (this.status == "STALE"){ myText = "(" + this.callsign + ")"; }
 
         myDiv.textContent = myText;
-        myDiv.style.color = myColour;
+        myDiv.style.color = this.colour;
 
     }
 
@@ -274,88 +288,37 @@ class Player{
 
         if (myDiv && myDiv.parentNode){ myDiv.parentNode.removeChild(myDiv); }
 
-        label = null;
-
     }
 
-    addSprite(myPos, myColour, myMode){
+    checkTime(){
 
-        let myFunc = "addSprite(" + myPos + ", " + myColour + ", " + myMode + "): ";
+        let myFunc = "checkTime(): ";
         // console.log(this.ID + myFunc + "Hi!");
 
-        // Load the texture 
-        const textureLoader = new THREE.TextureLoader();
-
-        var texture = null;
-        var spriteMaterial = null;
-
-        // Create the sprite material depending on the player mode
-
-        if ((myMode == "") || (myMode == null)){ texture = textureLoader.load('./resources/sprite120.png'); }
-        if ((myMode == "SURVIVAL") || (myMode == "CREATIVE")){ texture = textureLoader.load('./resources/sprite120.png'); }  
-        if (myMode == "SPECTATOR"){ texture = textureLoader.load('./resources/sprite120ring.png'); }
-
-        if ((myMode == "SURVIVAL") || (myMode == "SPECTATOR")){
-
-            spriteMaterial = new THREE.SpriteMaterial({
-                map: texture,
-                color: myColour,
-                transparent: true
-            });
-
-        } 
+        let now = Date.now();
+        now = parseInt(now/1000).toFixed(0);
         
-        if (myMode == "CREATIVE"){
+        let elapsedTime = parseInt(now - this.timestamp).toFixed(0);
 
-            spriteMaterial = new THREE.SpriteMaterial({
-                map: texture,
-                color: 0xffffff,
-                transparent: true
-            });
-
-        }
-
-        if ((myMode == null) || (myMode == "")){
-
-            spriteMaterial = new THREE.SpriteMaterial({
-                map: texture,
-                color: 0x888888,
-                transparent: true
-            });
-
-        }
-
-        // Create the sprite
-        if (spriteMaterial != null){ 
+        if (elapsedTime < staleThreshold){ 
             
-            const sprite = new THREE.Sprite(spriteMaterial); 
+            if (this.world == "world"){ this.status = ""; } else { this.status = "OFFWORLD"; }
 
-            sprite.position.x = myPos.x;
-            sprite.position.y = myPos.y;
-            sprite.position.z = myPos.z;
+        }
 
-            sprite.scale.set(4, 4, 1);
-
-            sprite.name = "sprite_" + this.name;
-
-            // playerGroup.add(sprite);
-            scene.add(sprite);
+        if ((elapsedTime >= staleThreshold) && (elapsedTime <= offlineThreshold)){ 
+            
+            this.status = "STALE";
+            console.log("This player is going stale."); 
         
-        } else { console.log("[myWorldElements.js] addSprite(): ERROR! Variable 'spriteMaterial' is null."); } 
+        }
 
-    }
-
-    deleteSprite(){
-
-        let myFunc = "deleteSprite(): ";
-        console.log(this.ID + myFunc + "Deleting " + this.name + "'s sprite.");
-
-        let searchName = "sprite_" + this.name;
-        let mySprite = scene.getObjectByName(searchName);
-        scene.remove(mySprite);
-        disposeObject(mySprite);
-
-        this.deleteLabel();
+        if (elapsedTime > offlineThreshold){ 
+            
+            console.log("This player is now offline."); 
+            this.status = "OFFLINE";         
+        
+        }
 
     }
 
@@ -375,12 +338,29 @@ class Player{
 
     }
 
+    setAffiliation(){
+
+        let pos = this.position;
+
+        if (pos.z == -49){
+
+            // console.log(this.ID + myFunc + "Player " + this.name + " is on z-level 49.");
+            if ((pos.x >= 9365) && (pos.x <= 9368) && (pos.y >= 635) && (pos.y <= 640)){ this.affiliation = ""; }
+            if ((pos.x >= 9371) && (pos.x <= 9376) && (pos.y >= 635) && (pos.y <= 640)){ this.affiliation = "OFFENCE"; }
+            if ((pos.x >= 9357) && (pos.x <= 9362) && (pos.y >= 635) && (pos.y <= 640)){ this.affiliation = "DEFENCE"; }          
+
+        }
+
+    }
+
     checkPos(){
 
         let myFunc ="checkPos(): ";
         let pos = "[" + this.position.x + ", " + this.position.y + ", " + this.position.z + "]";
         // console.log(this.ID + myFunc + "Checking " + this.name + "'s position as " + pos);
         
+        this.setAffiliation();
+
         let playerFocus = document.getElementById("player-focus").value;  
 
         if (this.isPlayerInTower()){
@@ -389,26 +369,26 @@ class Player{
             // console.log("This player is on floor " + myFloor + " of the tower.");
 
             // highlight the floor HUD
-            highlightHUDFloor(myFloor);
+            highlightHUDFloor(myFloor, this.colour);
 
             // highlight the Wireframes
             if ((myFloor >= 25) && (myFloor <= 28)){
 
                 if ((this.position.y >= 732) && (this.position.y <= 763)){ 
                     
-                    colourWireFrame("Floor " + myFloor + " N", "#6ee7b7"); 
+                    colourWireFrame("Floor " + myFloor + " N", this.colour); 
                 
                 }
 
                 if ((this.position.y >= 781) && (this.position.y <= 815)){ 
                     
-                    colourWireFrame("Floor " + myFloor + " S", "#6ee7b7"); 
+                    colourWireFrame("Floor " + myFloor + " S", this.colour); 
                 
                 }
 
             } else {
 
-                colourWireFrame("Floor " + myFloor, "#6ee7b7");
+                colourWireFrame("Floor " + myFloor, this.colour);
 
             } 
 
@@ -429,9 +409,9 @@ class Player{
                     let myBlockGroup = new THREE.Group();
                     myBlockGroup.name = "myBlockGroup";
 
-                    displayBlocksOfCertainLevel(-this.position.z, myBlockGroup);   
-                    displayBlocksOfCertainLevel(-this.position.z, myBlockGroup, "solid_orange", "orange_stained_glass"); 
-                    displayBlocksOfCertainLevel(-this.position.z, myBlockGroup, "solid_green", "lime_stained_glass");                    
+                    displayCertainBlocks(-this.position.z, myBlockGroup);   
+                    displayCertainBlocks(-this.position.z, myBlockGroup, "solid_orange", "orange_stained_glass"); 
+                    displayCertainBlocks(-this.position.z, myBlockGroup, "solid_green", "lime_stained_glass");                    
 
                     this.oldZ = this.position.z;
 
@@ -445,8 +425,7 @@ class Player{
 
             if (playerFocus == this.name){ 
 
-                // console.log("Player " + this.name + " is not in the tower");
-                
+                // console.log("Player " + this.name + " is not in the tower");                
                 clearFloorPlan(); 
             
             }

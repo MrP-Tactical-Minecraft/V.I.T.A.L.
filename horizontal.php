@@ -21,8 +21,7 @@
     <script src="javascript/mySceneFunctions.js" defer></script>
     <script src="javascript/myPlayerFunctions.js" defer></script>
     <script src="javascript/myTelemetryFunctions.js" defer></script>
-    <script src="javascript/myHUDFunctions.js" defer></script>
-    <script src="javascript/myChunkFunctions.js" defer></script>
+    <script src="javascript/myOverlayFunctions.js" defer></script>
     <SCRIPT src="javascript/jquery.min.js">/* for the AJAX contruct */</SCRIPT>
 </head>
 
@@ -153,6 +152,11 @@
                         <div class="panel-footer-label">TEAM COLOURS</div>
                     </div>
             </div>
+
+            <div id="progressBarContainer">
+                <div id="progressBarTower" style="width: 0%; background-color: #6ee7b7; color: #333; height: 20px;"></div>
+                <div id="progressBarFortress" style="width: 0%; background-color: #6ee7b7; color: #333; height: 20px;"></div>
+            </div>            
                 
             <div class="panel-dropdown-group">
                 <label for="system-select" class="dropdown-label">PLAYER FOCUS</label>
@@ -228,6 +232,9 @@
         let myPlayers = [];
 
         let A = []; // this is the main array to store chunk data in
+
+        let staleThreshold = 10; // number of seconds after which offline player markers are coloured grey
+        let offlineThreshold = 20; // number of seconds for which offline players are still displayed and after which online players are deleted from the map
 
         function init(){
 

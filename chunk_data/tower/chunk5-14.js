@@ -1,5 +1,5 @@
 function addChunk_5_14(offset_x, offset_z){
-console.log('addChunk_5_14(): Hello.')
+//console.log('addChunk_5_14(): Hello.')
 A.push([0 + offset_x, 64, 9 + offset_z, 'short_grass']);
 A.push([0 + offset_x, 64, 10 + offset_z, 'short_grass']);
 A.push([0 + offset_x, 64, 12 + offset_z, 'grass_block']);
