@@ -85,7 +85,7 @@ class Player{
         if ((this.affiliation == null) || (this.affiliation == "")){ this.colour = "#6ee7b7"; }
 
         if (this.affiliation == "OFFENCE"){ this.colour = "#ff0000"; }
-        if (this.affiliation == "DEFENCE"){ this.colour = "#0000ff"; }
+        if (this.affiliation == "DEFENCE"){ this.colour = "#0099ff"; }
 
         if (this.status == "STALE"){ this.colour = "#808080"; }
 
@@ -227,7 +227,7 @@ class Player{
     addLabel(){
 
         let myFunc = "addLabel(): ";
-        console.log(this.ID + myFunc + "Adding label for player " + this.name + ".");
+        // console.log(this.ID + myFunc + "Adding label for player " + this.name + ".");
 
         let myX = this.position.x;
         let myY = this.position.y;
@@ -256,7 +256,7 @@ class Player{
 
         if ((!myLabel) || (!myDiv)){ return; }
 
-        console.log(this.ID + myFunc + "Updating label for " + this.name + ".");
+        // console.log(this.ID + myFunc + "Updating label for " + this.name + ".");
 
         myLabel.position.x = this.position.x;
         myLabel.position.y = this.position.y;
