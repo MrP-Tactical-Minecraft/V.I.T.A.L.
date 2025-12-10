@@ -43,7 +43,7 @@ class Player{
 
     }
 
-    update(newGamemode, newPosition, newTimestamp, newWorld){
+    update(newGamemode, newPosition, newTimestamp, newWorld, myNow){
 
         let oldVec = "[" + this.position.x + ", " + this.position.y + ", " + this.position.z + "]";
         let newVec = "[" + newPosition.x + ", " + newPosition.y + ", " + newPosition.z + "]";
@@ -57,7 +57,7 @@ class Player{
         this.checkPos();
 
         this.timestamp = newTimestamp;
-        this.checkTime();
+        this.checkTime(myNow);
 
         this.checkWorld(newWorld);
         this.checkGamemode(newGamemode);
@@ -290,13 +290,23 @@ class Player{
 
     }
 
-    checkTime(){
+    checkTime(myNow){
 
         let myFunc = "checkTime(): ";
         // console.log(this.ID + myFunc + "Hi!");
 
-        let now = Date.now();
-        now = parseInt(now/1000).toFixed(0);
+        let now = null;
+        
+        if (myNow == null){ 
+            
+            now = Date.now(); 
+            now = parseInt(now/1000).toFixed(0);
+        
+        } else { 
+            
+            now = myNow; 
+        
+        }
         
         let elapsedTime = parseInt(now - this.timestamp).toFixed(0);
 
@@ -368,27 +378,32 @@ class Player{
             let myFloor = Math.trunc(parseInt(-this.position.z - 65)/7);
             // console.log("This player is on floor " + myFloor + " of the tower.");
 
-            // highlight the floor HUD
-            highlightHUDFloor(myFloor, this.colour);
-
-            // highlight the Wireframes
+            // this code block pushes the current player into the playersOnFloor array of the individual floor wireframes
+            // (the temeletry part then updates all GUI elements that need highlighting)
             if ((myFloor >= 25) && (myFloor <= 28)){
 
                 if ((this.position.y >= 732) && (this.position.y <= 763)){ 
                     
-                    colourWireFrame("Floor " + myFloor + " N", this.colour); 
+                    let myDesignation = "Floor " + myFloor + " N";
+                    let obj = scene.getObjectByName(myDesignation);
+                    obj.playersOnFloor.push(this.name);
                 
                 }
 
                 if ((this.position.y >= 781) && (this.position.y <= 815)){ 
                     
-                    colourWireFrame("Floor " + myFloor + " S", this.colour); 
+                    let myDesignation = "Floor " + myFloor + " S";
+                    let obj = scene.getObjectByName(myDesignation);
+                    obj.playersOnFloor.push(this.name); 
                 
                 }
 
             } else {
 
-                colourWireFrame("Floor " + myFloor, this.colour);
+                let myDesignation = "Floor " + myFloor;
+                let obj = scene.getObjectByName(myDesignation);
+                obj.playersOnFloor.push(this.name);
+                // console.log("Pushing player " + this.name + " to floor " + myFloor + ".");
 
             } 
 

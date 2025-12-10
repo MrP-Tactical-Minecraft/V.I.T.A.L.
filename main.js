@@ -124,8 +124,6 @@ function populate(){
     console.log(thisID + "Calling requestAnimationFrame(render).");
     requestAnimationFrame(render);
 
-    initHUD();
-
     console.log(thisID + "Done.");
 
 }

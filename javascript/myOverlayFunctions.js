@@ -409,6 +409,18 @@ function initHUDFloorDisplay(){
 
 }
 
+function removeHUDFloorDisplay(){
+
+    let myFunc = "removeHUDFloorDisplay(): ";
+    let myID = myOverlayFuncsFile + myFunc;
+
+    const elementsToDelete = document.querySelectorAll('.floor_square');
+    elementsToDelete.forEach(element => { element.remove(); });
+
+    console.log(myID + `${elementsToDelete.length} elements have been deleted.`);
+
+}
+
 function highlightHUDFloor(myFloor, myColour){
 
     let myFunc = "highlightHUDFloor(" + myFloor + "): ";

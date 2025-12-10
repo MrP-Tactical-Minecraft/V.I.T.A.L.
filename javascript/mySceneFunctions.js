@@ -133,7 +133,7 @@ class Tower{
         const text = "Adding the Sepia Tower skyscraper to the scene... OK";
         startTypingEffect(document, 'typing-text', text);
 
-        loadMyChunks("tower");
+        if ((A.length == 0) || (A.length == "")){ loadMyChunks("tower"); }
 
     }
 
@@ -442,6 +442,7 @@ function addWireFrame(myName, myType, myGroup, xPos, yPos, zPos, myWidth, myLeng
 
     wire.name = myName;
     wire.defaultColour = myColour;
+    wire.playersOnFloor = [];
 
     myGroup.add(wire);
 
@@ -496,22 +497,135 @@ function colourWireFrame(myName, myColour){
 
 }
 
+function highlightWireFrames(){
+
+    let myFunc = "highlightWireFrames(): ";
+    let thisID = mySceneFunctionFile + myFunc;
+
+    for (let myFloor = 0; myFloor < 35; myFloor++){  
+
+        // console.log(thisID + myFunc + myFloor + " Hi!");
+
+        if ((myFloor >= 25) && (myFloor <= 28)){
+
+            let designator = "Floor " + myFloor;
+
+            let designatorN = designator + " N";
+            let setColourN = detFloorColour(designatorN);
+            if (setColourN != null){ colourWireFrame(designatorN, setColourN); }
+
+            let designatorS = designator + " S";
+            let setColourS = detFloorColour(designatorS);
+            if (setColourS != null){ colourWireFrame(designatorS, setColourS); }
+            
+            let setColour = null;
+            
+            if (setColourN != setColourS){
+
+                if ((setColourN == "#6ee7b7") || (setColourS == "#6ee7b7")){ setColour = "#6ee7b7"; }
+                if ((setColourN == "#ff0000") || (setColourS == "#ff0000")){ setColour = "#ff0000"; }
+                if ((setColourN == "#0099ff") || (setColourS == "#0099ff")){ setColour = "#0099ff"; }
+                if ((setColourN == "#ffffff") || (setColourS == "#ffffff")){ setColour = "#ffffff"; }
+
+            } else { 
+                
+                setColour == setColourN; 
+            
+            }            
+
+            if (setColour != null){ highlightHUDFloor(myFloor, setColour); }
+
+        } else {
+
+            let designator = "Floor " + myFloor;
+            let setColour = detFloorColour(designator);
+
+            if (setColour != null){
+
+                colourWireFrame(designator, setColour);
+                highlightHUDFloor(myFloor, setColour);
+
+            }
+
+        }
+
+        function detFloorColour(myDesignator){
+
+            // console.log("detFloorColour(" + myDesignator+ "): Hi!");
+
+            let obj = scene.getObjectByName(myDesignator);
+
+            let tally = [0,0,0]; // tallying players by affiliation: neutral, OFFENCE, DEFENCE
+            let myColour = null;
+
+            obj.playersOnFloor.forEach(player => {
+
+                let lookUp = Player.roster.get(player).affiliation;
+                if ((lookUp == "") || (lookUp == null)){ tally[0]++; }
+                if (lookUp == "OFFENCE"){ tally[1]++; }
+                if (lookUp == "DEFENCE"){ tally[2]++; }
+                
+            });
+
+            let sum = tally[0] + tally[1] + tally[2];
+
+            if (sum > 0){
+
+                if ((tally[1] == 0) && (tally[2] == 0)){ myColour = "#6ee7b7"; }
+                if ((tally[1] != 0) && (tally[2] != 0)){ myColour = "#ffffff"; }
+                if ((tally[1] != 0) && (tally[2] == 0)){ myColour = "#ff0000"; }
+                if ((tally[1] == 0) && (tally[2] != 0)){ myColour = "#0099ff"; }
+
+            }
+
+            return myColour;
+
+        }
+
+    }
+
+}
+
 function dehighlightAllWireFrames(){
 
     let myFunc = "dehighlightAllWireFrames(): ";
     let thisID = mySceneFunctionFile + myFunc;    
     // console.log(thisID + "Hi.");
 
-    for (let myFloor = 0; myFloor < 25; myFloor++){ colourWireFrame("Floor " + myFloor, "#406040"); }    
+    for (let myFloor = 0; myFloor < 25; myFloor++){ 
+        
+        let myName = "Floor " + myFloor;
+        let obj = scene.getObjectByName(myName);
+        obj.playersOnFloor = [];
+
+        colourWireFrame(myName, "#406040"); 
+    
+    }    
 
     for (let myFloor = 25; myFloor < 29; myFloor++){
 
-        colourWireFrame("Floor " + myFloor + " N", "#406040");
-        colourWireFrame("Floor " + myFloor + " S", "#406040");
+        let myNameN = "Floor " + myFloor + " N";
+        let objN = scene.getObjectByName(myNameN);
+        objN.playersOnFloor = [];
+
+        let myNameS = "Floor " + myFloor + " S";
+        let objS = scene.getObjectByName(myNameS);
+        objS.playersOnFloor = [];
+
+        colourWireFrame(myNameN, "#406040");
+        colourWireFrame(myNameS, "#406040");
 
     }
 
-    for (let myFloor = 29; myFloor < 35; myFloor++){ colourWireFrame("Floor " + myFloor, "#406040"); }
+    for (let myFloor = 29; myFloor < 35; myFloor++){ 
+ 
+        let myName = "Floor " + myFloor;
+        let obj = scene.getObjectByName(myName);
+        obj.playersOnFloor = [];
+
+        colourWireFrame(myName, "#406040"); 
+    
+    }
 
 }
 

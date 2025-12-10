@@ -11,7 +11,7 @@
     );
 
     $table = $_GET['table'];
-    $result = mysqli_query($db_link, "WITH RankedData AS (SELECT *, RANK() OVER (ORDER BY time DESC) AS time_rank FROM $table) SELECT * FROM RankedData WHERE time_rank = 1");
+    $result = mysqli_query($db_link, "SELECT * FROM $table WHERE 1 ORDER BY time ASC");
 
     $j = -1;                  
     while($row = mysqli_fetch_array($result))

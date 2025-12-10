@@ -229,7 +229,10 @@
         let myTelemetry = null;
         let flagTelemetry = null;
 
-        let myPlayers = [];
+        let flagReplay = null;
+        let myReplayData = null;
+
+        // let myPlayers = [];
 
         let A = []; // this is the main array to store chunk data in
 
@@ -260,10 +263,16 @@
 
             if (myObject == "tower"){
 
-                if ((myTower == null) || (myTower == "")){ myTower = new Tower; } else {
+                if ((myTower == null) || (myTower == "")){ 
+                    
+                    myTower = new Tower; 
+                    initHUD();                    
+                
+                } else {
 
                     myTower.removeTower();
                     myTower = null;
+                    removeHUDFloorDisplay();
 
                 }
 
