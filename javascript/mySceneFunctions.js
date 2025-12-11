@@ -117,17 +117,22 @@ class Tower{
         this.addFloors();
 
         this.elevators = new THREE.Group();
-        this.elevators.name = "Elevators";
+        this.elevators.name = "Skyscraper elevators";
         this.addElevators();
+
+        this.rooms = new THREE.Group();
+        this.rooms.name = "Skyscraper rooms";
+        this.addRooms();
 
         this.skyscraper.add(this.columns);
         this.skyscraper.add(this.atriums);
         this.skyscraper.add(this.logo);
         this.skyscraper.add(this.floors);
         this.skyscraper.add(this.elevators);
+        this.skyscraper.add(this.rooms);
         scene.add(this.skyscraper);
 
-        console.log(this.ID + "Adding the Sepia Tower skyscraper to the scene... OK");
+        console.log(this.ID + "Added Sepia Tower.");
 
         // console.log(this.ID + "Calling startTypingEffect().");
         const text = "Adding the Sepia Tower skyscraper to the scene... OK";
@@ -255,7 +260,9 @@ class Tower{
             column.name = "Column(" + mySize + ")";
             this.columns.add(column);
 
-        } else {
+        } 
+        
+        if ((myType == "UpElevator") || (myType == "DownElevator")){
 
             column.name = "Elevator";
             this.elevators.add(column);
@@ -381,6 +388,23 @@ class Tower{
 
     }
 
+    addRooms(){
+
+        let myFunc = "addRooms(): ";
+        console.log(this.ID + myFunc + "Added rooms to the tower.");
+
+        // Ready Room
+        addWireFrame("RR_top", "Room", this.rooms, 9359, 609, 55, 15, 21, 5, "#80A080");
+        addWireFrame("RR_bottom", "Room", this.rooms, 9359, 609, 49, 15, 21, 4, "#80A080");
+        addWireFrame("RR_offence", "Room", this.rooms, 9371, 635, 49, 5, 5, 4, "#ff0000");
+        addWireFrame("RR_neutral", "Room", this.rooms, 9365, 635, 49, 3, 5, 4, "#ffffff");
+        addWireFrame("RR_defence", "Room", this.rooms, 9357, 635, 49, 5, 5, 4, "#0099ff");
+        addBox("RR_house_1", "Building", new THREE.Vector3(9351,63,592), new THREE.Vector3(15,14,5), this.rooms);
+        addBox("RR_house_2", "Building", new THREE.Vector3(9366,63,592), new THREE.Vector3(5,6,5), this.rooms);
+        addBox("RR_house_3", "Building", new THREE.Vector3(9351,63,606), new THREE.Vector3(6,4,5), this.rooms);
+
+    }
+
     removeTower(){
 
         let myFunc = "removeTower(): ";
@@ -445,6 +469,28 @@ function addWireFrame(myName, myType, myGroup, xPos, yPos, zPos, myWidth, myLeng
     wire.playersOnFloor = [];
 
     myGroup.add(wire);
+
+}
+
+function addBox(myName, myType, myPosition, myDimensions, myGroup){
+
+    let myFunc = "addBox(" + myName + ", " + myType + "): ";
+    let thisID = mySceneFunctionFile + myFunc;
+    // console.log(thisID + "Hi!");
+
+    let myColour = 0xffffff;;
+    let myOpacity = 0.1;;
+
+    const geometry = new THREE.BoxGeometry(myDimensions.x, myDimensions.y, myDimensions.z);
+    const material = new THREE.MeshPhongMaterial({color: myColour, transparent: true, opacity: myOpacity, depthWrite: false});
+    const box = new THREE.Mesh(geometry, material);
+
+    box.position.x = myPosition.x + myDimensions.x/2;  
+    box.position.y = myPosition.z + myDimensions.y/2;
+    box.position.z = -myPosition.y - myDimensions.z/2;
+
+    box.name = myName;
+    myGroup.add(box);
 
 }
 
@@ -560,10 +606,14 @@ function highlightWireFrames(){
 
             obj.playersOnFloor.forEach(player => {
 
-                let lookUp = Player.roster.get(player).affiliation;
-                if ((lookUp == "") || (lookUp == null)){ tally[0]++; }
-                if (lookUp == "OFFENCE"){ tally[1]++; }
-                if (lookUp == "DEFENCE"){ tally[2]++; }
+                if (Player.roster.get(player)){
+
+                    let lookUp = Player.roster.get(player).affiliation;
+                    if ((lookUp == "") || (lookUp == null)){ tally[0]++; }
+                    if (lookUp == "OFFENCE"){ tally[1]++; }
+                    if (lookUp == "DEFENCE"){ tally[2]++; }
+
+                }   
                 
             });
 

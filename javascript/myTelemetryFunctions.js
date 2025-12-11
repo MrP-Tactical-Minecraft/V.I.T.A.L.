@@ -21,14 +21,14 @@ function stopAJAX(){
 
 }
 
-function startReplay(myTable){
+function startReplay(myTable,myStart,myEnd){
 
     let myFunc = "startReplay(): ";
     let myID = myTelemetryFunctionsFile + myFunc;
     console.log(myID + "Starting replay.");   
     
     flagReplay = true;
-    getAllTelemetry(myTable);
+    getAllTelemetry(myTable,myStart,myEnd);
 
 }
 
@@ -85,12 +85,13 @@ function replay(){
                     }                    
 
                     dehighlightGUI();        
-                    updatePlayerRoster(nowTimestamp);  
+                    updatePlayerRoster(nowTimestamp);
+                    displayPlayersInOverlay(); 
                     highlightWireFrames();   
 
                 } else {
 
-                    console.log("Timestamp " + nowTimestamp + " not found in replay data, skipping it.");
+                    // console.log("Timestamp " + nowTimestamp + " not found in replay data, skipping it.");
 
                 }
                 
@@ -149,15 +150,20 @@ function getLatestTelemetry(myTable){
 
 }
 
-function getAllTelemetry(myTable){
+function getAllTelemetry(myTable,startTime,endTime){
 
-    let myFunc = "getAllTelemetry(" + myTable + "): ";
+    let myFunc = "getAllTelemetry(" + myTable + ", start=" + startTime + ", end=" + endTime  + "): ";
     let myID = myTelemetryFunctionsFile + myFunc;
     
     myReplayData = null;
 
+    let myURL = './fetchAll.php' + '?table=' + encodeURIComponent(myTable);
+    if (startTime !== undefined){ myURL = myURL + '&startTime=' + encodeURIComponent(parseInt(startTime)); }
+    if (endTime !== undefined){ myURL = myURL + '&endTime=' + encodeURIComponent(parseInt(endTime)); }
+    console.log("myURL=" + myURL);
+
     $.ajax({
-        url: "./fetchAll.php?table="+myTable,
+        url: myURL,
         method: "GET",
         success:function(results) {
             myReplayData = JSON.parse(results);
@@ -166,7 +172,6 @@ function getAllTelemetry(myTable){
         error: function(xhr, ajaxOperations, thrownError) {
             console.log(thrownError);
         }
-
     });
 
     console.log(myID + "All telemetry data successfully retrieved.");
@@ -187,14 +192,14 @@ function dehighlightGUI(){
 function updatePlayerRoster(myNow){
 
     let myFunc = "updatePlayerRoster(" + myNow + "): ";
-    let myID = myTelemetryFunctionsFile + myFunc;
-    // console.log(myID + "Hi!");   
+    let myID = myTelemetryFunctionsFile + myFunc;   
+    // console.log(myID + "Hi!");
 
     let len = myTelemetry[0].length;
     // The array myTelemetry[] contains timestamp, name, x/y/z positions, and gamemode for all players whose timestamp matches the largest timestamp found in the database
 
     let now = null;    
-    if (myNow == null){ 
+    if ((myNow == null) || (myNow == "")){ 
         
         now = Date.now(); 
         now = parseInt(now/1000).toFixed(0);
@@ -204,6 +209,8 @@ function updatePlayerRoster(myNow){
         now = myNow; 
     
     }
+
+    // console.log(myID + "now=" + now);
 
     let foundPlayer, foundTimestamp, foundPosition, foundGamemode, foundWorld;
 
@@ -234,7 +241,7 @@ function updatePlayerRoster(myNow){
         
         let idx = null;
 
-        for (let i = 0; i < myTelemetry.length; i++){
+        for (let i = 0; i < len; i++){
 
             if (myTelemetry[1][i] == playerObject.name){
 
@@ -259,6 +266,9 @@ function updatePlayerRoster(myNow){
         
         if (playerObject.status == "OFFLINE"){             
              
+            const text = "Player " + playerObject.name + " left the game.";
+            startTypingEffect(document, 'typing-text', text);
+
             playerObject.deleteLabel();
             playerObject.deleteSprite();
             Player.roster.delete(keyID);

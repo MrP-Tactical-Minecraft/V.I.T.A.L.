@@ -225,9 +225,39 @@ function clearFloorPlan(){
 
 }
 
-function addCircleToOverlay(myX, myZ, myColour, myName){
+function displayPlayersInOverlay(){
 
-    let myFunc = "addCircleToOverlay(" + myX + ", " + myZ + ", " + myColour + ", " + myName + "): ";
+    let myFunc = "displayPlayersInOverlay(): ";
+    let myID = myOverlayFuncsFile + myFunc;
+    // console.log(myID + "Hi!");
+
+    let playerFocus = document.getElementById("player-focus").value;
+    let currentPlayer = Player.roster.get(playerFocus);
+
+    if (currentPlayer){
+        
+        let playerFocusFloor = Math.trunc(parseInt(-currentPlayer.position.z - 65)/7);
+
+        Player.roster.forEach(player => {
+
+            let playerFloor = Math.trunc(parseInt(-player.position.z - 65)/7);
+
+            if (playerFloor == playerFocusFloor){
+
+                clearCircleFromOverlay("circ" + player.name);
+                addCircleToOverlay(player.position.x - 9295, player.position.y - 719, player.colour, player.name, player.gamemode);
+
+            }
+
+        });
+
+    }
+
+}
+
+function addCircleToOverlay(myX, myZ, myColour, myName, myMode){
+
+    let myFunc = "addCircleToOverlay(" + myX + ", " + myZ + ", " + myColour + ", " + myName + ", " + myMode + "): ";
     let myID = myOverlayFuncsFile + myFunc;
     // console.log(myID + "Hi!");
 
@@ -236,10 +266,15 @@ function addCircleToOverlay(myX, myZ, myColour, myName){
     let svgns = "http://www.w3.org/2000/svg";
     let circ = document.createElementNS(svgns, 'circle'); 
     
+    let myFill = null;
+    if (myMode == "SPECTATOR"){ myFill = 'none'; } else { myFill = myColour; }
+
     circ.setAttribute('cx', myX*2 - 3);
     circ.setAttribute('cy', myZ*2 - 10);
     circ.setAttribute('r', 2);
-    circ.setAttribute('style', 'fill:' + myColour);
+    circ.setAttribute('fill', myFill);
+    circ.setAttribute('stroke-width', 1);
+    circ.setAttribute('stroke', myColour);
     circ.setAttribute('id', 'circ' + myName);
     
     mySVG.appendChild(circ);

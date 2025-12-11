@@ -98,8 +98,8 @@
                     <div class="control-panel on-off">
                         <div class="panel-labels" style="justify-content: center; gap: 10px;">
                             <div class="label-position">TOWER</div>
-                            <div class="label-wing">FORTRESS</div>
-                            <div class="label-position">YACHT</div>
+                            <div class="label-wing">Elevators</div>
+                            <div class="label-position">FORTRESS</div>
                             <div class="label-wing">FACTORY</div>
                         </div>
 
@@ -107,7 +107,7 @@
                             <button class="control-button on-off-button" data-onoff="off" onClick="toggle('tower');">
                                 <span class="button-label">OFF</span>
                             </button>
-                            <button class="control-button on-off-button" data-onoff="off">
+                            <button class="control-button on-off-button" data-onoff="off" onClick="toggle('elevators');">
                                 <span class="button-label">OFF</span>
                             </button>
                             <button class="control-button on-off-button" data-onoff="off">
@@ -275,6 +275,12 @@
                     removeHUDFloorDisplay();
 
                 }
+
+            }
+
+            if (myObject == "elevators"){
+
+                if (myTower != null){}
 
             }
 

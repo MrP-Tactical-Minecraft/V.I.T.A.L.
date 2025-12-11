@@ -11,7 +11,22 @@
     );
 
     $table = $_GET['table'];
-    $result = mysqli_query($db_link, "SELECT * FROM $table WHERE 1 ORDER BY time ASC");
+    $startTime = isset($_GET['startTime']) ? $_GET['startTime'] : null;
+    $endTime = isset($_GET['endTime']) ? $_GET['endTime'] : null;
+
+    $where_clause = " WHERE 1";
+
+    if ($startTime !== null && $startTime !== ''){
+        $where_clause .= " AND time >= '" . $startTime . "'";
+    }
+
+    if ($endTime !== null && $endTime !== ''){
+        $where_clause .= " AND time <= '" . $endTime . "'";
+    }
+
+    $query = "SELECT * FROM " . $table . $where_clause . " ORDER BY time ASC";
+
+    $result = mysqli_query($db_link, $query);
 
     $j = -1;                  
     while($row = mysqli_fetch_array($result))

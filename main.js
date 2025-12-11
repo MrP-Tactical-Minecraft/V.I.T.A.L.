@@ -29,6 +29,7 @@ function setup(){
     auxElements = new THREE.Group();
     auxElements.name = "Auxiliary Elements";
 
+    /*
     playerGroup = new THREE.Group();
     playerGroup.name = "Players";
     scene.add(playerGroup);
@@ -36,6 +37,7 @@ function setup(){
     labelGroup = new THREE.Group();
     labelGroup.name = "Labels";
     scene.add(labelGroup);
+    */
 
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1,  5000000);
     camera.position.set(9257, 460, -190);

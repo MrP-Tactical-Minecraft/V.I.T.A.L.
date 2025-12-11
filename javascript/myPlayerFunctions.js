@@ -215,7 +215,7 @@ class Player{
     deleteSprite(){
 
         let myFunc = "deleteSprite(): ";
-        console.log(this.ID + myFunc + "Deleting " + this.name + "'s sprite.");
+        // console.log(this.ID + myFunc + "Deleting " + this.name + "'s sprite.");
 
         let searchName = "sprite_" + this.name;
         let mySprite = scene.getObjectByName(searchName);
@@ -278,7 +278,7 @@ class Player{
     deleteLabel(){
 
         let myFunc = "deleteLabel(): ";
-        console.log(this.ID + myFunc + "Deleting label for " + this.name + ".");
+        // console.log(this.ID + myFunc + "Deleting label for " + this.name + ".");
 
         let label = scene.getObjectByName("label_" + this.callsign);
         let myDiv = document.getElementById("label_div_" + this.callsign); 
@@ -297,7 +297,7 @@ class Player{
 
         let now = null;
         
-        if (myNow == null){ 
+        if ((myNow == null) || (myNow == "")){ 
             
             now = Date.now(); 
             now = parseInt(now/1000).toFixed(0);
@@ -306,9 +306,10 @@ class Player{
             
             now = myNow; 
         
-        }
+        }        
         
         let elapsedTime = parseInt(now - this.timestamp).toFixed(0);
+        // console.log(this.ID + myFunc + "now=" + now + ", last player timestamp=" + this.timestamp + ", elapsedTime=" + elapsedTime);
 
         if (elapsedTime < staleThreshold){ 
             
@@ -352,12 +353,22 @@ class Player{
 
         let pos = this.position;
 
-        if (pos.z == -49){
+        // this switch changes the affiliation logic to the old starting positions for the defence
+        // all players are offence by default and only get assigned defence on floor 14
+        let oldPos = true; 
+
+        if ((pos.z == -49) && (oldPos == false)){
 
             // console.log(this.ID + myFunc + "Player " + this.name + " is on z-level 49.");
             if ((pos.x >= 9365) && (pos.x <= 9368) && (pos.y >= 635) && (pos.y <= 640)){ this.affiliation = ""; }
             if ((pos.x >= 9371) && (pos.x <= 9376) && (pos.y >= 635) && (pos.y <= 640)){ this.affiliation = "OFFENCE"; }
             if ((pos.x >= 9357) && (pos.x <= 9362) && (pos.y >= 635) && (pos.y <= 640)){ this.affiliation = "DEFENCE"; }          
+
+        }
+
+        if (oldPos == true){
+
+            if ((pos.x >= 9344) && (pos.x <= 9351) && (pos.y >= 754) && (pos.y <= 761) && (pos.z == -163)){ this.affiliation = "DEFENCE"; }
 
         }
 
@@ -413,7 +424,7 @@ class Player{
             if (playerFocus == this.name){
 
                 clearCircleFromOverlay("circ" + this.name);
-                addCircleToOverlay(this.position.x - 9295, this.position.y - 719, this.colour, this.name);
+                addCircleToOverlay(this.position.x - 9295, this.position.y - 719, this.colour, this.name, this.gamemode);
 
                 if (this.position.z != this.oldZ){                            
 
