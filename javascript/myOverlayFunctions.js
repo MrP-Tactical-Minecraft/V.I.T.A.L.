@@ -408,37 +408,56 @@ function initHUD(){
     let myID = myOverlayFuncsFile + myFunc;
     console.log(myID + "Hi!");
 
-    initHUDFloorDisplay();
+    initHUDFloorDisplay("");
 
 }
 
-function initHUDFloorDisplay(){
+function initHUDFloorDisplay(myMode){
 
     let myFunc = "initHUDFloorDisplay(): ";
     let myID = myOverlayFuncsFile + myFunc;
     console.log(myID + "Hi!");
 
-    const floor_count = 35;
-    const floorContainer = document.getElementById("floors-container");
+    const allFloorInfos = [
+        "Grand Atrium / Hail Mary", "Key 1", "Office Space", "Password 1", "Office Space", "Environmental Controls", "Office Space / P2P(13,18)", "Key 2 / Ender Pearls", "Office Space", "Password 2", "Hotel Lobby / P2P(20,25)",
+        "Hotel", "Executive Suites", "Computer Centre", "Appartments", "Key 3 / P2P(22)", "Communications Centre", "Office Space", "Appartments", "Appartments", "Atrium 20 / P2P(G0,30)",
+        "Password 3", "Office Space", "Art Gallery", "Empty Disc", "Hangar / Teleporters / Elytras & Rockets", "Hangar", "Hangar / Key 4", "Hangar / P2P(19)", "Executive Conference Room / Archive", "Atrium 30 / Office Space",
+        "Office Space", "Appartments / Bank", "Penthouse Suite", "Penthouse Suite"
+    ];
 
-    // clear all existing elements
-    floorContainer.innerHTML = '';
+    const floor_count = 35;
+    const floorsCont = document.getElementById("floors-hud-container");
+
+    // clear all existing elements from the container
+    floorsCont.innerHTML = '';
 
     // display all the containers
     for (let i = 0; i < floor_count; i++){
 
-        const floor_square = document.createElement('div');
-        floor_square.className = 'floor_square';
-        // floor_square.floor = i;
-        floor_square.setAttribute('data-floor', i);
+        const floor_entry = document.createElement('div'); 
+        floor_entry.className = 'floor-entry';
+        floor_entry.setAttribute('data-floor', i);
 
-        let floor_i = i;
-        if (floor_i < 10){ floor_i = "0" + floor_i; }
-        if (floor_i == 0){ floor_i = "G"; }
+            const floor_square = document.createElement('div');
+            floor_square.className = 'floor-square';            
 
-        floor_square.textContent = floor_i;
+            let floor_i = i;
+            if (floor_i < 10){ floor_i = "0" + floor_i; }
+            if (floor_i == 0){ floor_i = "G"; }
 
-        floorContainer.appendChild(floor_square);
+            floor_square.textContent = floor_i;
+
+        floor_entry.appendChild(floor_square);            
+
+            const floor_info = document.createElement('div');
+            floor_info.className = 'floor-info';
+            
+            // we will write information here if HUDMode 'info' is selected, otherwise the text is left empty
+            if (myMode === 'info'){ floor_info.textContent = allFloorInfos[i]; } else { floor_info.textCont = ''; }
+
+        floor_entry.appendChild(floor_info);            
+
+        floorsCont.appendChild(floor_entry);
 
     }
 
@@ -449,7 +468,7 @@ function removeHUDFloorDisplay(){
     let myFunc = "removeHUDFloorDisplay(): ";
     let myID = myOverlayFuncsFile + myFunc;
 
-    const elementsToDelete = document.querySelectorAll('.floor_square');
+    const elementsToDelete = document.querySelectorAll('.floor-entry');
     elementsToDelete.forEach(element => { element.remove(); });
 
     console.log(myID + `${elementsToDelete.length} elements have been deleted.`);
@@ -462,16 +481,28 @@ function highlightHUDFloor(myFloor, myColour){
     let myID = myOverlayFuncsFile + myFunc;
     // console.log(myID + "Hi!");
 
-    const floorToHighlight = document.querySelector(`[data-floor="${myFloor}"]`);
+    const floorsCont = document.getElementById("floors-hud-container");
+    const floorToHighlight = floorsCont.querySelector(`.floor-entry[data-floor="${myFloor}"]`);
 
     if (floorToHighlight){ 
         
-        floorToHighlight.classList.remove('floor_square');
-        floorToHighlight.classList.add('floor_square_highlight'); 
+        floorToHighlight.classList.add('highlighted');
 
-        floorToHighlight.style.border = `1px solid ${myColour}`;
-        floorToHighlight.style.backgroundColor = `${myColour}`;
-        floorToHighlight.style.boxShadow = `0 0 8px ${myColour}`;
+        const myFloorSquare = floorToHighlight.querySelector('.floor-square');
+
+        if (myFloorSquare){
+            myFloorSquare.style.border = `1px solid ${myColour}`;
+            myFloorSquare.style.backgroundColor = `${myColour}`;
+            myFloorSquare.style.boxShadow = `0 0 8px ${myColour}`; 
+        } 
+
+        const myFloorInfo = floorToHighlight.querySelector('.floor-info');
+
+        if (myFloorInfo){
+            myFloorInfo.style.border = `1px solid ${myColour}`;
+            myFloorInfo.style.backgroundColor = `${myColour}`;
+            myFloorInfo.style.boxShadow = `0 0 8px ${myColour}`;
+        }
     
     } else {
 
@@ -487,13 +518,19 @@ function dehighlightAllHUDFloors(){
     let myID = myOverlayFuncsFile + myFunc;
     // console.log(myID + "Hi!");
 
-    const allFloorSquares = document.querySelectorAll('.floor_square_highlight');
-    allFloorSquares.forEach(square => {
-        square.classList.remove('floor_square_highlight');
-        square.style.removeProperty('border');
-        square.style.removeProperty('background-color');
-        square.style.removeProperty('box-shadow');
-        square.classList.add('floor_square');
+    const floorsCont = document.getElementById("floors-hud-container");
+
+    const currentHighlights = floorsCont.querySelectorAll('.highlighted');
+    currentHighlights.forEach(elem => {
+        
+        elem.classList.remove('highlighted');
+        
+        const myFloorSquare = elem.querySelector('.floor-square');
+        if (myFloorSquare){ myFloorSquare.removeAttribute('style'); }
+        
+        const myFloorInfo = elem.querySelector('.floor-info');
+        if (myFloorInfo){ myFloorInfo.removeAttribute('style'); }
+    
     });
 
 }

@@ -99,7 +99,7 @@
                         <div class="panel-labels" style="justify-content: center; gap: 10px;">
                             <div class="label-position">TOWER</div>
                             <div class="label-wing">Elevators</div>
-                            <div class="label-position">FORTRESS</div>
+                            <div class="label-position">Floor Info</div>
                             <div class="label-wing">FACTORY</div>
                         </div>
 
@@ -110,7 +110,7 @@
                             <button class="control-button on-off-button" data-onoff="off" onClick="toggle('elevators');">
                                 <span class="button-label">OFF</span>
                             </button>
-                            <button class="control-button on-off-button" data-onoff="off">
+                            <button class="control-button on-off-button" data-onoff="off" onClick="toggle('floor-info');">
                                 <span class="button-label">OFF</span>
                             </button>
                             <button class="control-button on-off-button" data-onoff="off">
@@ -177,7 +177,7 @@
             <div class="canvas-container">
                 <canvas id="main-canvas"></canvas>
                 <div id="hud">
-                    <div id="floors-container"></div>
+                    <div id="floors-hud-container"></div>
                 </div>
                 <span id="typing-text"></span>
                 <svg id="floor-overlay" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
@@ -281,6 +281,45 @@
             if (myObject == "elevators"){
 
                 if (myTower != null){}
+
+            }
+
+            if (myObject == "floor-info"){
+
+                let floorsCont = document.getElementById("floors-hud-container");
+                if (floorsCont){
+
+                    console.log(myID + "floorsCont found.");
+                    const testFloor = floorsCont.querySelector(`.floor-entry[data-floor="0"]`);
+
+                    if (testFloor){
+
+                        console.log(myID + "testFloor found.");
+                        const testText = testFloor.querySelector(`.floor-info`);
+
+                        if (testText){
+
+                            console.log(myID + "testText found.");
+
+                            if (testText.innerHTML == ''){ 
+
+                                removeHUDFloorDisplay();
+                                initHUDFloorDisplay("info");
+                                console.log(myID + "No floor infos found, establishing.");
+
+                             } else {
+
+                                removeHUDFloorDisplay();
+                                initHUDFloorDisplay("");
+                                console.log(myID + "Floor infos found, deactivating.");
+
+                             }
+
+                        }
+
+                    }
+
+                }
 
             }
 

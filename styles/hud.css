@@ -15,7 +15,7 @@
     justify-content: center;
 }
 
-#floors-container {
+#floors-hud-container {
     /* 1. Use Flexbox to stack the floors vertically */
     display: flex;
     flex-direction: column-reverse; /* ⭐ IMPORTANT: Renders 0 at the bottom ⭐ */
@@ -27,35 +27,68 @@
     left: 10px;
     z-index: 1001;
 
-    transform: translateY(-50%) /* shifts container UP by half its own height */
-}
-
-.floor_square {
-    /* Styling for each square */
-    width: 15px;
-    height: 15px;
-    border: 1px solid #406040;
-    background-color: #343; /* Default color */
-    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-    text-align:center;
-    color: #6ee7b7;
-}
-
-.floor_square_highlight {
-    /* Styling for each square */
-    width: 15px;
-    height: 15px;
-    transition: background-color 0.3s;
-    text-align:center;
-    color: #343;
+    transform: translateY(-50%); /* shifts container UP by half its own height */
+    pointer-events: none;
 }
 
 #floor-overlay {
-
     position: absolute;
     bottom: 10px;
     right: 10px;
     z-index: 2;
     pointer-events: none;
-
 }
+
+.floor-entry {
+    /* This div contains both the square and the info text */
+    display: flex;
+    align-items: center; /* Vertically align the square and text */
+    margin-bottom: 2px; /* Small gap between floor entries */
+    pointer-events: none;
+}
+
+.floor-square {
+    /* Styling for each square */
+    width: 15px;
+    height: 15px;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    text-align:center;
+    color: #6ee7b7;
+    margin-right: 4px;
+    border: 1px solid #406040;
+    background-color: #343; /* Default color */
+    box-shadow: none;
+}
+
+.highlighted .floor-square {
+    /* Styling for each square */
+    margin-right: 4px;
+    flex-shrink: 0;
+    display: flex;
+    width: 15px;
+    height: 15px;
+    transition: background-color 0.3s;
+    text-align:center;
+    color: #333;
+    border: 1px solid #406040;
+    background-color: #343; /* Default color */
+    box-shadow: none;
+}
+
+.floor-info {
+    color: #6ee7b7;
+    white-space: nowrap; /* Keep the text on a single line */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+}
+
+.highlighted .floor-info {
+    color: #333;
+    white-space: nowrap; /* Keep the text on a single line */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+}
+
+
