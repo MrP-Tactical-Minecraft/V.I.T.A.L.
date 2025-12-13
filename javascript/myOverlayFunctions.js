@@ -148,6 +148,7 @@ function addSingleBlock(myX, myY, myZ, myColour, myGroup){
     if (myColour == "lime_green"){ material = new THREE.MeshPhongMaterial({color: 0xb9ff66, transparent: false, opacity: 1.0}); }
     if (myColour == "solid_blue"){ material = new THREE.MeshPhongMaterial({color: 0x0000ff, transparent: false, opacity: 1.0}); }
     if (myColour == "solid_pink"){ material = new THREE.MeshPhongMaterial({color: 0xff00ff, transparent: false, opacity: 1.0}); }
+    if (myColour == "default"){material = new THREE.MeshPhongMaterial({color: 0x6ee7b7, transparent: false, opacity: 1.0}); }
     
     const block = new THREE.Mesh(geometry, material);
 
@@ -179,6 +180,7 @@ function addBlockToOverlay(myX, myY, myZ, myColour){
     if (myColour == "solid_brown"){ inputColour = "#aa8866"; }
     if (myColour == "solid_pink"){ inputColour = "#ff00ff"; }
     if (myColour == "lime_green"){ inputColour = "#b9ff66"; }
+    if (myColour == "default"){ inputColour = "#6ee7b7"; }
     if ((myColour == "") || (myColour == null)){ inputColour = "#808080"; }
 
     rect.setAttribute('x', myX*2 - 3);
@@ -246,6 +248,7 @@ function displayPlayersInOverlay(){
 
                 clearCircleFromOverlay("circ" + player.name);
                 addCircleToOverlay(player.position.x - 9295, player.position.y - 719, player.colour, player.name, player.gamemode);
+                // console.log(myID + `${player.name} rendered on 2D floor map.`);
 
             }
 
@@ -536,42 +539,84 @@ function dehighlightAllHUDFloors(){
 
 }
 
-function addMissionIndicator(myMission){
+function addIndicator(myDesignator){
 
-    let myFunc = "addMissionIndicator(" + myMission + "): ";
+    let myFunc = "addIndicator(" + myDesignator + "): ";
     let myID = myOverlayFuncsFile + myFunc;
     console.log(myID + "Hi!");
 
-    if (myMission == "M1"){
+    let mySVGl = document.getElementById("floors-strip-left");
+    let mySVGr = document.getElementById("floors-strip-right"); 
 
-        addPathElement(1,29,"mandatory","left", 0);
-        addPathElement(7,29,"mandatory","left", -5);
+    if (myDesignator == "M1"){
 
-        addPathElement(24,13,"mandatory","right", 0);
-        addPathElement(3,13,"optional","right", 5);
-        addPathElement(9,13,"optional","right", 5);
-        addPathElement(21,13,"optional","right", 5);
+        const groupM1l = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        groupM1l.setAttribute("id", "M1left");
+
+        const groupM1r = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        groupM1r.setAttribute("id", "M1right");
+
+        addPathElement(groupM1l, 1,29,"mandatory","left", 0);
+        addPathElement(groupM1l, 7,29,"mandatory","left", -5);
+
+        addPathElement(groupM1r, 24,13,"mandatory","right", 0);
+        addPathElement(groupM1r, 3,13,"optional","right", 5);
+        addPathElement(groupM1r, 9,13,"optional","right", 5);
+        addPathElement(groupM1r, 21,13,"optional","right", 5);
+
+        mySVGl.appendChild(groupM1l);
+        mySVGr.appendChild(groupM1r);
 
     }
 
-    function addPathElement(startFloor, endFloor, myType, mySide, myOffset){
+    if (myDesignator == "P2P"){
 
-        const pathElement1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        pathElement1.setAttribute('d', constructPath(startFloor, endFloor, myType, mySide, myOffset));
-        pathElement1.setAttribute('id', 'myPath');
-        pathElement1.setAttribute('fill', 'none'); 
-        pathElement1.setAttribute('stroke-width', '1');
-        pathElement1.setAttribute('stroke', '#00ff77');
-        if (myType == "optional"){ pathElement1.setAttribute('stroke-dasharray', '4 3'); }
+        const groupP2Pl = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        groupP2Pl.setAttribute("id", "P2Pleft");
+
+        const groupP2Pr = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        groupP2Pr.setAttribute("id", "P2Pright");
+
+        addPathElement(groupP2Pl, 6,13,"mandatory","left", 0);
+        addPathElement(groupP2Pr, 6,18,"mandatory","right", 0);
+
+        addPathElement(groupP2Pl, 10,20,"mandatory","left", -3);
+        addPathElement(groupP2Pr, 10,25,"mandatory","right", 3);
+
+        addPathElement(groupP2Pr, 15,22,"mandatory","right", 6);
+
+        addPathElement(groupP2Pl, 20,0,"mandatory","left", -9);
+        addPathElement(groupP2Pr, 20,30,"mandatory","right", 9);
+
+        addPathElement(groupP2Pl, 28,19,"mandatory","left", -12);
+
+        mySVGl.appendChild(groupP2Pl);
+        mySVGr.appendChild(groupP2Pr);
+
+    }
+
+    function addPathElement(myGroup, startFloor, endFloor, myType, mySide, myOffset){
+
+        const pathElement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        pathElement.setAttribute('d', constructPath(startFloor, endFloor, myType, mySide, myOffset));
+        pathElement.setAttribute('id', 'myPath');
+        pathElement.setAttribute('fill', 'none'); 
+        pathElement.setAttribute('stroke-width', '1');
+        pathElement.setAttribute('stroke', '#00ff77');
+        if (myType == "optional"){ pathElement.setAttribute('stroke-dasharray', '4 3'); }
         
-        pathElement1.setAttribute('stroke-linecap', 'round');    
-        pathElement1.setAttribute('marker-end', 'url(#arrowhead)');
+        pathElement.setAttribute('stroke-linecap', 'round');    
+        pathElement.setAttribute('marker-end', 'url(#arrowhead)');
 
+        /*
         let mySVG = null;
         if (mySide == "left"){ mySVG = document.getElementById("floors-strip-left"); }
         if (mySide == "right"){ mySVG = document.getElementById("floors-strip-right"); }
 
         if (mySVG){ mySVG.appendChild(pathElement1); }
+        */
+
+        myGroup.appendChild(pathElement);
 
     }
 
@@ -618,10 +663,33 @@ function addMissionIndicator(myMission){
 
 }
 
-function removeMissionIndicator(){
+function removeIndicator(myTarget){
 
-    let myFunc = "removeMissionIndicator(): ";
+    let myFunc = `removeIndicator(${myTarget}): `;
     let myID = myOverlayFuncsFile + myFunc;
-    console.log(myID + "Hi!");    
+    console.log(myID + "Hi!");
+
+    let leftSVG = document.getElementById("floors-strip-left");
+    let rightSVG = document.getElementById("floors-strip-right");
+
+    if (myTarget == "M1"){
+
+        let groupL = document.getElementById("M1left");
+        leftSVG.removeChild(groupL);
+
+        let groupR = document.getElementById("M1right");        
+        rightSVG.removeChild(groupR);
+
+    }
+
+    if (myTarget == "P2P"){
+
+        let groupL = document.getElementById("P2Pleft");
+        leftSVG.removeChild(groupL);
+
+        let groupR = document.getElementById("P2Pright");        
+        rightSVG.removeChild(groupR);
+
+    }  
 
 }

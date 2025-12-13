@@ -363,7 +363,7 @@ class Player{
 
         // this switch changes the affiliation logic to the old starting positions for the defence
         // all players are offence by default and only get assigned defence on floor 14
-        let oldPos = true; 
+        let oldPos = false; 
 
         if ((pos.z == -49) && (oldPos == false)){
 
@@ -445,7 +445,8 @@ class Player{
 
                     displayCertainBlocks(-this.position.z, myBlockGroup);   
                     displayCertainBlocks(-this.position.z, myBlockGroup, "solid_orange", "orange_stained_glass"); 
-                    displayCertainBlocks(-this.position.z, myBlockGroup, "solid_green", "lime_stained_glass");                    
+                    displayCertainBlocks(-this.position.z, myBlockGroup, "solid_green", "lime_stained_glass");
+                    displayCertainBlocks(-this.position.z-1, myBlockGroup, "default", "andesite");                    
 
                     this.oldZ = this.position.z;
 

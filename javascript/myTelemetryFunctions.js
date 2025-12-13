@@ -133,6 +133,7 @@ function getLatestTelemetry(myTable){
             myTelemetry = JSON.parse(results);    
             dehighlightGUI();        
             updatePlayerRoster();  
+            displayPlayersInOverlay();
             highlightWireFrames();
 
             if (flagTelemetry == true) {

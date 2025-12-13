@@ -98,22 +98,22 @@
                     <div class="control-panel on-off">
                         <div class="panel-labels" style="justify-content: center; gap: 10px;">
                             <div class="label-position">TOWER</div>
-                            <div class="label-wing">Elevators</div>
-                            <div class="label-position">Floor Info</div>
-                            <div class="label-wing">FACTORY</div>
+                            <div class="label-wing">HUD:INF</div>
+                            <div class="label-position">HUD:M1</div>
+                            <div class="label-wing">HUD:P2P</div>
                         </div>
 
                         <div class="panel-buttons">
                             <button class="control-button on-off-button" data-onoff="off" onClick="toggle('tower');">
                                 <span class="button-label">OFF</span>
                             </button>
-                            <button class="control-button on-off-button" data-onoff="off" onClick="toggle('elevators');">
-                                <span class="button-label">OFF</span>
-                            </button>
                             <button class="control-button on-off-button" data-onoff="off" onClick="toggle('floor-info');">
                                 <span class="button-label">OFF</span>
                             </button>
-                            <button class="control-button on-off-button" data-onoff="off">
+                            <button class="control-button on-off-button" data-onoff="off" onClick="toggle('mission-info');">
+                                <span class="button-label">OFF</span>
+                            </button>
+                            <button class="control-button on-off-button" data-onoff="off" onClick="toggle('p2p-info');">
                                 <span class="button-label">OFF</span>
                             </button>
                         </div>
@@ -163,7 +163,8 @@
                 <div class="dropdown-wrapper">
                     <select id="player-focus" class="cockpit-dropdown" onChange="clearFloorPlan();">
                         <option value="Hyalan">Hyalan</option>
-                        <option value="T3ipel">T3ipel</option>
+                        <option value="Robstar558">Robstar558</option>
+                        <option value="SamyHilk">SamyHilk</option>
                     </select>
                 </div>
             </div>
@@ -241,6 +242,7 @@
         // let myPlayers = [];
 
         let A = []; // this is the main array to store chunk data in
+        let HUDmode = null;
 
         let staleThreshold = 10; // number of seconds after which offline player markers are coloured grey
         let offlineThreshold = 20; // number of seconds for which offline players are still displayed and after which online players are deleted from the map
@@ -284,44 +286,56 @@
 
             }
 
-            if (myObject == "elevators"){
-
-                if (myTower != null){}
-
-            }
-
             if (myObject == "floor-info"){
 
                 let floorsCont = document.getElementById("floors-hud-container");
                 if (floorsCont){
 
-                    console.log(myID + "floorsCont found.");
+                    // console.log(myID + "floorsCont found.");
                     const testFloor = floorsCont.querySelector(`.floor-entry[data-floor="0"]`);
 
                     if (testFloor){
 
-                        console.log(myID + "testFloor found.");
+                        // console.log(myID + "testFloor found.");
                         const testText = testFloor.querySelector(`.floor-info`);
 
                         if (testText){
 
-                            console.log(myID + "testText found.");
+                            // console.log(myID + "testText found.");
 
                             removeHUDFloorDisplay();
                             initHUDFloorDisplay("");
-                            console.log(myID + "Floor infos found, establishing.");
+                            // onsole.log(myID + "Floor infos found, establishing.");
 
                         } else {
 
                             removeHUDFloorDisplay();
                             initHUDFloorDisplay("info");
-                            console.log(myID + "Floor infos found, deactivating.");
+                            // console.log(myID + "Floor infos found, deactivating.");
 
                         }
 
                     }
 
                 }
+
+            }
+
+            if (myObject == "mission-info"){
+
+                let SVG = document.getElementById("floors-strip-left");
+                let hasMission = document.getElementById("M1left");
+
+                if (SVG.contains(hasMission)){ removeIndicator("M1"); } else { addIndicator("M1"); }
+
+            }
+
+            if (myObject == "p2p-info"){
+
+                let SVG = document.getElementById("floors-strip-left");
+                let hasMission = document.getElementById("P2Pleft");
+
+                if (SVG.contains(hasMission)){ removeIndicator("P2P"); } else { addIndicator("P2P"); }                
 
             }
 
