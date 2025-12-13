@@ -419,14 +419,14 @@ function initHUDFloorDisplay(myMode){
     console.log(myID + "Hi!");
 
     const allFloorInfos = [
-        "Grand Atrium / Hail Mary", "Key 1", "Office Space", "Password 1", "Office Space", "Environmental Controls", "Office Space / P2P(13,18)", "Key 2 / Ender Pearls", "Office Space", "Password 2", "Hotel Lobby / P2P(20,25)",
+        "Grand Atrium / Hail Mary", "Key 1", "Office Space", "Password 1", "Office Space", "Environmental Controls", "Office Space / P2P(13,18)", "Key 2 / Ender Pearls", "Glass Office Space", "Password 2", "Hotel Lobby / P2P(20,25)",
         "Hotel", "Executive Suites", "Computer Centre", "Appartments", "Key 3 / P2P(22)", "Communications Centre", "Office Space", "Appartments", "Appartments", "Atrium 20 / P2P(G0,30)",
         "Password 3", "Office Space", "Art Gallery", "Empty Disc", "Hangar / Teleporters / Elytras & Rockets", "Hangar", "Hangar / Key 4", "Hangar / P2P(19)", "Executive Conference Room / Archive", "Atrium 30 / Office Space",
         "Office Space", "Appartments / Bank", "Penthouse Suite", "Penthouse Suite"
     ];
 
     const floor_count = 35;
-    const floorsCont = document.getElementById("floors-hud-container");
+    const floorsCont = document.getElementById("floor-entries-list");
 
     // clear all existing elements from the container
     floorsCont.innerHTML = '';
@@ -449,13 +449,14 @@ function initHUDFloorDisplay(myMode){
 
         floor_entry.appendChild(floor_square);            
 
+        if (myMode === 'info'){
+
             const floor_info = document.createElement('div');
             floor_info.className = 'floor-info';
-            
-            // we will write information here if HUDMode 'info' is selected, otherwise the text is left empty
-            if (myMode === 'info'){ floor_info.textContent = allFloorInfos[i]; } else { floor_info.textCont = ''; }
-
-        floor_entry.appendChild(floor_info);            
+            floor_info.textContent = allFloorInfos[i]; // we will write information here if HUDMode 'info' is selected
+            floor_entry.appendChild(floor_info);  
+        
+        }
 
         floorsCont.appendChild(floor_entry);
 
@@ -481,7 +482,7 @@ function highlightHUDFloor(myFloor, myColour){
     let myID = myOverlayFuncsFile + myFunc;
     // console.log(myID + "Hi!");
 
-    const floorsCont = document.getElementById("floors-hud-container");
+    const floorsCont = document.getElementById("floor-entries-list");
     const floorToHighlight = floorsCont.querySelector(`.floor-entry[data-floor="${myFloor}"]`);
 
     if (floorToHighlight){ 
@@ -518,7 +519,7 @@ function dehighlightAllHUDFloors(){
     let myID = myOverlayFuncsFile + myFunc;
     // console.log(myID + "Hi!");
 
-    const floorsCont = document.getElementById("floors-hud-container");
+    const floorsCont = document.getElementById("floor-entries-list");
 
     const currentHighlights = floorsCont.querySelectorAll('.highlighted');
     currentHighlights.forEach(elem => {
@@ -532,5 +533,95 @@ function dehighlightAllHUDFloors(){
         if (myFloorInfo){ myFloorInfo.removeAttribute('style'); }
     
     });
+
+}
+
+function addMissionIndicator(myMission){
+
+    let myFunc = "addMissionIndicator(" + myMission + "): ";
+    let myID = myOverlayFuncsFile + myFunc;
+    console.log(myID + "Hi!");
+
+    if (myMission == "M1"){
+
+        addPathElement(1,29,"mandatory","left", 0);
+        addPathElement(7,29,"mandatory","left", -5);
+
+        addPathElement(24,13,"mandatory","right", 0);
+        addPathElement(3,13,"optional","right", 5);
+        addPathElement(9,13,"optional","right", 5);
+        addPathElement(21,13,"optional","right", 5);
+
+    }
+
+    function addPathElement(startFloor, endFloor, myType, mySide, myOffset){
+
+        const pathElement1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        pathElement1.setAttribute('d', constructPath(startFloor, endFloor, myType, mySide, myOffset));
+        pathElement1.setAttribute('id', 'myPath');
+        pathElement1.setAttribute('fill', 'none'); 
+        pathElement1.setAttribute('stroke-width', '1');
+        pathElement1.setAttribute('stroke', '#00ff77');
+        if (myType == "optional"){ pathElement1.setAttribute('stroke-dasharray', '4 3'); }
+        
+        pathElement1.setAttribute('stroke-linecap', 'round');    
+        pathElement1.setAttribute('marker-end', 'url(#arrowhead)');
+
+        let mySVG = null;
+        if (mySide == "left"){ mySVG = document.getElementById("floors-strip-left"); }
+        if (mySide == "right"){ mySVG = document.getElementById("floors-strip-right"); }
+
+        if (mySVG){ mySVG.appendChild(pathElement1); }
+
+    }
+
+    function constructPath(startFloor, endFloor, myType, mySide, myOffset){
+
+        let myFunc = `constructPath(${startFloor}, ${endFloor}, ${myType}, ${mySide}): `;
+        let myID = myOverlayFuncsFile + myFunc;  
+        
+        let zero;
+        if (mySide == "left"){ zero = document.getElementById("floors-strip-left").getBoundingClientRect(); }
+        if (mySide == "right"){ zero = document.getElementById("floors-strip-right").getBoundingClientRect(); }
+        let x0 = zero.left;
+        let y0 = zero.top;
+                
+        const floorsCont = document.getElementById("floors-hud-container");
+        const startFloorObj = floorsCont.querySelector(`.floor-entry[data-floor="${startFloor}"]`);
+        const endFloorObj = floorsCont.querySelector(`.floor-entry[data-floor="${endFloor}"]`);
+
+        let myH = startFloorObj.clientHeight;
+
+        let startX = startFloorObj.getBoundingClientRect().left - x0;
+        if (mySide == "right"){ startX = startX + 15; }
+        let startY = startFloorObj.getBoundingClientRect().top - y0 + myH/2;
+
+        let extX = null;
+        if (mySide == "left"){ extX = -10 + myOffset; }
+        if (mySide == "right"){ extX = 10 + myOffset; }
+
+        let endY = endFloorObj.getBoundingClientRect().top - y0 + myH/2;
+        let vert = endY - startY;
+        
+        //console.log(myID + `startFloor: ${startFloorObj.id}, endFloor: ${endFloorObj.id}`);
+        //console.log(myID + `start: [${startX},${startY}], end: [${startX},${endY}]`);
+
+        // SVG path sequence: M (Start) -> H (extend out horizontally) -> V (run up/down) -> H (reconnect horizontally)
+        const path = `M ${startX},${startY} ` +
+                     `h ${extX}` + 
+                     `v ${vert}` +
+                     `h ${-extX}`;
+
+        return path;
+
+    }
+
+}
+
+function removeMissionIndicator(){
+
+    let myFunc = "removeMissionIndicator(): ";
+    let myID = myOverlayFuncsFile + myFunc;
+    console.log(myID + "Hi!");    
 
 }

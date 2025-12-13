@@ -254,15 +254,24 @@ function updatePlayerRoster(myNow){
 
         if (idx != null){
 
+            // console.log(myID + "Updating telemetry data for player " + keyID);
+
             foundPlayer = myTelemetry[1][idx];
             foundTimestamp = myTelemetry[0][idx];
             foundPosition = new THREE.Vector3(myTelemetry[2][idx], myTelemetry[4][idx], -myTelemetry[3][idx]);
             foundGamemode = myTelemetry[5][idx];
-            foundWorld = myTelemetry[6][idx];    
-            
-            playerObject.update(foundGamemode, foundPosition, foundTimestamp, foundWorld, myNow);
+            foundWorld = myTelemetry[6][idx];      
 
-        }     
+        } else {
+
+            foundGamemode = undefined;
+            foundPosition = undefined;
+            foundTimestamp = undefined;
+            foundWorld = undefined;
+
+        }
+
+        playerObject.update(foundGamemode, foundPosition, foundTimestamp, foundWorld, myNow);
         
         if (playerObject.status == "OFFLINE"){             
              

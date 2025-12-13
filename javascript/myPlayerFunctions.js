@@ -45,22 +45,30 @@ class Player{
 
     update(newGamemode, newPosition, newTimestamp, newWorld, myNow){
 
+        let myFunc;
         let oldVec = "[" + this.position.x + ", " + this.position.y + ", " + this.position.z + "]";
-        let newVec = "[" + newPosition.x + ", " + newPosition.y + ", " + newPosition.z + "]";
-
-        let myFunc = "update(" + newGamemode + ", " + newVec + ", " + newTimestamp + ", " + newWorld + "): ";
+        if (newPosition){ 
+            let newVec = "[" + newPosition.x + ", " + newPosition.y + ", " + newPosition.z + "]"; 
+            myFunc = "update(" + newGamemode + ", " + newVec + ", " + newTimestamp + ", " + newWorld + "): ";
+        } else {
+            myFunc = "update(" + newGamemode + ", undefined, " + newTimestamp + ", " + newWorld + "): ";
+        }       
 
         // console.log(this.ID + myFunc + "Updating " + this.name + "'s position from " + oldVec + ".");
-        this.position.x = newPosition.x;
-        this.position.y = newPosition.y;
-        this.position.z = newPosition.z;
-        this.checkPos();
+        if (newPosition){
 
-        this.timestamp = newTimestamp;
+            this.position.x = newPosition.x;
+            this.position.y = newPosition.y;
+            this.position.z = newPosition.z;
+            this.checkPos();
+
+        }
+
+        if (newTimestamp){ this.timestamp = newTimestamp; }
         this.checkTime(myNow);
 
-        this.checkWorld(newWorld);
-        this.checkGamemode(newGamemode);
+        if (newWorld){ this.checkWorld(newWorld); }
+        if (newGamemode){ this.checkGamemode(newGamemode); }
         this.checkStatus();
 
         this.updateColour();
@@ -309,7 +317,7 @@ class Player{
         }        
         
         let elapsedTime = parseInt(now - this.timestamp).toFixed(0);
-        // console.log(this.ID + myFunc + "now=" + now + ", last player timestamp=" + this.timestamp + ", elapsedTime=" + elapsedTime);
+        // console.log(this.ID + myFunc + "now=" + now + ", last player timestamp=" + this.timestamp + " for " + this.name + ", elapsedTime=" + elapsedTime);
 
         if (elapsedTime < staleThreshold){ 
             

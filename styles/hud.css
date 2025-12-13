@@ -16,19 +16,37 @@
 }
 
 #floors-hud-container {
-    /* 1. Use Flexbox to stack the floors vertically */
-    display: flex;
-    flex-direction: column-reverse; /* ⭐ IMPORTANT: Renders 0 at the bottom ⭐ */
-    align-items: flex-start;
-    gap: 2px; /* Space between the squares */
 
     position: absolute;
     top: 50%;
     left: 10px;
     z-index: 1001;
-
     transform: translateY(-50%); /* shifts container UP by half its own height */
     pointer-events: none;
+}
+
+#floors-content-wrapper {
+    display: flex; /* lines the svg strips and the floor entries horizontally */
+    align-items: stretch;
+    pointer-events:none;
+}
+
+#floor-entries-list {
+    display: flex;
+    flex-direction: column-reverse; /* renders 0 at the bottom */
+    align-items: flex-start;
+    gap: 2px;
+    margin: 0 0px;
+}
+
+.floors-strip {
+    height: auto;
+    min-height: 100%;
+    width: 20px;
+    overflow: visible; /* important for drawing paths outside bounds */
+    pointer-events: none;
+    /* background-color: #ff0000; */
+    display: block;
 }
 
 #floor-overlay {
@@ -54,7 +72,6 @@
     transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
     text-align:center;
     color: #6ee7b7;
-    margin-right: 4px;
     border: 1px solid #406040;
     background-color: #343; /* Default color */
     box-shadow: none;
@@ -62,7 +79,6 @@
 
 .highlighted .floor-square {
     /* Styling for each square */
-    margin-right: 4px;
     flex-shrink: 0;
     display: flex;
     width: 15px;
@@ -81,6 +97,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     pointer-events: none;
+    margin-left: 4px;
 }
 
 .highlighted .floor-info {
@@ -89,6 +106,5 @@
     overflow: hidden;
     text-overflow: ellipsis;
     pointer-events: none;
+    margin-left: 4px;
 }
-
-

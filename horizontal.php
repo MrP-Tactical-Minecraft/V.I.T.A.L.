@@ -177,7 +177,13 @@
             <div class="canvas-container">
                 <canvas id="main-canvas"></canvas>
                 <div id="hud">
-                    <div id="floors-hud-container"></div>
+                    <div id="floors-hud-container">
+                        <div id="floors-content-wrapper">
+                            <svg id="floors-strip-left" class="floors-strip"></svg>
+                            <div id="floor-entries-list"></div>
+                            <svg id="floors-strip-right" class="floors-strip"></svg>
+                        </div>
+                    </div>
                 </div>
                 <span id="typing-text"></span>
                 <svg id="floor-overlay" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
@@ -301,19 +307,15 @@
 
                             console.log(myID + "testText found.");
 
-                            if (testText.innerHTML == ''){ 
+                            removeHUDFloorDisplay();
+                            initHUDFloorDisplay("");
+                            console.log(myID + "Floor infos found, establishing.");
 
-                                removeHUDFloorDisplay();
-                                initHUDFloorDisplay("info");
-                                console.log(myID + "No floor infos found, establishing.");
+                        } else {
 
-                             } else {
-
-                                removeHUDFloorDisplay();
-                                initHUDFloorDisplay("");
-                                console.log(myID + "Floor infos found, deactivating.");
-
-                             }
+                            removeHUDFloorDisplay();
+                            initHUDFloorDisplay("info");
+                            console.log(myID + "Floor infos found, deactivating.");
 
                         }
 
