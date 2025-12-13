@@ -162,9 +162,7 @@
                 <label for="system-select" class="dropdown-label">PLAYER FOCUS</label>
                 <div class="dropdown-wrapper">
                     <select id="player-focus" class="cockpit-dropdown" onChange="clearFloorPlan();">
-                        <option value="Hyalan">Hyalan</option>
-                        <option value="Robstar558">Robstar558</option>
-                        <option value="SamyHilk">SamyHilk</option>
+                        <option value="">          </option>
                     </select>
                 </div>
             </div>

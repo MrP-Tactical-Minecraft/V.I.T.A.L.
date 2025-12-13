@@ -284,6 +284,11 @@ function updatePlayerRoster(myNow){
             Player.roster.delete(keyID);
 
             if (playerFocus == playerObject.name){ clearFloorPlan(); }
+
+            // delete player from focus selection
+            let focusSelector = document.getElementById("player-focus");
+            let deleteReference = focusSelector.querySelector(`option[value=${playerObject.name}]`);
+            focusSelector.removeChild(deleteReference);
         
         }
     

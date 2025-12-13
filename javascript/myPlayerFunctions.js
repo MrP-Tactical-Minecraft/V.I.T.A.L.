@@ -39,6 +39,14 @@ class Player{
 
         const newPlayer = new Player(myName, myGamemode, myPosition, myTimestamp, myWorld);
         Player.roster.set(myName, newPlayer);
+
+        // add player as option for focus select
+        let focusSelector = document.getElementById("player-focus");
+        let newOption = document.createElement('option');
+        newOption.textContent = myName;
+        newOption.value = myName;
+        focusSelector.appendChild(newOption);
+
         return newPlayer;
 
     }
