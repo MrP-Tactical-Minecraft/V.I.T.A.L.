@@ -208,6 +208,42 @@ class Player{
 
     }
 
+    addFocusSprite(){
+
+        let playerFocus = document.getElementById("player-focus").value;
+        const textureLoader = new THREE.TextureLoader();
+
+        if (playerFocus == this.name){
+
+            let texture = textureLoader.load('./resources/sprite120ring.png');
+            
+            let spriteMaterial = new THREE.SpriteMaterial({
+                map: texture,
+                color: 0xffff00,
+                transparent: true
+            });
+            
+            if (spriteMaterial != null){
+
+                const spriteFocus = new THREE.Sprite(spriteMaterial); 
+
+                spriteFocus.position.x = this.position.x;
+                spriteFocus.position.y = this.position.y;
+                spriteFocus.position.z = this.position.z;
+
+                spriteFocus.scale.set(8, 8, 1);
+
+                spriteFocus.name = "spriteFocus_" + this.name;
+
+                // playerGroup.add(sprite);
+                scene.add(spriteFocus);                
+
+            }
+
+        }
+
+    }
+
     updateSprite(){
 
         let myFunc = "updateSprite(): ";
@@ -226,6 +262,15 @@ class Player{
 
         }
 
+        let mySpriteFocus = scene.getObjectByName("spriteFocus_" + this.name);
+        if (mySpriteFocus){
+
+            mySpriteFocus.position.x = this.position.x;
+            mySpriteFocus.position.y = this.position.y;
+            mySpriteFocus.position.z = this.position.z;
+
+        }
+
     }
 
     deleteSprite(){
@@ -235,8 +280,11 @@ class Player{
 
         let searchName = "sprite_" + this.name;
         let mySprite = scene.getObjectByName(searchName);
-
         scene.remove(mySprite);
+
+        let searchFocusName = "spriteFocus_" + this.name;
+        let myFocusSprite = scene.getObjectByName(searchFocusName);
+        scene.remove(myFocusSprite);
 
     }
 
@@ -375,10 +423,45 @@ class Player{
 
         if ((pos.z == -49) && (oldPos == false)){
 
+            let playerFocus = document.getElementById("player-focus").value;
+            let obj = document.getElementById("player-focus-indicator");
+
             // console.log(this.ID + myFunc + "Player " + this.name + " is on z-level 49.");
-            if ((pos.x >= 9365) && (pos.x <= 9368) && (pos.y >= 635) && (pos.y <= 640)){ this.affiliation = ""; }
-            if ((pos.x >= 9371) && (pos.x <= 9376) && (pos.y >= 635) && (pos.y <= 640)){ this.affiliation = "OFFENCE"; }
-            if ((pos.x >= 9357) && (pos.x <= 9362) && (pos.y >= 635) && (pos.y <= 640)){ this.affiliation = "DEFENCE"; }          
+            if ((pos.x >= 9365) && (pos.x <= 9368) && (pos.y >= 635) && (pos.y <= 640)){ 
+                
+                this.affiliation = "";
+                if (playerFocus == this.name){ 
+                    
+                    scene.background = new THREE.Color(0x002222);
+                    obj.style.color = "#6ee7b7";
+                
+                }
+            
+            }
+
+            if ((pos.x >= 9371) && (pos.x <= 9376) && (pos.y >= 635) && (pos.y <= 640)){ 
+                
+                this.affiliation = "OFFENCE"; 
+                if (playerFocus == this.name){ 
+                    
+                    scene.background = new THREE.Color(0x220000);
+                    obj.style.color = "#ff0000"; 
+                
+                }
+            
+            }
+
+            if ((pos.x >= 9357) && (pos.x <= 9362) && (pos.y >= 635) && (pos.y <= 640)){ 
+                
+                this.affiliation = "DEFENCE";
+                if (playerFocus == this.name){ 
+                    
+                    scene.background = new THREE.Color(0x000022);
+                    obj.style.color = "#0099ff"; 
+                
+                } 
+            
+            }          
 
         }
 
@@ -476,5 +559,17 @@ class Player{
         }
 
     }
+
+}
+
+function clearAllFocusSprites(){
+
+    Player.roster.forEach(player => {
+
+        let searchFocusName = "spriteFocus_" + player.name;
+        let myFocusSprite = scene.getObjectByName(searchFocusName);
+        scene.remove(myFocusSprite);
+
+    });    
 
 }

@@ -165,7 +165,7 @@
             <div class="panel-dropdown-group">
                 <label for="system-select" class="dropdown-label">PLAYER FOCUS</label>
                 <div class="dropdown-wrapper">
-                    <select id="player-focus" class="cockpit-dropdown" onChange="clearFloorPlan();">
+                    <select id="player-focus" class="cockpit-dropdown" onChange="changePlayerFocus();">
                         <option value="">          </option>
                     </select>
                 </div>
@@ -192,10 +192,11 @@
                 <span id="typing-text"></span>
                 <svg id="floor-overlay" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
                 </svg>
+                <span id="player-focus-indicator"></span>
             </div>
 
             <p class="description">
-                VERTICAL INTELLIGENCE, TRACKING, AND LOCALIZATION (9dbf7b3)
+                VERTICAL INTELLIGENCE, TRACKING, AND LOCALIZATION (b8d36a9)
             </p>
 
         </div>
@@ -412,6 +413,22 @@
                 if (flagTelemetry == true){ stopAJAX(); } else { startAJAX(); }
 
             }
+
+        }
+
+        function changePlayerFocus(){
+
+            clearFloorPlan();
+            clearAllFocusSprites();
+
+            let obj = document.getElementById("player-focus-indicator");
+            let playerFocus = document.getElementById("player-focus").value;
+
+            obj.innerHTML = playerFocus;
+            obj.style.color = "#6ee7b7";
+
+            let player = Player.roster.get(playerFocus);
+            if (player) { player.addFocusSprite(); }
 
         }
 
