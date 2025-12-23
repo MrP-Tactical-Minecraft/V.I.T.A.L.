@@ -25,6 +25,26 @@
     pointer-events: none;
 }
 
+.mode-indicator-active {
+
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    text-align:center;
+    color: #6ee7b7;
+    border: 1px solid #6ee7b7;
+    margin-bottom: 5px;    
+
+}
+
+.mode-indicator-inactive {
+
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    text-align:center;
+    color: #002222;
+    border: 1px solid #002222;
+    margin-bottom: 5px;
+
+}
+
 #floors-content-wrapper {
     display: flex; /* lines the svg strips and the floor entries horizontally */
     align-items: stretch;

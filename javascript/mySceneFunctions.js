@@ -122,7 +122,7 @@ class Tower{
 
         this.rooms = new THREE.Group();
         this.rooms.name = "Skyscraper rooms";
-        this.addRooms();
+        this.addRooms("RR");
 
         this.skyscraper.add(this.columns);
         this.skyscraper.add(this.atriums);
@@ -397,49 +397,90 @@ class Tower{
         console.log(this.ID + myFunc + "Added rooms to the tower.");
 
         // Ready Room
-        addWireFrame("RR_top", "Room", this.rooms, 9359, 609, 55, 15, 21, 5, "#80A080");
-        addWireFrame("RR_bottom", "Room", this.rooms, 9359, 609, 49, 15, 21, 4, "#80A080");
-        addWireFrame("RR_offence", "Room", this.rooms, 9371, 635, 49, 5, 5, 4, "#ff0000");
-        addWireFrame("RR_neutral", "Room", this.rooms, 9365, 635, 49, 3, 5, 4, "#ffffff");
-        addWireFrame("RR_defence", "Room", this.rooms, 9357, 635, 49, 5, 5, 4, "#0099ff");
-        addBox("RR_house_1", "Building", new THREE.Vector3(9351,63,592), new THREE.Vector3(15,14,5), this.rooms);
-        addBox("RR_house_2", "Building", new THREE.Vector3(9366,63,592), new THREE.Vector3(5,6,5), this.rooms);
-        addBox("RR_house_3", "Building", new THREE.Vector3(9351,63,606), new THREE.Vector3(6,4,5), this.rooms);
 
-        if (myDesignation == "M1"){
+        if (myDesignation == "RR"){
 
-            
-            let indicate; 
-
-            addWireFrame("K1", "Room", this.rooms, 9377, 732, 72, 10, 10, 5, "#6ee7b7");
-            updateBorder("1","#6ee7b7");
-            addWireFrame("K2", "Room", this.rooms, 9360, 803, 114, 12, 10, 5, "#6ee7b7");
-            updateBorder("7","#6ee7b7");
-
-            addWireFrame("Archive", "Room", this.rooms, 9321, 737, 268, 5, 8, 5, "#00ff00");
-            updateBorder("29","#00ff00");
-
-            addWireFrame("Disc", "Room", this.rooms, 9377, 803, 233, 10, 10, 5, "#6ee7b7");
-            updateBorder("24","#6ee7b7");
-            addWireFrame("CC", "Room", this.rooms, 9306, 764, 156, 10, 15, 5, "#00ff00");
-            updateBorder("13","#00ff00");
-            addWireFrame("P1", "Room", this.rooms, 9306, 764, 86, 10, 15, 5, "#a0a0a0");
-            updateBorder("3","#a0a0a0");
-            addWireFrame("P2", "Room", this.rooms, 9306, 732, 128, 10, 10, 5, "#a0a0a0");
-            updateBorder("9","#a0a0a0");
-            addWireFrame("P3", "Room", this.rooms, 9321, 791, 212, 12, 7, 5, "#a0a0a0");
-            updateBorder("21","#a0a0a0");
-
-            function updateBorder(floor,colour){
-                const floorsCont = document.getElementById("floors-hud-container");
-                const indicate = floorsCont.querySelector(`.floor-entry[data-floor="${floor}"]`);
-                indicate.querySelector(".floor-square").style.borderColor = `${colour}`;
-                indicate.querySelector(".floor-square").style.borderWidth = "2px";
-                indicate.querySelector(".floor-square").style.borderStyle = "solid";
-            }
+            addWireFrame("RR_top", "Room", this.rooms, 9359, 609, 55, 15, 21, 5, "#80A080");
+            addWireFrame("RR_bottom", "Room", this.rooms, 9359, 609, 49, 15, 21, 4, "#80A080");
+            addWireFrame("RR_offence", "Room", this.rooms, 9371, 635, 49, 5, 5, 4, "#ff0000");
+            addWireFrame("RR_neutral", "Room", this.rooms, 9365, 635, 49, 3, 5, 4, "#ffffff");
+            addWireFrame("RR_defence", "Room", this.rooms, 9357, 635, 49, 5, 5, 4, "#0099ff");
+            addBox("RR_house_1", "Building", new THREE.Vector3(9351,63,592), new THREE.Vector3(15,14,5), this.rooms);
+            addBox("RR_house_2", "Building", new THREE.Vector3(9366,63,592), new THREE.Vector3(5,6,5), this.rooms);
+            addBox("RR_house_3", "Building", new THREE.Vector3(9351,63,606), new THREE.Vector3(6,4,5), this.rooms);
 
         }
 
+        if (myDesignation == "M1A"){
+            
+            addWireFrame("K1", "Room", this.rooms, 9377, 732, 72, 10, 10, 5, "#6ee7b7");
+            this.updateBorder("1","#6ee7b7","2px");
+            addWireFrame("K2", "Room", this.rooms, 9360, 803, 114, 12, 10, 5, "#6ee7b7");
+            this.updateBorder("7","#6ee7b7","2px");
+
+            addWireFrame("Archive", "Room", this.rooms, 9321, 737, 268, 5, 8, 5, "#00ff00");
+            this.updateBorder("29","#00ff00","2px");
+
+        }
+
+        if (myDesignation == "M1B"){
+
+            addWireFrame("Disc", "Room", this.rooms, 9377, 803, 233, 10, 10, 5, "#6ee7b7");
+            this.updateBorder("24","#6ee7b7","2px");
+            addWireFrame("CC", "Room", this.rooms, 9306, 764, 156, 10, 15, 5, "#00ff00");
+            this.updateBorder("13","#00ff00","2px");
+
+            addWireFrame("P1", "Room", this.rooms, 9306, 764, 86, 10, 15, 5, "#a0a0a0");
+            this.updateBorder("3","#a0a0a0","2px");
+            addWireFrame("P2", "Room", this.rooms, 9306, 732, 128, 10, 10, 5, "#a0a0a0");
+            this.updateBorder("9","#a0a0a0","2px");
+            addWireFrame("P3", "Room", this.rooms, 9321, 791, 212, 12, 7, 5, "#a0a0a0");
+            this.updateBorder("21","#a0a0a0","2px");
+
+        }
+
+    }
+
+    removeRooms(myDesignation){
+
+        let myFunc = "removeRoom(): ";
+        console.log(this.ID + myFunc + `Removing ${myDesignation} from the tower.`); 
+        
+        if (myDesignation == "M1A"){
+
+            removeWireFrame("K1");
+            this.updateBorder("1","#406040","1px");
+            removeWireFrame("K2");
+            this.updateBorder("7","#406040","1px");
+
+            removeWireFrame("Archive");
+            this.updateBorder("29","#406040","1px");
+
+        }
+
+        if (myDesignation == "M1B"){
+
+            removeWireFrame("Disc");
+            this.updateBorder("24","#406040","1px");
+            removeWireFrame("CC");
+            this.updateBorder("13","#406040","1px");
+            removeWireFrame("P1");
+            this.updateBorder("3","#406040","1px");
+            removeWireFrame("P2");
+            this.updateBorder("9","#406040","1px");
+            removeWireFrame("P3");
+            this.updateBorder("21","#406040","1px");            
+
+        }
+
+    }
+
+    updateBorder(floor,colour,borderWidth){
+        const floorsCont = document.getElementById("floors-hud-container");
+        const indicate = floorsCont.querySelector(`.floor-entry[data-floor="${floor}"]`);
+        indicate.querySelector(".floor-square").style.borderColor = `${colour}`;
+        indicate.querySelector(".floor-square").style.borderWidth = `${borderWidth}`;
+        indicate.querySelector(".floor-square").style.borderStyle = "solid";
     }
 
     removeTower(){
@@ -509,7 +550,34 @@ function addWireFrame(myName, myType, myGroup, xPos, yPos, zPos, myWidth, myLeng
 
 }
 
+function removeWireFrame(myName){
+
+    let myFunc = "removeWireFrame(" + myName + "): ";
+    let thisID = mySceneFunctionFile + myFunc;
+    // console.log(thisID + "Hi!");
+
+    const selectedObject = scene.getObjectByName(myName);
+
+    if (selectedObject){
+
+        selectedObject.removeFromParent();
+
+        if (selectedObject.geometry){ selectedObject.geometry.dispose(); }
+        if (selectedObject.material){ selectedObject.material.dispose(); }
+
+        console.log(thisID + `Wireframe ${myName} removed and disposed.`);
+
+    } else {
+
+        console.log(thisID + `Wireframe ${myName} not found, no action taken.`);
+
+    }
+
+}
+
 function addBox(myName, myType, myPosition, myDimensions, myGroup){
+
+    // this function adds solid but partially opaque boxes to the scenery (instead of wireframes)
 
     let myFunc = "addBox(" + myName + ", " + myType + "): ";
     let thisID = mySceneFunctionFile + myFunc;

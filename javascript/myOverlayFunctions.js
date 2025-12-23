@@ -577,26 +577,31 @@ function addIndicator(myDesignator){
     let mySVGl = document.getElementById("floors-strip-left");
     let mySVGr = document.getElementById("floors-strip-right"); 
 
-    if (myDesignator == "M1"){
+    if (myDesignator == "M1A"){
 
         const groupM1l = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         groupM1l.setAttribute("id", "M1left");
 
-        const groupM1r = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-        groupM1r.setAttribute("id", "M1right");
-
         addPathElement(groupM1l, 1,29,"mandatory","left", 0);
         addPathElement(groupM1l, 7,29,"mandatory","left", -5);
+
+        mySVGl.appendChild(groupM1l); 
+        myTower.addRooms("M1A");
+
+    }
+
+    if (myDesignator == "M1B"){
+
+        const groupM1r = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        groupM1r.setAttribute("id", "M1right");
 
         addPathElement(groupM1r, 24,13,"mandatory","right", 0);
         addPathElement(groupM1r, 3,13,"optional","right", 5);
         addPathElement(groupM1r, 9,13,"optional","right", 5);
         addPathElement(groupM1r, 21,13,"optional","right", 5);
 
-        mySVGl.appendChild(groupM1l);
         mySVGr.appendChild(groupM1r);
-
-        myTower.addRooms("M1");
+        myTower.addRooms("M1B");
 
     }
 
@@ -706,13 +711,21 @@ function removeIndicator(myTarget){
     let leftSVG = document.getElementById("floors-strip-left");
     let rightSVG = document.getElementById("floors-strip-right");
 
-    if (myTarget == "M1"){
+    if (myTarget == "M1A"){
 
         let groupL = document.getElementById("M1left");
         leftSVG.removeChild(groupL);
 
+        myTower.removeRooms("M1A");
+
+    }
+
+    if (myTarget == "M1B"){
+
         let groupR = document.getElementById("M1right");        
         rightSVG.removeChild(groupR);
+
+        myTower.removeRooms("M1B");
 
     }
 
@@ -725,5 +738,13 @@ function removeIndicator(myTarget){
         rightSVG.removeChild(groupR);
 
     }  
+
+    function updateBorder(floor,colour){
+        const floorsCont = document.getElementById("floors-hud-container");
+        const indicate = floorsCont.querySelector(`.floor-entry[data-floor="${floor}"]`);
+        indicate.querySelector(".floor-square").style.borderColor = `${colour}`;
+        indicate.querySelector(".floor-square").style.borderWidth = "px";
+        indicate.querySelector(".floor-square").style.borderStyle = "solid";
+    }
 
 }

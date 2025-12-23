@@ -99,7 +99,8 @@
                         <div class="panel-labels" style="justify-content: center; gap: 10px;">
                             <div class="label-position">TOWER</div>
                             <div class="label-wing">HUD:INF</div>
-                            <div class="label-position">HUD:M1</div>
+                            <div class="label-position">HUD:M1A</div>
+                            <div class="label-position">HUD:M1B</div>
                             <div class="label-wing">HUD:P2P</div>
                         </div>
 
@@ -110,7 +111,10 @@
                             <button class="control-button on-off-button" data-onoff="off" onClick="toggle('floor-info');">
                                 <span class="button-label">OFF</span>
                             </button>
-                            <button class="control-button on-off-button" data-onoff="off" onClick="toggle('mission-info');">
+                            <button class="control-button on-off-button" data-onoff="off" onClick="toggle('objM1A');">
+                                <span class="button-label">OFF</span>
+                            </button>
+                            <button class="control-button on-off-button" data-onoff="off" onClick="toggle('objM1B');">
                                 <span class="button-label">OFF</span>
                             </button>
                             <button class="control-button on-off-button" data-onoff="off" onClick="toggle('p2p-info');">
@@ -177,6 +181,7 @@
                 <canvas id="main-canvas"></canvas>
                 <div id="hud">
                     <div id="floors-hud-container">
+                        <div id="mode-indicator" class="mode-indicator-inactive">___</div>
                         <div id="floors-content-wrapper">
                             <svg id="floors-strip-left" class="floors-strip"></svg>
                             <div id="floor-entries-list"></div>
@@ -190,7 +195,7 @@
             </div>
 
             <p class="description">
-                VERTICAL INTELLIGENCE, TRACKING, AND LOCALIZATION
+                VERTICAL INTELLIGENCE, TRACKING, AND LOCALIZATION (9dbf7b3)
             </p>
 
         </div>
@@ -297,19 +302,27 @@
                         // console.log(myID + "testFloor found.");
                         const testText = testFloor.querySelector(`.floor-info`);
 
+                        const modeIndicator = document.getElementById("mode-indicator");
+
                         if (testText){
 
                             // console.log(myID + "testText found.");
 
                             removeHUDFloorDisplay();
                             initHUDFloorDisplay("");
-                            // onsole.log(myID + "Floor infos found, establishing.");
+                            // console.log(myID + "Floor infos found, establishing.");
+
+                            modeIndicator.innerHTML = "___";
+                            modeIndicator.classList.replace("mode-indicator-active", "mode-indicator-inactive");
 
                         } else {
 
                             removeHUDFloorDisplay();
                             initHUDFloorDisplay("info");
                             // console.log(myID + "Floor infos found, deactivating.");
+
+                            modeIndicator.innerHTML = "INF";
+                            modeIndicator.classList.replace("mode-indicator-inactive", "mode-indicator-active");
 
                         }
 
@@ -319,12 +332,49 @@
 
             }
 
-            if (myObject == "mission-info"){
+            if (myObject == "objM1A"){
 
                 let SVG = document.getElementById("floors-strip-left");
                 let hasMission = document.getElementById("M1left");
 
-                if (SVG.contains(hasMission)){ removeIndicator("M1"); } else { addIndicator("M1"); }
+                const modeIndicator = document.getElementById("mode-indicator");
+
+                if (SVG.contains(hasMission)){ 
+                    
+                    removeIndicator("M1A");
+                    modeIndicator.innerHTML="___";
+                    modeIndicator.classList.replace("mode-indicator-active", "mode-indicator-inactive"); 
+                
+                } else { 
+                    
+                    addIndicator("M1A");
+                    modeIndicator.innerHTML="OBJ";
+                    modeIndicator.classList.replace("mode-indicator-inactive", "mode-indicator-active"); 
+                
+                }
+
+            }
+
+            if (myObject == "objM1B"){
+
+                let SVG = document.getElementById("floors-strip-right");
+                let hasMission = document.getElementById("M1right");
+
+                const modeIndicator = document.getElementById("mode-indicator");
+
+                if (SVG.contains(hasMission)){ 
+                    
+                    removeIndicator("M1B");
+                    modeIndicator.innerHTML="___";
+                    modeIndicator.classList.replace("mode-indicator-active", "mode-indicator-inactive"); 
+                
+                } else { 
+                    
+                    addIndicator("M1B");
+                    modeIndicator.innerHTML="OBJ";
+                    modeIndicator.classList.replace("mode-indicator-inactive", "mode-indicator-active"); 
+                
+                }
 
             }
 
@@ -333,7 +383,21 @@
                 let SVG = document.getElementById("floors-strip-left");
                 let hasMission = document.getElementById("P2Pleft");
 
-                if (SVG.contains(hasMission)){ removeIndicator("P2P"); } else { addIndicator("P2P"); }                
+                const modeIndicator = document.getElementById("mode-indicator");
+
+                if (SVG.contains(hasMission)){ 
+                    
+                    removeIndicator("P2P");
+                    modeIndicator.innerHTML="___";
+                    modeIndicator.classList.replace("mode-indicator-active", "mode-indicator-inactive"); 
+                
+                } else { 
+                    
+                    addIndicator("P2P");
+                    modeIndicator.innerHTML="P2P";
+                    modeIndicator.classList.replace("mode-indicator-inactive", "mode-indicator-active"); 
+                
+                }                
 
             }
 
