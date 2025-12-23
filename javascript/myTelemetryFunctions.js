@@ -44,7 +44,7 @@ function replay(){
     console.log(myID + "Found replay data from " + minTimestamp + " to " + maxTimestamp + ", total duration: " + delta + " seconds.");
 
     let nowTimestamp = minTimestamp;
-    myUpdateCycle = 250;
+    myUpdateCycle = 1000;
     feedReplayData(); 
 
     function feedReplayData(){
@@ -97,6 +97,10 @@ function replay(){
                 
                 nowTimestamp++;
                 feedReplayData();
+
+                let displayTime = new Date(nowTimestamp*1000);
+                let displaySpan = new Date((nowTimestamp - minTimestamp)*1000).toISOString().slice(11, 19);
+                console.log(myID + displayTime + ", " + displaySpan);
             
             }, myUpdateCycle);
 

@@ -190,7 +190,7 @@
             </div>
 
             <p class="description">
-                VERTICAL INTERCEPTION, TRACKING, AND LOCALIZATION
+                VERTICAL INTELLIGENCE, TRACKING, AND LOCALIZATION
             </p>
 
         </div>

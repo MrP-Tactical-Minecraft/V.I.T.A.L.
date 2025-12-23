@@ -301,6 +301,33 @@ function clearCircleFromOverlay(myName){
 
 }
 
+function addRoomToOverlay(myX, myZ, myLength, myWidth, myColour, myName){
+
+    let myFunc = `addRoomToOverlay(${myX}, ${myZ}, ${myLength}, ${myWidth}, ${myColour}, ${myName}): `;
+    let myID = myOverlayFuncsFile + myFunc;
+    // console.log(myID + "Hi!");    
+
+    let mySVG = document.getElementById("floor-overlay");
+    if (mySVG){
+
+        let svgns = "http://www.w3.org/2000/svg";
+        let room = document.createElementNS(svgns, 'rect');
+
+        room.setAttribute("x", myX - 9295 + 22);
+        room.setAttribute("y", myZ - 719 + 7);
+        room.setAttribute("width", myWidth*2);
+        room.setAttribute("height", myLength*2);
+        room.setAttribute("fill", "none");
+        room.setAttribute("stroke", myColour);
+        room.setAttribute("stroke-width", "2");
+        room.setAttribute("id", "room_" + myName);
+
+        mySVG.appendChild(room);
+
+    }
+
+}
+
 function displayCertainBlocks(myLevel, myGroup, inputColour, myType){
 
     let myFunc = "displayCertainBlocks(" + myLevel + ", " + myGroup + ", " + inputColour + ", " + myType + "): ";
@@ -423,9 +450,9 @@ function initHUDFloorDisplay(myMode){
 
     const allFloorInfos = [
         "Grand Atrium / Hail Mary", "Key 1", "Office Space", "Password 1", "Office Space", "Environmental Controls", "Office Space / P2P(13,18)", "Key 2 / Ender Pearls", "Glass Office Space", "Password 2", "Hotel Lobby / P2P(20,25)",
-        "Hotel", "Executive Suites", "Computer Centre", "Appartments", "Key 3 / P2P(22)", "Communications Centre", "Office Space", "Appartments", "Appartments", "Atrium 20 / P2P(G0,30)",
+        "Hotel / Potions", "Executive Suites", "Computer Centre", "Appartments", "Key 3 / P2P(22)", "Communications Centre", "Office Space", "Appartments", "Appartments", "Atrium 20 / P2P(G0,30)",
         "Password 3", "Office Space", "Art Gallery", "Empty Disc", "Hangar / Teleporters / Elytras & Rockets", "Hangar", "Hangar / Key 4", "Hangar / P2P(19)", "Executive Conference Room / Archive", "Atrium 30 / Office Space",
-        "Office Space", "Appartments / Bank", "Penthouse Suite", "Penthouse Suite"
+        "Elevator & Tracking Controls", "Appartments / Bank", "Penthouse Suite", "Penthouse Suite"
     ];
 
     const floor_count = 35;
@@ -507,6 +534,8 @@ function highlightHUDFloor(myFloor, myColour){
             myFloorInfo.style.backgroundColor = `${myColour}`;
             myFloorInfo.style.boxShadow = `0 0 8px ${myColour}`;
         }
+
+        if (myFloor == "29"){ addRoomToOverlay(9321, 737, 8, 5, "#00ff00", "Archive"); }
     
     } else {
 
@@ -567,6 +596,8 @@ function addIndicator(myDesignator){
         mySVGl.appendChild(groupM1l);
         mySVGr.appendChild(groupM1r);
 
+        myTower.addRooms("M1");
+
     }
 
     if (myDesignator == "P2P"){
@@ -603,7 +634,10 @@ function addIndicator(myDesignator){
         pathElement.setAttribute('fill', 'none'); 
         pathElement.setAttribute('stroke-width', '1');
         pathElement.setAttribute('stroke', '#00ff77');
-        if (myType == "optional"){ pathElement.setAttribute('stroke-dasharray', '4 3'); }
+        if (myType == "optional"){ 
+            pathElement.setAttribute('stroke-dasharray', '4 3'); 
+            pathElement.setAttribute('stroke', '#808080');
+        }
         
         pathElement.setAttribute('stroke-linecap', 'round');    
         pathElement.setAttribute('marker-end', 'url(#arrowhead)');

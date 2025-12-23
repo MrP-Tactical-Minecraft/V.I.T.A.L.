@@ -286,11 +286,14 @@ class Tower{
 
         // up elevators SE corner
         this.addColumn(2, new THREE.Vector3(9358.5, 65, 781.5), "UpElevator", 70); // G-10
-        this.addColumn(2, new THREE.Vector3(9358.5, 205, 784.5), "UpElevator", 84); // 20-32
+        this.addColumn(2, new THREE.Vector3(9358.5, 205, 781.5), "UpElevator", 84); // 20-32
         this.addColumn(2, new THREE.Vector3(9355.5, 135, 784.5), "UpElevator", 91); // 10-23  
         
         // down elevators SW corner
         this.addColumn(2, new THREE.Vector3(9332.5, 135, 781.5), "DownElevator", 70); // 20-10 (express)
+        this.addColumn(2, new THREE.Vector3(9332.5, 205, 781.5), "DownElevator", 21); // 23-20 (express)
+        this.addColumn(2, new THREE.Vector3(9332.5, 226, 779.5), "DownElevator", 35); // 28-23 (express)
+        this.addColumn(2, new THREE.Vector3(9332.5, 261, 781.5), "DownElevator", 14); // 30-28 (express)
 
         // Penthouse elevators
         this.addColumn(1, new THREE.Vector3(9300.5, 65, 761.5), "UpElevator", 231); 
@@ -388,7 +391,7 @@ class Tower{
 
     }
 
-    addRooms(){
+    addRooms(myDesignation){
 
         let myFunc = "addRooms(): ";
         console.log(this.ID + myFunc + "Added rooms to the tower.");
@@ -402,6 +405,40 @@ class Tower{
         addBox("RR_house_1", "Building", new THREE.Vector3(9351,63,592), new THREE.Vector3(15,14,5), this.rooms);
         addBox("RR_house_2", "Building", new THREE.Vector3(9366,63,592), new THREE.Vector3(5,6,5), this.rooms);
         addBox("RR_house_3", "Building", new THREE.Vector3(9351,63,606), new THREE.Vector3(6,4,5), this.rooms);
+
+        if (myDesignation == "M1"){
+
+            
+            let indicate; 
+
+            addWireFrame("K1", "Room", this.rooms, 9377, 732, 72, 10, 10, 5, "#6ee7b7");
+            updateBorder("1","#6ee7b7");
+            addWireFrame("K2", "Room", this.rooms, 9360, 803, 114, 12, 10, 5, "#6ee7b7");
+            updateBorder("7","#6ee7b7");
+
+            addWireFrame("Archive", "Room", this.rooms, 9321, 737, 268, 5, 8, 5, "#00ff00");
+            updateBorder("29","#00ff00");
+
+            addWireFrame("Disc", "Room", this.rooms, 9377, 803, 233, 10, 10, 5, "#6ee7b7");
+            updateBorder("24","#6ee7b7");
+            addWireFrame("CC", "Room", this.rooms, 9306, 764, 156, 10, 15, 5, "#00ff00");
+            updateBorder("13","#00ff00");
+            addWireFrame("P1", "Room", this.rooms, 9306, 764, 86, 10, 15, 5, "#a0a0a0");
+            updateBorder("3","#a0a0a0");
+            addWireFrame("P2", "Room", this.rooms, 9306, 732, 128, 10, 10, 5, "#a0a0a0");
+            updateBorder("9","#a0a0a0");
+            addWireFrame("P3", "Room", this.rooms, 9321, 791, 212, 12, 7, 5, "#a0a0a0");
+            updateBorder("21","#a0a0a0");
+
+            function updateBorder(floor,colour){
+                const floorsCont = document.getElementById("floors-hud-container");
+                const indicate = floorsCont.querySelector(`.floor-entry[data-floor="${floor}"]`);
+                indicate.querySelector(".floor-square").style.borderColor = `${colour}`;
+                indicate.querySelector(".floor-square").style.borderWidth = "2px";
+                indicate.querySelector(".floor-square").style.borderStyle = "solid";
+            }
+
+        }
 
     }
 
