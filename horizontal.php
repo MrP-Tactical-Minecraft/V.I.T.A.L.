@@ -196,7 +196,7 @@
             </div>
 
             <p class="description">
-                VERTICAL INTELLIGENCE, TRACKING, AND LOCALIZATION (b8d36a9)
+                VERTICAL INTELLIGENCE, TRACKING, AND LOCALIZATION (f33fbea)
             </p>
 
         </div>

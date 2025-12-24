@@ -206,6 +206,10 @@ class Player{
         
         } else { console.log("[myWorldElements.js] addSprite(): ERROR! Variable 'spriteMaterial' is null."); } 
 
+        // add focus sprite
+        let playerFocus = document.getElementById("player-focus").value;
+        if (playerFocus == this.name){ this.addFocusSprite(); }
+
     }
 
     addFocusSprite(){
@@ -215,11 +219,11 @@ class Player{
 
         if (playerFocus == this.name){
 
-            let texture = textureLoader.load('./resources/sprite120ring.png');
+            let texture = textureLoader.load('./resources/sprite120ringsegm.png');
             
             let spriteMaterial = new THREE.SpriteMaterial({
                 map: texture,
-                color: 0xffff00,
+                color: 0xffffff,
                 transparent: true
             });
             
@@ -233,7 +237,7 @@ class Player{
 
                 spriteFocus.scale.set(8, 8, 1);
 
-                spriteFocus.name = "spriteFocus_" + this.name;
+                spriteFocus.name = "spriteFocus";
 
                 // playerGroup.add(sprite);
                 scene.add(spriteFocus);                
@@ -262,12 +266,17 @@ class Player{
 
         }
 
-        let mySpriteFocus = scene.getObjectByName("spriteFocus_" + this.name);
-        if (mySpriteFocus){
+        let playerFocus = document.getElementById("player-focus").value;
+        if (playerFocus == this.name){
 
-            mySpriteFocus.position.x = this.position.x;
-            mySpriteFocus.position.y = this.position.y;
-            mySpriteFocus.position.z = this.position.z;
+            let mySpriteFocus = scene.getObjectByName("spriteFocus");
+            if (mySpriteFocus){
+
+                mySpriteFocus.position.x = this.position.x;
+                mySpriteFocus.position.y = this.position.y;
+                mySpriteFocus.position.z = this.position.z;
+
+            }
 
         }
 
@@ -282,7 +291,7 @@ class Player{
         let mySprite = scene.getObjectByName(searchName);
         scene.remove(mySprite);
 
-        let searchFocusName = "spriteFocus_" + this.name;
+        let searchFocusName = "spriteFocus";
         let myFocusSprite = scene.getObjectByName(searchFocusName);
         scene.remove(myFocusSprite);
 
@@ -566,7 +575,7 @@ function clearAllFocusSprites(){
 
     Player.roster.forEach(player => {
 
-        let searchFocusName = "spriteFocus_" + player.name;
+        let searchFocusName = "spriteFocus";
         let myFocusSprite = scene.getObjectByName(searchFocusName);
         scene.remove(myFocusSprite);
 

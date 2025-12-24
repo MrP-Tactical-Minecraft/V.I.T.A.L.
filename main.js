@@ -102,6 +102,9 @@ async function render(){
     camera.aspect = cvs.clientWidth / cvs.clientHeight;
     camera.updateProjectionMatrix();
 
+    let mySpriteFocus = scene.getObjectByName("spriteFocus");
+    if (mySpriteFocus){ mySpriteFocus.material.rotation += 0.02; }
+
     // labelRenderer.render(scene, camera);
     renderer.render(scene, camera);
     myLabels.render(scene, camera);            
