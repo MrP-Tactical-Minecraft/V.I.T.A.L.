@@ -1,5 +1,4 @@
 function addChunk_7_19(offset_x, offset_z){
-//console.log('addChunk_7_19(): Hello.')
 A.push([0 + offset_x, 64, 0 + offset_z, 'terracotta']);
 A.push([0 + offset_x, 64, 1 + offset_z, 'terracotta']);
 A.push([0 + offset_x, 64, 2 + offset_z, 'terracotta']);
@@ -182,7 +181,6 @@ A.push([0 + offset_x, 310, 1 + offset_z, 'gray_concrete']);
 A.push([0 + offset_x, 310, 2 + offset_z, 'gray_concrete']);
 A.push([0 + offset_x, 310, 3 + offset_z, 'deepslate_tiles']);
 A.push([0 + offset_x, 310, 4 + offset_z, 'stone_stairs']);
-A.push([1 + offset_x, 64, 10 + offset_z, 'short_grass']);
 A.push([1 + offset_x, 64, 11 + offset_z, 'short_grass']);
 A.push([1 + offset_x, 64, 12 + offset_z, 'grass_block']);
 A.push([1 + offset_x, 64, 13 + offset_z, 'grass_block']);
@@ -2622,6 +2620,7 @@ A.push([9 + offset_x, 64, 1 + offset_z, 'terracotta']);
 A.push([9 + offset_x, 64, 2 + offset_z, 'terracotta']);
 A.push([9 + offset_x, 64, 3 + offset_z, 'terracotta']);
 A.push([9 + offset_x, 64, 4 + offset_z, 'terracotta']);
+A.push([9 + offset_x, 64, 15 + offset_z, 'dirt']);
 A.push([9 + offset_x, 65, 0 + offset_z, 'smooth_stone']);
 A.push([9 + offset_x, 65, 1 + offset_z, 'brown_stained_glass_pane']);
 A.push([9 + offset_x, 65, 2 + offset_z, 'brown_stained_glass_pane']);
@@ -3321,6 +3320,7 @@ A.push([11 + offset_x, 141, 3 + offset_z, 'stone']);
 A.push([11 + offset_x, 142, 3 + offset_z, 'brown_stained_glass_pane']);
 A.push([11 + offset_x, 281, 0 + offset_z, 'stone_slab']);
 A.push([11 + offset_x, 282, 0 + offset_z, 'black_stained_glass_pane']);
+A.push([12 + offset_x, 64, 10 + offset_z, 'dirt']);
 A.push([12 + offset_x, 141, 0 + offset_z, 'dark_oak_slab']);
 A.push([12 + offset_x, 141, 1 + offset_z, 'dark_oak_slab']);
 A.push([12 + offset_x, 141, 2 + offset_z, 'dark_oak_slab']);

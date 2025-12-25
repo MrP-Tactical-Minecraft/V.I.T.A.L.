@@ -1,5 +1,4 @@
 function addChunk_7_14(offset_x, offset_z){
-//console.log('addChunk_7_14(): Hello.')
 A.push([0 + offset_x, 64, 0 + offset_z, 'stone']);
 A.push([0 + offset_x, 64, 1 + offset_z, 'stone']);
 A.push([0 + offset_x, 64, 2 + offset_z, 'stone']);
@@ -1825,7 +1824,7 @@ A.push([1 + offset_x, 119, 5 + offset_z, 'stone']);
 A.push([1 + offset_x, 119, 12 + offset_z, 'stone']);
 A.push([1 + offset_x, 119, 15 + offset_z, 'stone']);
 A.push([1 + offset_x, 120, 0 + offset_z, 'stone']);
-A.push([1 + offset_x, 120, 1 + offset_z, 'stone']);
+A.push([1 + offset_x, 120, 1 + offset_z, 'andesite']);
 A.push([1 + offset_x, 120, 2 + offset_z, 'stone']);
 A.push([1 + offset_x, 120, 3 + offset_z, 'stone']);
 A.push([1 + offset_x, 120, 4 + offset_z, 'stone']);
@@ -4546,6 +4545,7 @@ A.push([3 + offset_x, 78, 15 + offset_z, 'stone']);
 A.push([3 + offset_x, 79, 7 + offset_z, 'stone']);
 A.push([3 + offset_x, 79, 9 + offset_z, 'lime_carpet']);
 A.push([3 + offset_x, 79, 10 + offset_z, 'stone']);
+A.push([3 + offset_x, 79, 14 + offset_z, 'dirt']);
 A.push([3 + offset_x, 80, 7 + offset_z, 'stone']);
 A.push([3 + offset_x, 80, 10 + offset_z, 'stone']);
 A.push([3 + offset_x, 81, 7 + offset_z, 'stone']);
@@ -11634,7 +11634,6 @@ A.push([7 + offset_x, 85, 12 + offset_z, 'stone']);
 A.push([7 + offset_x, 85, 13 + offset_z, 'stone']);
 A.push([7 + offset_x, 85, 14 + offset_z, 'stone']);
 A.push([7 + offset_x, 85, 15 + offset_z, 'stone']);
-A.push([7 + offset_x, 86, 5 + offset_z, 'red_sand']);
 A.push([7 + offset_x, 86, 7 + offset_z, 'stone']);
 A.push([7 + offset_x, 86, 8 + offset_z, 'gray_carpet']);
 A.push([7 + offset_x, 86, 9 + offset_z, 'gray_carpet']);
@@ -12960,7 +12959,6 @@ A.push([8 + offset_x, 85, 15 + offset_z, 'stone']);
 A.push([8 + offset_x, 86, 7 + offset_z, 'stone']);
 A.push([8 + offset_x, 86, 9 + offset_z, 'blue_carpet']);
 A.push([8 + offset_x, 86, 10 + offset_z, 'stone']);
-A.push([8 + offset_x, 86, 12 + offset_z, 'dirt']);
 A.push([8 + offset_x, 87, 7 + offset_z, 'polished_deepslate_wall']);
 A.push([8 + offset_x, 87, 10 + offset_z, 'polished_deepslate_wall']);
 A.push([8 + offset_x, 88, 7 + offset_z, 'polished_deepslate_wall']);

@@ -1,5 +1,4 @@
 function addChunk_11_17(offset_x, offset_z){
-//console.log('addChunk_11_17(): Hello.')
 A.push([0 + offset_x, 64, 0 + offset_z, 'bubble_column']);
 A.push([0 + offset_x, 64, 1 + offset_z, 'stone']);
 A.push([0 + offset_x, 64, 2 + offset_z, 'stone']);
@@ -1600,6 +1599,7 @@ A.push([2 + offset_x, 64, 2 + offset_z, 'stone']);
 A.push([2 + offset_x, 64, 3 + offset_z, 'stone_stairs']);
 A.push([2 + offset_x, 64, 9 + offset_z, 'grass_block']);
 A.push([2 + offset_x, 65, 0 + offset_z, 'brown_stained_glass_pane']);
+A.push([2 + offset_x, 65, 2 + offset_z, 'grass_block']);
 A.push([2 + offset_x, 66, 0 + offset_z, 'vine']);
 A.push([2 + offset_x, 67, 0 + offset_z, 'vine']);
 A.push([2 + offset_x, 68, 0 + offset_z, 'vine']);
@@ -1961,6 +1961,7 @@ A.push([8 + offset_x, 93, 3 + offset_z, 'vine']);
 A.push([9 + offset_x, 64, 0 + offset_z, 'vine']);
 A.push([9 + offset_x, 64, 1 + offset_z, 'vine']);
 A.push([9 + offset_x, 64, 6 + offset_z, 'vine']);
+A.push([9 + offset_x, 64, 15 + offset_z, 'sand']);
 A.push([9 + offset_x, 65, 0 + offset_z, 'vine']);
 A.push([9 + offset_x, 65, 1 + offset_z, 'vine']);
 A.push([9 + offset_x, 65, 6 + offset_z, 'vine']);
@@ -2170,7 +2171,6 @@ A.push([12 + offset_x, 64, 4 + offset_z, 'vine']);
 A.push([12 + offset_x, 64, 5 + offset_z, 'cave_air']);
 A.push([12 + offset_x, 64, 6 + offset_z, 'cave_air']);
 A.push([12 + offset_x, 64, 7 + offset_z, 'cave_air']);
-A.push([12 + offset_x, 64, 15 + offset_z, 'sand']);
 A.push([12 + offset_x, 65, 0 + offset_z, 'vine']);
 A.push([12 + offset_x, 65, 3 + offset_z, 'cave_air']);
 A.push([12 + offset_x, 65, 4 + offset_z, 'vine']);

@@ -1,5 +1,4 @@
 function addChunk_11_13(offset_x, offset_z){
-//console.log('addChunk_11_13(): Hello.')
 A.push([0 + offset_x, 64, 2 + offset_z, 'stone_stairs']);
 A.push([0 + offset_x, 64, 3 + offset_z, 'stone']);
 A.push([0 + offset_x, 64, 4 + offset_z, 'stone']);
@@ -810,7 +809,6 @@ A.push([0 + offset_x, 310, 12 + offset_z, 'gray_concrete']);
 A.push([0 + offset_x, 310, 13 + offset_z, 'gray_concrete']);
 A.push([0 + offset_x, 310, 14 + offset_z, 'gray_concrete']);
 A.push([0 + offset_x, 310, 15 + offset_z, 'gray_concrete']);
-A.push([1 + offset_x, 64, 0 + offset_z, 'short_grass']);
 A.push([1 + offset_x, 64, 1 + offset_z, 'short_grass']);
 A.push([1 + offset_x, 64, 2 + offset_z, 'stone_stairs']);
 A.push([1 + offset_x, 64, 3 + offset_z, 'stone']);
@@ -1585,7 +1583,6 @@ A.push([1 + offset_x, 310, 12 + offset_z, 'deepslate_tiles']);
 A.push([1 + offset_x, 310, 13 + offset_z, 'deepslate_tiles']);
 A.push([1 + offset_x, 310, 14 + offset_z, 'deepslate_tiles']);
 A.push([1 + offset_x, 310, 15 + offset_z, 'deepslate_tiles']);
-A.push([2 + offset_x, 64, 0 + offset_z, 'short_grass']);
 A.push([2 + offset_x, 64, 2 + offset_z, 'stone_stairs']);
 A.push([2 + offset_x, 64, 3 + offset_z, 'stone']);
 A.push([2 + offset_x, 64, 4 + offset_z, 'stone']);
@@ -3079,7 +3076,6 @@ A.push([5 + offset_x, 64, 11 + offset_z, 'stone_stairs']);
 A.push([5 + offset_x, 65, 0 + offset_z, 'short_grass']);
 A.push([6 + offset_x, 64, 0 + offset_z, 'grass_block']);
 A.push([6 + offset_x, 64, 1 + offset_z, 'grass_block']);
-A.push([6 + offset_x, 64, 2 + offset_z, 'short_grass']);
 A.push([7 + offset_x, 64, 0 + offset_z, 'grass_block']);
 A.push([7 + offset_x, 64, 1 + offset_z, 'grass_block']);
 A.push([7 + offset_x, 64, 2 + offset_z, 'grass_block']);
@@ -3097,7 +3093,6 @@ A.push([8 + offset_x, 64, 12 + offset_z, 'grass_block']);
 A.push([8 + offset_x, 64, 14 + offset_z, 'grass_block']);
 A.push([8 + offset_x, 64, 15 + offset_z, 'grass_block']);
 A.push([8 + offset_x, 65, 1 + offset_z, 'short_grass']);
-A.push([8 + offset_x, 65, 2 + offset_z, 'short_grass']);
 A.push([8 + offset_x, 65, 5 + offset_z, 'tall_grass']);
 A.push([8 + offset_x, 65, 12 + offset_z, 'short_grass']);
 A.push([8 + offset_x, 65, 15 + offset_z, 'vine']);

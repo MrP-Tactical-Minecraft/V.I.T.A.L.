@@ -1,5 +1,4 @@
 function addChunk_10_17(offset_x, offset_z){
-//console.log('addChunk_10_17(): Hello.')
 A.push([0 + offset_x, 64, 0 + offset_z, 'stone']);
 A.push([0 + offset_x, 64, 1 + offset_z, 'stone']);
 A.push([0 + offset_x, 64, 2 + offset_z, 'stone']);
@@ -8676,6 +8675,8 @@ A.push([5 + offset_x, 64, 14 + offset_z, 'stone']);
 A.push([5 + offset_x, 64, 15 + offset_z, 'stone']);
 A.push([5 + offset_x, 65, 9 + offset_z, 'smooth_stone']);
 A.push([5 + offset_x, 65, 10 + offset_z, 'smooth_stone']);
+A.push([5 + offset_x, 65, 12 + offset_z, 'shulker_box']);
+A.push([5 + offset_x, 65, 13 + offset_z, 'shulker_box']);
 A.push([5 + offset_x, 65, 15 + offset_z, 'stone']);
 A.push([5 + offset_x, 66, 9 + offset_z, 'smooth_stone']);
 A.push([5 + offset_x, 66, 15 + offset_z, 'stone']);
@@ -10237,6 +10238,9 @@ A.push([6 + offset_x, 64, 12 + offset_z, 'stone']);
 A.push([6 + offset_x, 64, 13 + offset_z, 'stone']);
 A.push([6 + offset_x, 64, 14 + offset_z, 'stone']);
 A.push([6 + offset_x, 64, 15 + offset_z, 'stone']);
+A.push([6 + offset_x, 65, 12 + offset_z, 'shulker_box']);
+A.push([6 + offset_x, 65, 13 + offset_z, 'shulker_box']);
+A.push([6 + offset_x, 65, 14 + offset_z, 'grass_block']);
 A.push([6 + offset_x, 65, 15 + offset_z, 'stone']);
 A.push([6 + offset_x, 66, 15 + offset_z, 'stone']);
 A.push([6 + offset_x, 67, 10 + offset_z, 'lever']);

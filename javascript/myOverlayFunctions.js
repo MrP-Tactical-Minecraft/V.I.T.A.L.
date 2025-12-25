@@ -613,8 +613,8 @@ function addIndicator(myDesignator){
         const groupP2Pr = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         groupP2Pr.setAttribute("id", "P2Pright");
 
-        addPathElement(groupP2Pl, 6,13,"mandatory","left", 0);
-        addPathElement(groupP2Pr, 6,18,"mandatory","right", 0);
+        addPathElement(groupP2Pl, 8,13,"mandatory","left", 0);
+        addPathElement(groupP2Pr, 8,18,"mandatory","right", 0);
 
         addPathElement(groupP2Pl, 10,20,"mandatory","left", -3);
         addPathElement(groupP2Pr, 10,25,"mandatory","right", 3);

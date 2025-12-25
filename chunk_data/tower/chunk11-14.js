@@ -1,9 +1,9 @@
 function addChunk_11_14(offset_x, offset_z){
-//console.log('addChunk_11_14(): Hello.')
 A.push([0 + offset_x, 64, 0 + offset_z, 'stone']);
 A.push([0 + offset_x, 64, 1 + offset_z, 'stone']);
 A.push([0 + offset_x, 64, 2 + offset_z, 'stone']);
 A.push([0 + offset_x, 64, 3 + offset_z, 'stone_stairs']);
+A.push([0 + offset_x, 64, 4 + offset_z, 'grass_block']);
 A.push([0 + offset_x, 64, 6 + offset_z, 'stone_stairs']);
 A.push([0 + offset_x, 64, 7 + offset_z, 'stone']);
 A.push([0 + offset_x, 64, 8 + offset_z, 'stone']);
@@ -1199,7 +1199,6 @@ A.push([2 + offset_x, 310, 12 + offset_z, 'stone_stairs']);
 A.push([2 + offset_x, 310, 13 + offset_z, 'stone_stairs']);
 A.push([2 + offset_x, 310, 14 + offset_z, 'stone_stairs']);
 A.push([2 + offset_x, 310, 15 + offset_z, 'stone_stairs']);
-A.push([3 + offset_x, 64, 6 + offset_z, 'grass_block']);
 A.push([3 + offset_x, 64, 7 + offset_z, 'grass_block']);
 A.push([3 + offset_x, 64, 8 + offset_z, 'grass_block']);
 A.push([3 + offset_x, 64, 9 + offset_z, 'grass_block']);
@@ -1209,7 +1208,6 @@ A.push([3 + offset_x, 64, 12 + offset_z, 'dirt']);
 A.push([3 + offset_x, 64, 13 + offset_z, 'dirt']);
 A.push([3 + offset_x, 64, 14 + offset_z, 'dirt']);
 A.push([3 + offset_x, 64, 15 + offset_z, 'dirt']);
-A.push([3 + offset_x, 65, 6 + offset_z, 'short_grass']);
 A.push([3 + offset_x, 65, 10 + offset_z, 'grass_block']);
 A.push([3 + offset_x, 65, 11 + offset_z, 'grass_block']);
 A.push([3 + offset_x, 65, 12 + offset_z, 'grass_block']);
@@ -2391,8 +2389,6 @@ A.push([15 + offset_x, 85, 1 + offset_z, 'jungle_leaves']);
 A.push([15 + offset_x, 85, 2 + offset_z, 'jungle_leaves']);
 A.push([15 + offset_x, 85, 3 + offset_z, 'jungle_leaves']);
 A.push([15 + offset_x, 85, 4 + offset_z, 'jungle_leaves']);
-A.push([15 + offset_x, 85, 5 + offset_z, 'jungle_leaves']);
-A.push([15 + offset_x, 85, 6 + offset_z, 'jungle_leaves']);
 A.push([15 + offset_x, 85, 7 + offset_z, 'jungle_leaves']);
 A.push([15 + offset_x, 86, 0 + offset_z, 'vine']);
 A.push([15 + offset_x, 86, 1 + offset_z, 'jungle_leaves']);

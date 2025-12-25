@@ -1,5 +1,4 @@
 function addChunk_6_18(offset_x, offset_z){
-//console.log('addChunk_6_18(): Hello.')
 A.push([0 + offset_x, 64, 0 + offset_z, 'stone']);
 A.push([0 + offset_x, 64, 1 + offset_z, 'stone']);
 A.push([0 + offset_x, 64, 2 + offset_z, 'stone']);
@@ -17868,6 +17867,7 @@ A.push([10 + offset_x, 64, 14 + offset_z, 'stone']);
 A.push([10 + offset_x, 65, 0 + offset_z, 'gray_carpet']);
 A.push([10 + offset_x, 65, 1 + offset_z, 'light_gray_carpet']);
 A.push([10 + offset_x, 65, 2 + offset_z, 'stone']);
+A.push([10 + offset_x, 65, 10 + offset_z, 'grass_block']);
 A.push([10 + offset_x, 65, 14 + offset_z, 'gray_stained_glass_pane']);
 A.push([10 + offset_x, 66, 2 + offset_z, 'stone']);
 A.push([10 + offset_x, 66, 14 + offset_z, 'gray_stained_glass_pane']);
@@ -19515,6 +19515,7 @@ A.push([11 + offset_x, 78, 14 + offset_z, 'polished_deepslate']);
 A.push([11 + offset_x, 79, 0 + offset_z, 'lime_carpet']);
 A.push([11 + offset_x, 79, 1 + offset_z, 'orange_carpet']);
 A.push([11 + offset_x, 79, 2 + offset_z, 'stone']);
+A.push([11 + offset_x, 79, 12 + offset_z, 'dirt']);
 A.push([11 + offset_x, 79, 14 + offset_z, 'gray_stained_glass_pane']);
 A.push([11 + offset_x, 80, 2 + offset_z, 'stone']);
 A.push([11 + offset_x, 80, 14 + offset_z, 'gray_stained_glass_pane']);
@@ -21252,6 +21253,7 @@ A.push([12 + offset_x, 113, 11 + offset_z, 'stone']);
 A.push([12 + offset_x, 113, 12 + offset_z, 'stone']);
 A.push([12 + offset_x, 113, 13 + offset_z, 'stone']);
 A.push([12 + offset_x, 113, 14 + offset_z, 'polished_deepslate']);
+A.push([12 + offset_x, 114, 0 + offset_z, 'dirt']);
 A.push([12 + offset_x, 114, 2 + offset_z, 'stone']);
 A.push([12 + offset_x, 114, 14 + offset_z, 'gray_stained_glass_pane']);
 A.push([12 + offset_x, 115, 2 + offset_z, 'stone']);
@@ -25851,6 +25853,7 @@ A.push([15 + offset_x, 72, 1 + offset_z, 'light_gray_carpet']);
 A.push([15 + offset_x, 72, 2 + offset_z, 'stone']);
 A.push([15 + offset_x, 72, 6 + offset_z, 'black_concrete']);
 A.push([15 + offset_x, 72, 7 + offset_z, 'stone_button']);
+A.push([15 + offset_x, 72, 10 + offset_z, 'grass_block']);
 A.push([15 + offset_x, 72, 15 + offset_z, 'brown_stained_glass_pane']);
 A.push([15 + offset_x, 73, 2 + offset_z, 'stone']);
 A.push([15 + offset_x, 73, 4 + offset_z, 'chain_command_block']);

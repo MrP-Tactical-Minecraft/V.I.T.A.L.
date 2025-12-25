@@ -1,5 +1,4 @@
 function addChunk_6_19(offset_x, offset_z){
-//console.log('addChunk_6_19(): Hello.')
 A.push([0 + offset_x, 64, 0 + offset_z, 'terracotta']);
 A.push([0 + offset_x, 64, 1 + offset_z, 'terracotta']);
 A.push([0 + offset_x, 64, 2 + offset_z, 'terracotta']);

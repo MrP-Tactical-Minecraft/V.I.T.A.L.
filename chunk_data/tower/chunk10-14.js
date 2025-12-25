@@ -1,5 +1,4 @@
 function addChunk_10_14(offset_x, offset_z){
-//console.log('addChunk_10_14(): Hello.')
 A.push([0 + offset_x, 64, 0 + offset_z, 'stone']);
 A.push([0 + offset_x, 64, 1 + offset_z, 'stone']);
 A.push([0 + offset_x, 64, 2 + offset_z, 'stone']);
@@ -10421,7 +10420,6 @@ A.push([6 + offset_x, 64, 12 + offset_z, 'stone']);
 A.push([6 + offset_x, 64, 13 + offset_z, 'stone']);
 A.push([6 + offset_x, 64, 14 + offset_z, 'stone']);
 A.push([6 + offset_x, 64, 15 + offset_z, 'stone']);
-A.push([6 + offset_x, 65, 3 + offset_z, 'grass_block']);
 A.push([6 + offset_x, 65, 7 + offset_z, 'stone']);
 A.push([6 + offset_x, 65, 8 + offset_z, 'light_gray_carpet']);
 A.push([6 + offset_x, 65, 9 + offset_z, 'gray_carpet']);

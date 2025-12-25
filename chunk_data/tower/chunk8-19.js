@@ -1,5 +1,4 @@
 function addChunk_8_19(offset_x, offset_z){
-//console.log('addChunk_8_19(): Hello.')
 A.push([0 + offset_x, 64, 0 + offset_z, 'terracotta']);
 A.push([0 + offset_x, 64, 1 + offset_z, 'gravel']);
 A.push([0 + offset_x, 65, 0 + offset_z, 'black_stained_glass_pane']);
